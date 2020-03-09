@@ -57,6 +57,8 @@ void	load_arena(t_vm *x)
 	i = -1;
 	while (++i < x->nbp)
 	{
+		x->p[i].pcstart = x->pos_next_player;
+		printf("p[%d] pcstart : %d\n ",i,x->p[i].pcstart);
 		memcpy(x->arene + x->pos_next_player ,x->p[i].content,x->p[i].header->prog_size);
 		x->pos_next_player += x->pos_add;
 	}
@@ -187,5 +189,6 @@ int		main(int ac, char **av)
 	}
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
+	init_vm(x);
 	return 1;
 }
