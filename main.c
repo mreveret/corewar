@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/11 18:07:34 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:17:33 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,49 +26,6 @@ void			rev_str(char *nb, unsigned int size)
 		nb[size - i - 1] = tmp;
 		++i;
 	}
-}
-
-void	ft_dump(t_vm *x)
-{
-	int i;
-	int j;
-	char	***xnb;
-	char	**ncolonne;
-	
-	if (!(ncolonne = (char**)malloc(sizeof(char*) * (MEM_SIZE / 64) + 1)))
-		return ;
-	if (!(xnb = (char***)malloc(sizeof(char**) * (MEM_SIZE / 64) + 1)))
-		return ;
-	i = -1;
-	while (++i < MEM_SIZE / 64)
-	{
-		if (!(xnb[i] = (char**)malloc(sizeof(char*) * 64 + 1)))
-			return ;
-		if (!(ncolonne[i] = (char *)malloc(sizeof(char) * 10)))
-			return ;
-		ncolonne[i] = ft_itoa_base(i * 64, 16);
-	}
-	i = -1;
-	j = 0;
-	while (++i < MEM_SIZE)
-	{
-		if (i % 64 == 0 && i != 0)
-			j++;
-		xnb[j][i % 64] = ft_itoa_base2(x->arene[i], 16);
-	}
-	i = -1;
-	while (++i < MEM_SIZE / 64)
-	{
-		ft_putstr(ncolonne[i]);
-		j = -1;
-		while (++j < 64)
-		{
-			ft_putstr(xnb[i][j]);
-			ft_putchar(' ');
-		}
-		ft_putchar('\n');
-	}
-	return ;
 }
 
 void	load_arena(t_vm *x)

@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/11 18:10:10 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:17:20 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ typedef struct		s_vm
 void		init_vm(t_vm *x);
 char	*ft_itoa_base(int n, int base);
 char	*ft_itoa_base2(int n, int base);
+void	ft_dump(t_vm *x);
 #endif
