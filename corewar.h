@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/04 17:29:37 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:10:10 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ typedef struct		s_process
 	int				wait;
 	int				alive;
 	int				op;
+	int				encoded;
+	int				enc[4];
+	int				t_arg[4];
+	char			*arg[4];
+	int				pc_arg;
 }					t_process;
 
 typedef struct		s_vm
@@ -62,4 +67,6 @@ typedef struct		s_vm
 }					t_vm;
 
 void		init_vm(t_vm *x);
+char	*ft_itoa_base(int n, int base);
+char	*ft_itoa_base2(int n, int base);
 #endif

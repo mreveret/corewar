@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/04 17:28:18 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:07:34 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,50 @@ void			rev_str(char *nb, unsigned int size)
 		++i;
 	}
 }
+
 void	ft_dump(t_vm *x)
 {
 	int i;
-
-	i = 0;
-	while (i < MEM_SIZE)
+	int j;
+	char	***xnb;
+	char	**ncolonne;
+	
+	if (!(ncolonne = (char**)malloc(sizeof(char*) * (MEM_SIZE / 64) + 1)))
+		return ;
+	if (!(xnb = (char***)malloc(sizeof(char**) * (MEM_SIZE / 64) + 1)))
+		return ;
+	i = -1;
+	while (++i < MEM_SIZE / 64)
+	{
+		if (!(xnb[i] = (char**)malloc(sizeof(char*) * 64 + 1)))
+			return ;
+		if (!(ncolonne[i] = (char *)malloc(sizeof(char) * 10)))
+			return ;
+		ncolonne[i] = ft_itoa_base(i * 64, 16);
+	}
+	i = -1;
+	j = 0;
+	while (++i < MEM_SIZE)
 	{
 		if (i % 64 == 0 && i != 0)
-			printf(" \n");
-		if (i % 64 == 0 && i != (MEM_SIZE - 1))
-			printf("0x%04x :",i);
-		if (i % 1 == 0)
-			printf(" ");
-		printf("%0.2hhx",x->arene[i]);
-		i++;
+			j++;
+		xnb[j][i % 64] = ft_itoa_base2(x->arene[i], 16);
 	}
-	//printf("arene --\n%s\n",x->arene);
+	i = -1;
+	while (++i < MEM_SIZE / 64)
+	{
+		ft_putstr(ncolonne[i]);
+		j = -1;
+		while (++j < 64)
+		{
+			ft_putstr(xnb[i][j]);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+	}
 	return ;
 }
+
 void	load_arena(t_vm *x)
 {
 	int i;
@@ -72,11 +97,11 @@ int		parsingplayer(t_vm *x, t_player *p)
 	ret = read(x->fd,p->header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
 		return (-1);
-	printf("name -- %s\n", p->header->prog_name);
-	printf("comment -- %s\n",p->header->comment);
+//	printf("name -- %s\n", p->header->prog_name);
+//	printf("comment -- %s\n",p->header->comment);
 	rev_str((char*)&p->header->prog_size,sizeof(p->header->prog_size));
 	
-printf("prog_size -- %d\n",p->header->prog_size);
+//printf("prog_size -- %d\n",p->header->prog_size);
 	ret = read(x->fd,p->content,CHAMP_MAX_SIZE + 1);
 	if (ret != (int)p->header->prog_size)
 	{
@@ -91,9 +116,9 @@ printf("prog_size -- %d\n",p->header->prog_size);
 
 int		create_player(t_vm *x)
 {
+	if(x->nbp > 4)
+	return (-1);
 	t_player	*p;
-	if (x->nbp >= 4)
-		return (-1);
 	if (!(p = (t_player *)malloc(sizeof(t_player))))
 		return (-1);
 	if (!(p->header = (header_t *)malloc(sizeof(header_t))))
@@ -186,6 +211,11 @@ int		main(int ac, char **av)
 			else
 				return (0);
 		}
+	}
+	if (x->nbp > 4)
+	{
+		ft_error(0);
+		return (0);
 	}
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
