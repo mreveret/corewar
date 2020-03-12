@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/11 18:17:33 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/12 16:40:57 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		parsingplayer(t_vm *x, t_player *p)
 		return (-1);
 //	printf("name -- %s\n", p->header->prog_name);
 //	printf("comment -- %s\n",p->header->comment);
+	rev_str((char*)&p->header->magic,sizeof(p->header->magic));
 	rev_str((char*)&p->header->prog_size,sizeof(p->header->prog_size));
 	
 //printf("prog_size -- %d\n",p->header->prog_size);

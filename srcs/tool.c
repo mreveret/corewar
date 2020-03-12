@@ -6,32 +6,12 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:11:32 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/11 18:01:28 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:08:51 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdio.h>
-
-char			*ft_strsubzero(char const *s, unsigned int start, size_t len)
-{
-	char	*dst;
-	size_t	i;
-
-	i = 0;
-	//if (!(s))
-	//	return (NULL);
-	if (!(dst = ft_memalloc(len + 1)))
-		return (NULL);
-	while (i < len)
-	{
-		dst[i] = s[start];
-		i++;
-		start++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
 
 t_process		*create_process(int id, int pc)
 {
@@ -56,37 +36,46 @@ t_process		*create_process(int id, int pc)
 	return (proc);
 }
 
-void		wait_queue(t_process *proc)
+void		parse_arg(t_list *list,t_vm *x)
 {
-	if (proc->op == 1 || proc->op == 4 || proc->op == 5 || proc->op == 13)
-		proc->wait = 10;
-	else if (proc->op == 2 || proc->op == 3)
-		proc->wait = 5;
-	else if (proc->op == 6 || proc->op == 7 || proc->op == 8)
-		proc->wait = 6;
-	else if (proc->op == 9)
-		proc->wait = 20;
-	else if (proc->op == 10 || proc->op == 11)
-		proc->wait = 25;
-	else if (proc->op == 12)
-		proc->wait = 800;
-	else if (proc->op == 14)
-		proc->wait = 50;
-	else if (proc->op == 15)
-		proc->wait = 1000;
-	else if (proc->op == 16)
-		proc->wait = 2;
-	//	else if (proc->op >16 || proc->op < 1)
-	//	proc->wait = -1;
+	int i;
+	PROCESS->encoded = (int)(x->arene[PROCESS->pc]);
+	PROCESS->t_arg[0] = (PROCESS->encoded >> 6) & 0b11 ;
+	printf("typecode: %d\n",PROCESS->t_arg[0]);
+	PROCESS->t_arg[1] = (PROCESS->encoded >> 4) & 0b11 ;
+	printf("typecode: %d\n",PROCESS->t_arg[1]);
+	PROCESS->t_arg[2] = (PROCESS->encoded >> 2) & 0b11 ;
+	printf("typecode: %d\n",PROCESS->t_arg[2]);
+	i = -1;
+	PROCESS->pc++;
+	while (++i < op_tab[PROCESS->op - 1].nb_arg)
+	{
+		if (PROCESS->t_arg[i] == DIR_CODE)
+		{
+			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,4));
+			printf("arg: %d\n",PROCESS->arg[i]);
+			PROCESS->pc+= 4;
+		}
+		else if (PROCESS->t_arg[i] == IND_CODE)
+		{
+			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,2));
+			printf("arg: %d\n",PROCESS->arg[i]);
+			PROCESS->pc += 2;
+		}
+		else if (PROCESS->t_arg[i] == REG_CODE)
+		{
+			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,1));
+			printf("arg: %d\n",PROCESS->arg[i]);
+			PROCESS->pc += 1;
+		}
+	}
 }
 
 void		load_vm(t_vm *x)
 {
 	t_list	*list;
-	int		i;
 
 	list = x->first_proc;
-	// TEST LIST //
 	if (x->nb_c == 0)
 		printf("Cycle numero %d\n",x->nb_c);
 	while (list != NULL)
@@ -94,133 +83,24 @@ void		load_vm(t_vm *x)
 		if (PROCESS->wait == 0)
 		{
 			if (PROCESS->op != 0)
-			{
-				PROCESS->encoded = (int)(x->arene[PROCESS->pc]);
-				printf("encoded byte %d\n",PROCESS->encoded);
-				PROCESS->enc[0] = PROCESS->encoded & 0b11000000;
-				if (PROCESS->enc[0] == 128)
-				{
-					PROCESS->t_arg[0] = DIR_CODE;
-					printf("argument 1 = DIRECT\n");
-				}
-				else if (PROCESS->enc[0] == 192)
-				{
-					PROCESS->t_arg[0] = IND_CODE;
-					printf("argument 1 = INDIRECT\n");
-				}
-				else if (PROCESS->enc[0] == 64)
-				{
-					PROCESS->t_arg[0] = REG_CODE;
-					printf("argument 1 = REGISTER\n");
-				}
-				else
-				{
-					PROCESS->arg[0] = 0;
-					printf("error arg\n");
-				}
-				PROCESS->enc[1] = PROCESS->encoded & 0b00110000;
-				if (PROCESS->enc[1] == 32)
-				{
-					PROCESS->t_arg[1] = DIR_CODE;
-					printf("argument 2 = DIRECT\n");
-				}
-				else if (PROCESS->enc[1] == 48)
-				{
-					PROCESS->t_arg[1] = IND_CODE;
-					printf("argument 2 = INDIRECT\n");
-				}
-				else if (PROCESS->enc[1] == 16)
-				{
-					PROCESS->t_arg[1] = REG_CODE;
-					printf("argument 2 = REGISTER\n");
-				}
-				else
-				{
-					PROCESS->t_arg[1] = 0;
-					printf("pas de 2e arg\n");
-				}
-				PROCESS->enc[2] = PROCESS->encoded & 0b00001100;
-				if (PROCESS->enc[2] == 8)
-				{
-					PROCESS->t_arg[2] = DIR_CODE;
-					printf("argument 3 = DIRECT\n");
-				}
-				else if (PROCESS->enc[2] == 12)
-				{
-					PROCESS->t_arg[2] = IND_CODE;
-					printf("argument 3 = INDIRECT\n");
-				}
-				else if (PROCESS->enc[2] == 4)
-				{
-					PROCESS->t_arg[2] = REG_CODE;
-					printf("argument 3 = REGISTER\n");
-				}
-				else
-				{
-					PROCESS->t_arg[2] = 0;
-					printf("pas de 3e arg\n");
-				}
-				PROCESS->enc[3] = PROCESS->encoded & 0b00000011;
-				if (PROCESS->enc[3] == 2)
-				{
-					PROCESS->t_arg[3] = DIR_CODE;
-					printf("argument 4 = DIRECT\n");
-				}
-				else if (PROCESS->enc[3] == 3)
-				{
-					PROCESS->t_arg[3] = IND_CODE;
-					printf("argument 4 = INDIRECT\n");
-				}
-				else if (PROCESS->enc[3] == 1)
-				{
-					PROCESS->t_arg[3] = REG_CODE;
-					printf("argument 4 = REGISTER\n");
-				}
-				else
-				{
-					PROCESS->t_arg[3] = 0;
-					printf("pas de 4e arg\n");
-				}
-				i = -1;
-				while (++i < 4)
-				{
-					if (PROCESS->t_arg[i] == DIR_CODE)
-					{
-						PROCESS->arg[i] = ft_strsub(x->arene,PROCESS->pc,4);
-						PROCESS->pc_arg += 4;
-					}
-					else if (PROCESS->t_arg[i] == IND_CODE)
-					{
-						PROCESS->arg[i] = ft_strsub(x->arene,PROCESS->pc,2);
-						PROCESS->pc_arg += 2;
-					}
-					else if (PROCESS->t_arg[i] == REG_CODE)
-					{
-						PROCESS->arg[i] = ft_strsub(x->arene,PROCESS->pc,4);
-						PROCESS->pc_arg += 4;
-					}
-				}
-			}
-			//	else
-			//	{
+				parse_arg(list,x);
 			PROCESS->op = (int)(x->arene[PROCESS->pc]);
-
 			if (PROCESS->op > 0 && PROCESS->op < 17)
 			{
 				printf("op %d\n",PROCESS->op);
-				wait_queue(PROCESS);
+				PROCESS->wait = op_tab[PROCESS->op - 1].wait;
 			}
 			PROCESS->pc = (PROCESS->pc + 1) % MEM_SIZE;
-			//		printf("seg2: %d\n",PROCESS->alive);
-			}
-			else
-			PROCESS->wait--;
-
-
-			printf("wait = %d\n",PROCESS->wait);
-			list = list->next;
 		}
-//	
+		else
+			PROCESS->wait--;
+		printf("wait = %d\n",PROCESS->wait);
+		list = list->next;
+	}
+//	if (before check == 0)
+//	{
+//	check_process();
+//	}
 	x->nb_c++;
 	printf("Cycle numero %d\n",x->nb_c);
 	return ;
