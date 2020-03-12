@@ -6,8 +6,14 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:22:21 by mreveret          #+#    #+#             */
-/*   Updated: 2020/02/12 16:22:22 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:24:39 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "corewar.h"
 
+void	op_live(int num_player, t_vm *x,t_list *list)
+{
+	x->p[num_player].alive = 1;
+	PROCESS->alive = 1;
+}

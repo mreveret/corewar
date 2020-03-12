@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld.c                                               :+:      :+:    :+:   */
+/*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/12 16:20:51 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/12 18:31:29 by mreveret         ###   ########.fr       */
+/*   Created: 2020/03/12 18:33:28 by mreveret          #+#    #+#             */
+/*   Updated: 2020/03/12 18:35:39 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	op_ld(t_list *list, int value, int regist)
+void	op_st(int reg, int arg2)
 {
-	PROCESS->reg[regist] = value;
-	PROCESS->carry = (value == 0 ? 1 : 0);
+	
 }
