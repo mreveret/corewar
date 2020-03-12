@@ -6,7 +6,7 @@
 #    By: machoffa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/22 13:13:16 by machoffa          #+#    #+#              #
-#    Updated: 2020/03/11 18:21:42 by mreveret         ###   ########.fr        #
+#    Updated: 2020/03/12 17:18:49 by mreveret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,13 @@ DIR = ./
 
 PATH_SRC = ./srcs/
 
-SRCS = $(PATH_SRC)main.c \
-      $(PATH_SRC)tool.c \
-      $(PATH_SRC)ft_dump.c \
-      $(PATH_SRC)itoabase.c \
-      $(PATH_SRC)itoabase2.c \
+SRCS = $(PATH_SRC)main.c\
+      $(PATH_SRC)tool.c\
+      $(PATH_SRC)ft_dump.c\
+      $(PATH_SRC)itoabase.c\
+      $(PATH_SRC)itoabase2.c\
+	  $(PATH_SRC)convert.c\
+	  $(PATH_SRC)op.c
 
 OBJS = $(SRCS:.c=.o)
 
