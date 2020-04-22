@@ -19,6 +19,7 @@
 # define BUFF_SIZE 1
 # define C '\n'
 
+#define POS printf("%s %s %d\n",__FILE__, __func__, __LINE__); fflush(0);
 typedef struct		s_list
 {
 	void			*content;

@@ -80,6 +80,7 @@ void		kill_process(t_list *list, t_vm *x)
 	if (list == previous)
 	{
 		x->first_proc = list->next;
+		free(PROCESS);
 		free(list);
 	}
 	else
@@ -87,6 +88,7 @@ void		kill_process(t_list *list, t_vm *x)
 	while (previous->next != list)
 	previous = previous->next;
 	previous->next = list->next;
+	free(PROCESS);
 	free(list);
 	}
 }
@@ -94,15 +96,20 @@ void		kill_process(t_list *list, t_vm *x)
 void		check_live(t_vm *x)
 {
 	t_list *list;
+//	t_list *tmp;
 
 	list = x->first_proc;
 	while (list != NULL)
 	{
+		printf("blbl\n");
 		if (PROCESS->alive == 0)
 		{
+			printf("test2\n");
+			//tmp = list;
 			kill_process(list,x);
 			printf("process killed\n");
 			list = x->first_proc;
+			printf("test\n");
 		}
 		else
 		{
@@ -140,7 +147,7 @@ void		parse_arg(t_list *list,t_vm *x)
 	if (PROCESS->op == 9)
 	{
 		PROCESS->t_arg[0] = 2;
-		PROCESS->arg[0] = ft_convert(ft_strsub(x->arene,PROCESS->pc,2));
+		PROCESS->arg[0] = ft_convert(ft_strsub(x->arene,PROCESS->pc,2),2);
 		printf("arg: %d\n",PROCESS->arg[0]);
 		PROCESS->pc = (PROCESS->pc + 2) % MEM_SIZE;
 		return;
@@ -153,19 +160,19 @@ void		parse_arg(t_list *list,t_vm *x)
 	{
 		if (PROCESS->t_arg[i] == DIR_CODE)
 		{
-			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,4));
+			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,4),4);
 			printf("arg: %d\n",PROCESS->arg[i]);
 			PROCESS->pc = (PROCESS->pc + 4) % MEM_SIZE;
 		}
 		else if (PROCESS->t_arg[i] == IND_CODE)
 		{
-			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,2));
+			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,2),2);
 			printf("arg: %d\n",PROCESS->arg[i]);
 			PROCESS->pc = (PROCESS->pc + 2) % MEM_SIZE;
 		}
 		else if (PROCESS->t_arg[i] == REG_CODE)
 		{
-			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,1));
+			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,1),1);
 			printf("arg: %d\n",PROCESS->arg[i]);
 			PROCESS->pc = (PROCESS->pc + 1) % MEM_SIZE;
 		}
@@ -177,39 +184,47 @@ int		load_vm(t_vm *x)
 	t_list	*list;
 
 	list = x->first_proc;
-//	op_fork(list,x);
-//	while (list != NULL)
-//{
-//	printf("id : %d\n",PROCESS->id);
-//	list = list->next;
-//	}
 	if (x->nb_c == 0)
 		printf("Cycle numero %d\n",x->nb_c);
 	while (list != NULL)
 	{
+	POS
+	printf("list: %p\n", list); fflush(0);
+printf("list content: %p\n", list->content);
 		if (PROCESS->wait == 0)
 		{
+		POS
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
+			POS
 				printf("action op: %d\n",PROCESS->op);
 				parse_arg(list,x);
+				POS
 				do_op(list, x, PROCESS->op - 1);
+				POS
 				PROCESS->op = 0;
+				PROCESS->pc+= 1;
 				list = list->next;
+				POS
 				continue;
 			}
 			else
 			PROCESS->op = (int)(x->arene[PROCESS->pc]);
-		//		printf("op %d\n",PROCESS->op);
+			POS
 			if (PROCESS->op > 0 && PROCESS->op < 17)
 			{
+			POS
 				printf("op %d\n",PROCESS->op);
+				POS
 				PROCESS->wait = op_tab[PROCESS->op - 1].wait;
+				POS
 			}
 			PROCESS->pc = (PROCESS->pc + 1) % MEM_SIZE;
+			POS
 		}
 		else
 			PROCESS->wait--;
+			POS
 		printf("wait = %d\n",PROCESS->wait);
 		list = list->next;
 	}
@@ -218,6 +233,7 @@ int		load_vm(t_vm *x)
 	printf("Cycle numero %d\n",x->nb_c);
 	if (x->before_check == 0)
 	{
+	POS
 //	x->before_check = x->cycle_to_die;
 		check_live(x);
 		if (stop_vm(x) == 1)
@@ -231,12 +247,13 @@ void		init_vm(t_vm *x)
 	int		i;
 	t_list	*tmp;
 
-	i = -1;
-	if(!(x->lst_process = (t_list *)malloc(sizeof(t_list))))
-		return ;
-	if(!(tmp = (t_list *)malloc(sizeof(t_list))))
-		return;
-	x->lst_process = NULL;
+	i = 0;
+	//if(!(x->lst_process = (t_list *)malloc(sizeof(t_list))))
+	//	return ;
+//	if(!(tmp = (t_list *)malloc(sizeof(t_list))))
+//		return;
+	//x->lst_process = NULL;
+		x->lst_process = ft_lstnew(create_process(x->p[i].num,x->p[i].pcstart),sizeof(t_process));
 	while (++i < x->nbp)
 	{
 
@@ -255,7 +272,7 @@ void		init_vm(t_vm *x)
 		printf("pc tmp: %d\n",((t_process *)x->lst_process->content)->pc);
 		//x->lst_process = x->lst_process->next;
 	}
-	free(tmp);
+//	free(tmp);
 	x->cycle_to_die = CYCLE_TO_DIE;
 	x->cycle_delta = CYCLE_DELTA;
 	x->nbr_live = 0;

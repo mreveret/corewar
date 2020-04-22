@@ -1,7 +1,7 @@
 
 NAME = cr
 
-CFLAGS = -Wall -Wextra -Werror  -fsanitize=address -I.
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I.
 
 MAKE = make -C
 

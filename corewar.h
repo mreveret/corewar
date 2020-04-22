@@ -85,7 +85,7 @@ void		init_vm(t_vm *x);
 char	*ft_itoa_base(int n, int base);
 char	*ft_itoa_base2(int n, int base);
 void	ft_dump(t_vm *x);
-int		ft_convert(char *test);
+int		ft_convert(char *test, int size);
 t_process		*create_process(int id, int pc);
 void		op_fork(t_list *list, t_vm *x);
 void	op_add(t_list *list, t_vm *x);

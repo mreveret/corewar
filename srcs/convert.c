@@ -34,13 +34,13 @@ static int		ft_pow(int res,char c)
 	return (res2);
 }
 
-int		ft_convert(char *test)
+int		ft_convert(char *test, int size)
 {
 	int res;
 	int i;
 
 	i = 0;
-	i = strlen(test);
+	i = size;//strlen(test);
 	res = 0;
 	res = (int)test[i - 1];
 	while (--i > 0)
