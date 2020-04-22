@@ -10,4 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "corewar.h"
 
+void	op_aff(t_list *list, t_vm *x)
+{
+	(void)x;
+	char c;
+
+	c = PROCESS->reg[PROCESS->arg[0]];
+	ft_putendl(&c);
+}

@@ -12,8 +12,9 @@
 
 #include "corewar.h"
 
-void	op_ld(t_list *list, int value, int regist)
+void	op_ld(t_list *list, t_vm *x)
 {
-	PROCESS->reg[regist] = value;
-	PROCESS->carry = (value == 0 ? 1 : 0);
+	(void)x;
+	PROCESS->reg[PROCESS->arg[1]] = PROCESS->arg[0];
+	PROCESS->carry = (PROCESS->arg[0] == 0 ? 1 : 0);
 }

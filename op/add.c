@@ -12,8 +12,10 @@
 
 #include "corewar.h"
 
-void	op_add(t_list *list,int arg1, int arg2, int arg3)
+void	op_add(t_list *list, t_vm *x)
 {
-	PROCESS->reg[arg3] = PROCESS->reg[arg1] + PROCESS->reg[arg2];
+	(void)x;
+	PROCESS->reg[PROCESS->arg[2]] = PROCESS->reg[PROCESS->arg[0]]
+	+ PROCESS->reg[PROCESS->arg[1]];
 	PROCESS->carry = 1;
 }

@@ -42,8 +42,8 @@ typedef struct		s_process
 	int				op;
 	int				encoded;
 	int				enc[4];
-	int				t_arg[4];
-	int				arg[4];
+	int				t_arg[3];
+	int				arg[3];
 	int				pc_arg;
 }					t_process;
 
@@ -86,4 +86,21 @@ char	*ft_itoa_base(int n, int base);
 char	*ft_itoa_base2(int n, int base);
 void	ft_dump(t_vm *x);
 int		ft_convert(char *test);
+t_process		*create_process(int id, int pc);
+void		op_fork(t_list *list, t_vm *x);
+void	op_add(t_list *list, t_vm *x);
+void	op_and(t_list *list, t_vm *x);
+void	op_ld(t_list *list, t_vm *x);
+void	op_ldi(t_list *list, t_vm *x);
+void	op_live(t_list *list, t_vm *x);
+void	op_or(t_list *list, t_vm *x);
+void	op_sti(t_list *list, t_vm *x);
+void	op_sub(t_list *list, t_vm *x);
+void	op_xor(t_list *list, t_vm *x);
+void	op_st(t_list *list, t_vm *x);
+void	op_zjmp(t_list *list, t_vm *x);
+void	op_lld(t_list *list, t_vm *x);
+void	op_lldi(t_list *list, t_vm *x);
+void	op_lfork(t_list *list, t_vm *x);
+void	op_aff(t_list *list, t_vm *x);
 #endif

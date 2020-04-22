@@ -10,4 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "corewar.h"
 
+void	op_ldi(t_list *list, t_vm *x)
+{
+	(void)x;
+	PROCESS->reg[PROCESS->arg[2]] = (int)x->arene[PROCESS->arg[0] + PROCESS->arg[1]];
+}
