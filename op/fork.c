@@ -27,18 +27,22 @@ void		op_fork(t_list *list, t_vm *x)
 	proc = create_process(PROCESS->reg[1],PROCESS->pc);
 //	if (!(proc = (t_process*)malloc(sizeof(t_process))))
 //		return;
-//	memcpy(proc, PROCESS,sizeof(t_process));
+	memcpy(proc, PROCESS,sizeof(t_process));
 
 	printf("arg[0] idx :%d\n",indx_mod(&PROCESS->arg[0]));
 	proc->pc = move_pc(proc->pc,indx_mod(&PROCESS->arg[0]));
 //	proc->pc = (proc->pc % MEM_SIZE);
 	proc->wait = 0;
+	proc->op = 0;
 	printf("pc fork: %d\n",proc->pc);
 	tmp = ft_lstnew(proc, sizeof(t_process));
 //	while (list->next != NULL)
 //	list = list->next;
 //	list->next = tmp;
 	ft_lstadd(&x->lst_process,tmp);
+	tmp->next = x->first_proc;
 	x->first_proc = tmp;
 printf("wwaaait: %d\n",((t_process*)x->first_proc->content)->wait);
+printf("pcccc: %d\n",((t_process*)x->first_proc->content)->pc);
+printf("PROCESSf: %p\n", (t_process*)x->first_proc->content);
 }

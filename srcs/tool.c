@@ -44,8 +44,6 @@ t_process		*create_process(int id, int pc)
 	i = -1;
 	proc->id = id;
 	proc->alive = 0;
-	//if (pc > 0)
-	//	proc->alive = 500;
 	proc->pc = pc % MEM_SIZE;
 	proc->wait = 0;
 	while (++i < REG_NUMBER)
@@ -105,46 +103,53 @@ void		kill_process(t_list *list, t_vm *x)
 	if (list == previous)
 	{
 		x->first_proc = list->next;
-		free(PROCESS);
+		bzero(list,sizeof(t_list));
+		free(list->content);
 		free(list);
+		list = NULL;
 	}
 	else
 	{
 	while (previous->next != list)
 	previous = previous->next;
 	previous->next = list->next;
-	free(PROCESS);
+	free(list->content);
 	free(list);
+	list = NULL;
 	}
 }
 
 void		check_live(t_vm *x)
 {
 	t_list *list;
-//	t_list *tmp;
 
 	list = x->first_proc;
 	while (list != NULL)
 	{
 		if (PROCESS->alive == 0)
 		{
-			printf("process player %d killed\n",PROCESS->reg[1]);
+		//	printf("process player %d killed\n",PROCESS->reg[1]);
 			kill_process(list,x);
 			list = x->first_proc;
 		}
 		else
 		{
-			printf("process player %d alive\n",PROCESS->reg[1]);
+		//	printf("process player %d alive\n",PROCESS->reg[1]);
 			list = list->next;
 		}
 	}
 	list = x->first_proc;
 	while (list != NULL)
 	{
+		printf("process player %d alive\n",PROCESS->reg[1]);
 		PROCESS->alive = 0;
 		list = list->next;
 	}
 	if (x->nbr_live == NBR_LIVE)
+	x->cycle_to_die -= CYCLE_DELTA;
+	else
+		x->max_check +=1;
+	if (x->max_check == MAX_CHECKS)
 	x->cycle_to_die -= CYCLE_DELTA;
 	x->before_check = x->cycle_to_die;
 	ft_dump(x);
@@ -263,28 +268,32 @@ int		ft_end_turn(t_vm *x)
 	{
 		check_live(x);
 	x->before_check = x->cycle_to_die;
-		if (stop_vm(x) <= 1)
+		if (stop_vm(x) < 1)
 			return (0);
 	}
 	return (1);
 }
-
-int		load_vm(t_vm *x)
-{
-	t_list	*list;
-	list = x->first_proc;
-	if (x->nb_c == 0)
-		printf("Cycle numero %d\n",x->nb_c);
-	while (list != NULL)
-	{
 //	printf("list: %p\n", list); fflush(0);
 //printf("list content: %p\n", list->content);
 //printf("process->pc tool : %d\n",PROCESS->pc);
 //printf("PROCESS: %p\n", PROCESS);
 //printf("process-w: %p\n", &PROCESS->wait);
 //printf("processWAIT: %d\n", PROCESS->pc);
-		if (PROCESS->wait == 0)
+	
+int		load_vm(t_vm *x)
+{
+	t_list	*list;
+	list = x->first_proc;
+printf("PROCESS: %p\n", PROCESS);
+
+	if (x->nb_c == 0)
+		printf("Cycle numero %d\n",x->nb_c);
+	while (list != NULL)
+	{
+//	POS;
+	if (PROCESS->wait == 0)
 		{
+//		POS;
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
 				printf("action op: %d\n",PROCESS->op);
@@ -297,6 +306,7 @@ int		load_vm(t_vm *x)
 			}
 			else
 			PROCESS->op = (int)(x->arene[PROCESS->pc]);
+		//	printf("op: %d\n",PROCESS->op);
 			if (PROCESS->op > 0 && PROCESS->op < 17)
 			{
 				printf("op %d\n",PROCESS->op);
@@ -308,8 +318,10 @@ int		load_vm(t_vm *x)
 		else
 			PROCESS->wait--;
 		printf("wait = %d\n",PROCESS->wait);
+//		POS;
 		list = list->next;
 	}
+//	POS;
 	return(ft_end_turn(x));
 }
 
@@ -335,7 +347,7 @@ void		init_vm(t_vm *x)
 	x->cycle_to_die = CYCLE_TO_DIE;
 	x->cycle_delta = CYCLE_DELTA;
 	x->nbr_live = 0;
-	x->max_check = MAX_CHECKS;
+	x->max_check = 0;
 	x->before_check = CYCLE_TO_DIE;
 	x->nb_c = 0;
 	printf("test\n");
