@@ -14,7 +14,7 @@
 
 void	op_and(t_list *list, t_vm *x)
 {
-	(void)x;
-	PROCESS->reg[PROCESS->arg[2]] = PROCESS->reg[PROCESS->arg[0]] & PROCESS->reg[PROCESS->arg[1]];
-	PROCESS->carry = 1;
+	convert_arg(PROCESS->arg,1,list,x);
+	PROCESS->reg[PROCESS->arg[2]] = PROCESS->arg[0] & PROCESS->arg[1];
+	PROCESS->carry = (PROCESS->reg[PROCESS->arg[2]] == 0 ? 1 : 0);
 }

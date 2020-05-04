@@ -14,6 +14,13 @@
 
 void	op_lldi(t_list *list, t_vm *x)
 {
-	(void)x;
-	PROCESS->reg[PROCESS->arg[2]] = (int)x->arene[PROCESS->arg[0] + PROCESS->arg[1]];
+	int sum;
+	sum = 0;
+	convert_arg(PROCESS->arg,0,list,x);
+	if (PROCESS->t_arg[0] == REG_CODE)
+		sum = ft_convert(&x->arene[move_pc(PROCESS->arg[0], PROCESS->arg[1])],3);
+	else
+		sum = ft_convert(&x->arene[move_pc(PROCESS->arg[0], PROCESS->arg[1])],4);
+	PROCESS->reg[PROCESS->arg[2]] = sum;
+	PROCESS->carry = (sum == 0 ? 1 : 0);
 }

@@ -14,10 +14,18 @@
 
 void	op_st(t_list *list, t_vm *x)
 {
+	int *ptr;
+	ptr = NULL;
+	if (PROCESS->t_arg[0] != REG_CODE)
+	return;
 	if (PROCESS->t_arg[1] == 3)
-	
-		x->arene[PROCESS->arg[1] % IDX_MOD] = PROCESS->reg[PROCESS->arg[0]];
+	{
+		ptr = (int*)x->arene + PROCESS->arg[1];
+		*ptr = PROCESS->arg[0];
+	}
 else if (PROCESS->t_arg[1] == 1)
-	PROCESS->reg[PROCESS->arg[1]] = PROCESS->reg[PROCESS->arg[0]];
+	PROCESS->reg[PROCESS->arg[1]] = PROCESS->arg[0];
+	else
+		return ;
 	
 }

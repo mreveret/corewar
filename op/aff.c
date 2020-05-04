@@ -17,6 +17,6 @@ void	op_aff(t_list *list, t_vm *x)
 	(void)x;
 	char c;
 
-	c = PROCESS->reg[PROCESS->arg[0]];
+	c = PROCESS->reg[PROCESS->arg[0]] % 256;
 	ft_putendl(&c);
 }
