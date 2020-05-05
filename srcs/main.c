@@ -83,7 +83,7 @@ int		create_player(t_vm *x)
 		return (-1);
 	if (!(p->content = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE + 1)))
 	return (-1);
-			x->nbp++;
+	x->nbp++;
 	
 	p->num = x->nbp;
 	if(x->opt[0] >= 0)

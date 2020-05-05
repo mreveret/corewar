@@ -9,5 +9,5 @@ void		op_zjmp(t_list *list, t_vm *x)
 	if (PROCESS->carry == 1)
 		PROCESS->pc = move_pc(PROCESS->pc, PROCESS->arg[0]);
 	else
-	printf("blbl\n");
+	return;
 }

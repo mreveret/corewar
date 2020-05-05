@@ -11,8 +11,8 @@ void	op_sub(t_list *list, t_vm *x)
 		if (PROCESS->arg[i] > REG_NUMBER || PROCESS->arg[i] < 0)
 			return;
 	}
-	PROCESS->reg[PROCESS->arg[2]] = PROCESS->reg[PROCESS->arg[0]]
-	- PROCESS->reg[PROCESS->arg[1]];
+	PROCESS->reg[PROCESS->arg[2]] = PROCESS->arg[0]
+	- PROCESS->arg[1];
 	PROCESS->carry = (PROCESS->reg[PROCESS->arg[2]] = 0 ? 1 : 0);
 }
 

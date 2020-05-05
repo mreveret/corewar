@@ -48,7 +48,7 @@ t_process		*create_process(int id, int pc)
 	proc->wait = 0;
 	while (++i < REG_NUMBER)
 	{
-		if (i == 1)
+		if (i == 0)
 			proc->reg[i] = id;
 		else
 			proc->reg[i] = 0;
@@ -80,7 +80,17 @@ void		do_op(t_list *list, t_vm *x, int op)
 
 int			stop_vm(t_vm *x)
 {
-	int i;
+	t_list *list;
+	int nb_alive_p;
+
+	nb_alive_p = 0;
+	list  = x->first_proc;
+	while (list != NULL)
+	{
+		list = list->next;
+		nb_alive_p++;
+	}
+	/*int i;
 	int nb_alive_p;
 
 	i = -1;
@@ -92,7 +102,7 @@ int			stop_vm(t_vm *x)
 			nb_alive_p++;
 			x->p[i].alive = 0;
 		}
-	}
+	}*/
 	return (nb_alive_p);
 }
 
@@ -131,7 +141,7 @@ void		check_live(t_vm *x)
 	{
 		if (PROCESS->alive == 0)
 		{
-			//	printf("process player %d killed\n",PROCESS->reg[1]);
+				printf("process player %d killed\n",PROCESS->reg[0]);
 			kill_process(list,x);
 			list = x->first_proc;
 		}
@@ -144,13 +154,15 @@ void		check_live(t_vm *x)
 	list = x->first_proc;
 	while (list != NULL)
 	{
-		printf("process player %d alive\n",PROCESS->reg[1]);
+		printf("process player %d alive\n",PROCESS->reg[0]);
 		PROCESS->alive = 0;
 		list = list->next;
 	}
+	printf("nbr_live: %d\n",x->nbr_live);
 	if (x->nbr_live >= NBR_LIVE || x->max_check == MAX_CHECKS)
 	{
 		x->cycle_to_die -= CYCLE_DELTA;
+		printf("ctd: %d\n",x->cycle_to_die);
 		x->nbr_live = 0;
 		x->max_check = 0;
 	}
@@ -230,12 +242,15 @@ int		parse_arg(t_list *list, t_vm *x)
 			if (i == op_tab[PROCESS->op - 1].nb_arg - 1)
 			{
 				memcpy(b,x->arene + PROCESS->pc,1);
-				PROCESS->arg[i] = ft_convert(b,1);
+				PROCESS->arg[i] = ft_convert(b,1) - 1;
 			}
 			else
 			{
 				memcpy(b,x->arene + PROCESS->pc,1);
-				PROCESS->arg[i] = PROCESS->reg[ft_convert(b,1)];
+				if (ft_convert(b,1) <= 0 || ft_convert(b,1) > REG_NUMBER)
+					ret = 0;
+				else
+					PROCESS->arg[i] = PROCESS->reg[ft_convert(b,1) - 1];
 			}
 			printf("arg: %d\n",PROCESS->arg[i]);
 			PROCESS->pc = move_pc(PROCESS->pc,1);
