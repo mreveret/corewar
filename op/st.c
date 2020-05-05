@@ -11,21 +11,25 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include <stdio.h>
 
 void	op_st(t_list *list, t_vm *x)
 {
 	int *ptr;
+	convert_arg(PROCESS->arg,1,list,x);
 	ptr = NULL;
 	if (PROCESS->t_arg[0] != REG_CODE)
 	return;
-	if (PROCESS->t_arg[1] == 3)
+	if (PROCESS->t_arg[1] == IND_CODE)
 	{
-		ptr = (int*)x->arene + PROCESS->arg[1];
+		printf("mvpc_st:%d\n",move_pc(0,PROCESS->arg[1]));
+		ptr = (int*)x->arene + move_pc(0, PROCESS->arg[1]);
 		*ptr = PROCESS->arg[0];
 	}
-else if (PROCESS->t_arg[1] == 1)
+else if (PROCESS->t_arg[1] == REG_CODE)
 	PROCESS->reg[PROCESS->arg[1]] = PROCESS->arg[0];
 	else
 		return ;
+	PROCESS->carry = (PROCESS->arg[0] ? 1 :0);
 	
 }
