@@ -29,6 +29,8 @@ void	op_lfork(t_list *list, t_vm *x)
 //	while (list->next != NULL)
 //	list = list->next;
 //	list->next = tmp;
+	free(proc);
+	proc = NULL;
 	ft_lstadd(&x->lst_process,tmp);
 	tmp->next = x->first_proc;
 	x->first_proc = tmp;

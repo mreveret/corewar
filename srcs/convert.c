@@ -12,6 +12,17 @@
 
 #include <stdio.h>
 #include <string.h>
+
+/*unsigned char *uc2c(unsigned char *c)
+{
+	int i = 0;
+	while (i++ < 4)
+	{
+		c[i] = c[i] - 255 - 1 - 255 - 1;
+	printf("test\n");
+	}
+	return (c);
+}
 static int		ft_pow(int res,char c)
 {
 	int res2;
@@ -32,20 +43,37 @@ static int		ft_pow(int res,char c)
 	}
 	res2 = ten + res;
 	return (res2);
-}
+}*/
 
-int		ft_convert(char *test, int size)
+int		ft_convert(unsigned char *test, int size)
 {
 	int res;
+	int i;
+	i =  -1;
+
+	res = 0;
+	while (++i < size)
+	{
+		res <<= 8;
+		res |= 0x000000FF & test[i];
+	}
+	return (res);
+	}
+/*	int res;
 	int i;
 
 	i = 0;
 	i = size;//strlen(test);
 	res = 0;
-	res = (int)test[i - 1];
+	res = (unsigned int)test[i - 1];
 	while (--i > 0)
 	{
 	res = ft_pow(res,test[i-1]);
 	}
-	return (res);
-}
+//	if (res < -128)
+//	{
+//	printf("res = %d\n",res);
+//	return (ft_convert(uc2c(test),size));
+//	}
+//	else
+		return (res); }*/
