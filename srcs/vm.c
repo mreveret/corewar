@@ -11,96 +11,135 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include <stdio.h>
 
-void	convert_arg(int *arg,int mod,t_list *list,t_vm *x)
+int			stop_vm(t_vm *x)
 {
-	int	i;
-	i = -1;
-	while (++i < op_tab[PROCESS->op - 1].nb_arg)
+	if (x->cycle_to_die < 0)
+		return (0);
+	t_list *list;
+	int nb_alive_p;
+
+	nb_alive_p = 0;
+	list  = x->first_proc;
+	while (list != NULL)
 	{
-		if (PROCESS->t_arg[i] == IND_CODE ||
-		(PROCESS->t_arg[i] == DIR_CODE && 
-		PROCESS->op >= 9 && PROCESS->op != 13 && PROCESS->op != 16))
+		list = list->next;
+		nb_alive_p++;
+	}
+	return (nb_alive_p);
+}
+
+void		check_live(t_vm *x)
+{
+	t_list *list;
+
+	list = x->first_proc;
+	x->max_check +=1;
+	while (list != NULL)
+	{
+		if (PROCESS->alive == 0)
 		{
-			if (mod == 1)
-				PROCESS->arg[i]= PROCESS->pc + (indx_mod(&PROCESS->arg[i]));
-			else
-				PROCESS->arg[i]= x->arene[PROCESS->pc + PROCESS->arg[i]];
+			kill_process(list,x);
+			list = x->first_proc;
 		}
 		else
-			PROCESS->arg[i] = PROCESS->arg[i];
+			list = list->next;
 	}
-}
-/*
-	if (PROCESS->t_arg[i])
-}
-while (++i < op_tab[PROCESS->op - 1].nb_arg)
+	list = x->first_proc;
+	while (list != NULL)
 	{
-		if (PROCESS->t_arg[i] == DIR_CODE)
+		PROCESS->alive = 0;
+		list = list->next;
+	}
+	if (x->nbr_live >= NBR_LIVE || x->max_check == MAX_CHECKS)
+	{
+		x->cycle_to_die -= CYCLE_DELTA;
+		if (x->nbr_live >= NBR_LIVE)
+			x->nbr_live = 0;
+		x->max_check = 0;
+	}
+	x->before_check = x->cycle_to_die;
+}
+
+int		ft_end_turn(t_vm *x)
+{
+	x->nb_c++;
+	x->before_check--;
+	//	printf("Cycle numero %d\n",x->nb_c);
+	if (x->before_check == 0)
+	{
+		check_live(x);
+		x->before_check = x->cycle_to_die;
+		if (stop_vm(x) < 1)
+			return (0);
+	}
+	return (1);
+}
+
+int		load_vm(t_vm *x)
+{
+	t_list	*list;
+
+	list = x->first_proc;
+	while (list != NULL)
+	{
+		if (PROCESS->wait == 0)
 		{
-			if (PROCESS->op < 9 || PROCESS->op == 13 || PROCESS->op == 16)
+			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
-			memcpy(b,x->arene + PROCESS->pc,4);
-			PROCESS->arg[i] = ft_convert(b,4);
-			printf("arg: %d\n",PROCESS->arg[i]);
-			PROCESS->pc = (PROCESS->pc + 4);
+				printf("Cycle %d\n",x->nb_c);
+				printf("action op: %d\n",PROCESS->op);
+				printf("du joueur %d\n",PROCESS->reg[0]);
+				if (parse_arg(list,x) == 1)
+					do_op(list, x, PROCESS->op - 1);
+				PROCESS->pc = move_pc(PROCESS->pc, x->add);
+				PROCESS->op = 0;
+				list = list->next;
+				continue;
 			}
 			else
-				{
-					if (PROCESS->op >= 10 && PROCESS->op <= 12) //
-					{ //
-					memcpy(b,x->arene + PROCESS->pc,2);
-
-					add = ft_convert(b,2); //
-					PROCESS->arg[i] = x->arene[PROCESS->pc + indx_mod(&add)]; //
-					}
-					else //
-					{
-						memcpy(b,x->arene + PROCESS->pc,2);
-						PROCESS->arg[i] = x->arene[PROCESS->pc + ft_convert(b,2)]; //
-					}//
-					//	PROCESS->arg[i] = ft_convert(memcpy(b,x->arene + PROCESS->pc,2),2);
-					printf("arg: %d\n",PROCESS->arg[i]);
-					PROCESS->pc = (PROCESS->pc + 2) % MEM_SIZE;
-				}
-
-			printf("pc after arg dir: %d\n",PROCESS->pc);
+				PROCESS->op = (int)(x->arene[PROCESS->pc]);
+			if (PROCESS->op > 0 && PROCESS->op < 17)
+				PROCESS->wait = op_tab[PROCESS->op - 1].wait;
+			PROCESS->pc = move_pc(PROCESS->pc,1);
 		}
-		else if (PROCESS->t_arg[i] == IND_CODE)
-		{
-			if (PROCESS->op == 13 || PROCESS->op == 14)//
-			{
-				memcpy(b,x->arene + PROCESS->pc,2);
-				PROCESS->arg[i] = x->arene[PROCESS->pc + ft_convert(b,2)];//
-			}
-			else//
-			{//
-					memcpy(b,x->arene + PROCESS->pc,2);
-					add = ft_convert(b,2);//
-					PROCESS->arg[i] = x->arene[PROCESS->pc + indx_mod(&add)];//
-			}//
-			//		PROCESS->arg[i] = ft_convert(memcpy(b,x->arene + PROCESS->pc,2),2);
-			printf("arg: %d\n",PROCESS->arg[i]);
-			PROCESS->pc = (PROCESS->pc + 2) % MEM_SIZE;
-		}
-		else if (PROCESS->t_arg[i] == REG_CODE)
-		{
-			
-			if (i == op_tab[PROCESS->op - 1].nb_arg - 1)//
-			{
-				memcpy(b,x->arene + PROCESS->pc,1);
-				PROCESS->arg[i] = ft_convert(b,1);
-			}
-			else//
-			{
-				memcpy(b,x->arene + PROCESS->pc,1);
-				PROCESS->arg[i] = PROCESS->reg[ft_convert(b,1)];//
-			}
-			printf("arg: %d\n",PROCESS->arg[i]);
-			PROCESS->pc = (PROCESS->pc + 1);
-			printf("pc after arg reg: %d\n",PROCESS->pc);
-		}
-	bzero(b,4);
+		else
+			PROCESS->wait--;
+		list = list->next;
 	}
-}*/
+	return(ft_end_turn(x));
+}
+
+void		init_vm(t_vm *x)
+{
+	int		i;
+	t_list	*tmp;
+	t_process *proc;
+
+	i = 0;
+	proc = create_process(x->p[i].num,x->p[i].pcstart);
+	x->lst_process = ft_lstnew(proc,sizeof(t_process));
+	free(proc);
+	while (++i < x->nbp)
+	{
+		proc = create_process(x->p[i].num,x->p[i].pcstart);
+		tmp = ft_lstnew(proc, sizeof(t_process));
+		free(proc);
+		ft_lstadd(&x->lst_process,tmp);
+		if (i == x->nbp - 1)
+			x->first_proc = x->lst_process;
+	}
+	if (x->nbp == 1)
+		x->first_proc = x->lst_process;
+	x->cycle_to_die = CYCLE_TO_DIE;
+	x->cycle_delta = CYCLE_DELTA;
+	x->nbr_live = 0;
+	x->max_check = 0;
+	x->before_check = CYCLE_TO_DIE;
+	x->nb_c = 0;
+	i = 0;
+	while(load_vm(x) == 1);
+	return ;
+}
 

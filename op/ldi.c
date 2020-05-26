@@ -15,20 +15,17 @@
 
 void	op_ldi(t_list *list, t_vm *x)
 {
-	(void)x;
 	int sum;
 	char b[4];
 	sum = 0;
-	int i = -1;
-	while (++i< 2)
-//	convert_arg(PROCESS->arg,1,list,x);
-//	if (PROCESS->t_arg[0] == REG_CODE)
-//		sum = ft_convert(&x->arene[move_pc(PROCESS->pc + PROCESS->arg[0], PROCESS->arg[1])],3);
-//	else
+	if (PROCESS->arg[2] >= REG_NUMBER || PROCESS->arg[2] < 0)
+		return;
+	convert_arg(PROCESS->arg,0,list,x);
 		sum = PROCESS->arg[0] + PROCESS->arg[1];
+		sum = indx_mod(&sum);
 		printf("sum %d\n",sum);
-		printf("movepc %d\n",move_pc(PROCESS->pc - 1,sum));
-	//PROCESS->reg[PROCESS->arg[2]] = sum;
+	
 	PROCESS->reg[PROCESS->arg[2]] = ft_convert(memcpy(x->arene + move_pc(PROCESS->pc -1,sum),b,4),4);
-	PROCESS->carry = (sum == 0 ? 1 : 0);
+	bzero(b,4);
+	PROCESS->carry = (PROCESS->reg[PROCESS->arg[2]] == 0 ? 1 : 0);
 }

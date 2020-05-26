@@ -1,7 +1,7 @@
 
 NAME = cr
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I.
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I.
 
 MAKE = make -C
 
@@ -13,6 +13,8 @@ PATH_OP = ./op/
 
 SRCS = $(PATH_SRC)main.c\
       $(PATH_SRC)tool.c\
+      $(PATH_SRC)vm.c\
+      $(PATH_SRC)parsing.c\
       $(PATH_SRC)ft_dump.c\
       $(PATH_SRC)itoabase.c\
       $(PATH_SRC)itoabase2.c\
@@ -46,10 +48,10 @@ lib:
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_PATH)
-	clang $(CFLAGS) $(SRCS) -L./libft -lft -o $(NAME)
+	gcc $(CFLAGS) $(SRCS) -L./libft -lft -o $(NAME)
 
 %.o: %.c ./corewar.h ./Makefile ./libft/libft.h
-	clang -o $@ -c $< $(CFLAGS)
+	gcc -o $@ -c $< $(CFLAGS)
 
 clean:
 	rm -f srcs/*.o

@@ -22,15 +22,12 @@ void	num_players(t_vm *x)
 	i = 0;
 	while (++i < x->nbp + 1)
 	{
-		printf("a\n");
 		j = 0;
 		k = 1;
 		if (x->opt[i] == 0)
 		{
-		printf("b\n");
 			while (++j < x->nbp + 1)
 			{
-		printf("c\n");
 				if (x->opt[j] == k)
 				{
 					k++;
@@ -43,8 +40,8 @@ void	num_players(t_vm *x)
 	i = -1;
 	while (++i < x->nbp)
 	{
-		x->p[i].num = x->opt[i + 1];
-		printf("player[%d] num = %d\n", i, x->p[i].num);
+		x->p[i].num = x->opt[i + 1];		
+		printf("player[%d] num: %d\n",i,x->p[i].num);
 	}
 }
 
@@ -61,11 +58,11 @@ int		create_player(t_vm *x)
 	if (!(p->content = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE + 1)))
 	    return (-1);
 	x->nbp++;
-	if (x->opt[x->nbp] != 0)
-		p->num = x->opt[x->nbp];
+	if (x->opt[x->nbp + 1] != 0)
+		p->num = x->opt[x->nbp + 1];
 	else
 		p->num = x->nbp;
-	parsingplayer(x,p);
+	parsingplayer(x, p);
 	return (0);
 }
 
@@ -77,7 +74,7 @@ int		ft_id_player(char **av, int i, t_vm *x)
 	{
 		if ((id = ft_atoi(av[i + 1])) > 4 || id < 0)
 			return (-1);
-		x->opt[x->nbp] = id;
+		x->opt[x->nbp + 1] = id;
 	}
 	else
 		return (-1);
@@ -96,10 +93,9 @@ int		parsingoption(char **av,int i, t_vm *x)
 	}
 	if (ft_strcmp(av[i], "-n") == 0)
 	{
-		x->opt[x->nbp] = 0;
-		if (ft_id_player(av,i,x) == -1)
+		x->opt[x->nbp + 1] = 0;
+		if (ft_id_player(av, i, x) == -1)
 			return (-1);
-		create_player(x);
 		x->opt[0] = -1;
 		return(2);
 	}

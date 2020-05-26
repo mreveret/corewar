@@ -208,8 +208,8 @@ int		main(int ac, char **av)
 	printf("cycle to die final : %d\n",x->cycle_to_die);
 	printf("cycle: %d\n",x->nb_c);
 	return 1;
-	}/*
-	while (++i < x->nbp)
+	}
+/*	while (++i < x->nbp)
 	{
 	free(x->p[i].header);
 	free(x->p[i].content);
@@ -268,8 +268,8 @@ int		parsingplayer(t_vm *x, t_player *p)
 	ret = read(x->fd,p->header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
 		return (-1);
-//	printf("name -- %s\n", p->header->prog_name);
-//	printf("comment -- %s\n",p->header->comment);
+	printf("name -- %s\n", p->header->prog_name);
+	printf("comment -- %s\n",p->header->comment);
 	rev_str((char*)&p->header->magic,sizeof(p->header->magic));
 	rev_str((char*)&p->header->prog_size,sizeof(p->header->prog_size));
 
@@ -308,13 +308,12 @@ int		main(int ac, char **av)
 		if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
 		{
 			x->fd = open(av[i], O_RDONLY);
-			if (x->opt[0] != -1)
-				create_player(x);
+			create_player(x);
 			x->opt[0] = 0;
 		}
 		else
 		{
-			if (parsingoption(av,i,x) > 0)
+			if (parsingoption(av, i, x) > 0)
 				i++;
 			else
 				return (0);
@@ -330,5 +329,14 @@ int		main(int ac, char **av)
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
+	ft_putstr("Le joueur ");
+	ft_putstr(ft_itoa(x->last_alive));
+	ft_putstr("(");
+	ft_putstr(x->p[x->last_alive - 1].header->prog_name);
+	ft_putstr(") a gagne\n");
+	i = -1;
+	printf("cycle to die final : %d\n",x->cycle_to_die);
+	printf("cycle: %d\n",x->nb_c);
+
 	return 1;
 }*/
