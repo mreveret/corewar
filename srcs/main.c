@@ -28,26 +28,6 @@ void			rev_str(char *nb, unsigned int size)
 	}
 }
 
-void		print_arena(uint8_t *arena, int print_mode)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		printf("%.4d : ", i);
-		j = 0;
-		while (j < print_mode)
-		{
-			printf("%.2x ", arena[i + j]);
-			j++;
-		}
-		printf("\n");
-		i += print_mode;
-	}
-}
-
 void	load_arena(t_vm *x)
 {
 	int i;
@@ -150,7 +130,7 @@ int		parsingoption(char **av,int i, t_vm *x)
 		create_player(x);
 		if (ft_id_player(av,i,x) == -1)
 			return (-1);
-			return(1);
+		return(1);
 	}
 	else
 	{
@@ -198,12 +178,13 @@ int		main(int ac, char **av)
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
-	print_arena((uint8_t*)x->arene,64);
+	/*
 	ft_putstr("Le joueur ");
 	ft_putstr(ft_itoa(x->last_alive));
 	ft_putstr("(");
 	ft_putstr(x->p[x->last_alive - 1].header->prog_name);
 	ft_putstr(") a gagne\n");
+	*/
 	i = -1;
 	printf("cycle to die final : %d\n",x->cycle_to_die);
 	printf("cycle: %d\n",x->nb_c);
