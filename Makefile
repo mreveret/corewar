@@ -1,7 +1,7 @@
 
 NAME = cr
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I.
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I.
 
 MAKE = make -C
 
@@ -13,6 +13,7 @@ PATH_OP = ./op/
 
 SRCS = $(PATH_SRC)main.c\
       $(PATH_SRC)tool.c\
+      $(PATH_SRC)option.c\
       $(PATH_SRC)vm.c\
       $(PATH_SRC)parsing.c\
       $(PATH_SRC)ft_dump.c\

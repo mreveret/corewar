@@ -13,7 +13,7 @@
 #include "corewar.h"
 #include <stdio.h>
 
-void			rev_str(char *nb, unsigned int size)
+/*void			rev_str(char *nb, unsigned int size)
 {
 	unsigned int	i;
 	char			tmp;
@@ -25,6 +25,26 @@ void			rev_str(char *nb, unsigned int size)
 		nb[i] = nb[size - i - 1];
 		nb[size - i - 1] = tmp;
 		++i;
+	}
+}
+
+void		print_arena(uint8_t *arena, int print_mode)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		printf("%.4d : ", i);
+		j = 0;
+		while (j < print_mode)
+		{
+			printf("%.2x ", arena[i + j]);
+			j++;
+		}
+		printf("\n");
+		i += print_mode;
 	}
 }
 
@@ -130,7 +150,7 @@ int		parsingoption(char **av,int i, t_vm *x)
 		create_player(x);
 		if (ft_id_player(av,i,x) == -1)
 			return (-1);
-		return(1);
+			return(1);
 	}
 	else
 	{
@@ -178,25 +198,25 @@ int		main(int ac, char **av)
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
-	/*
+	print_arena((uint8_t*)x->arene,64);
 	ft_putstr("Le joueur ");
 	ft_putstr(ft_itoa(x->last_alive));
 	ft_putstr("(");
 	ft_putstr(x->p[x->last_alive - 1].header->prog_name);
 	ft_putstr(") a gagne\n");
-	*/
 	i = -1;
 	printf("cycle to die final : %d\n",x->cycle_to_die);
 	printf("cycle: %d\n",x->nb_c);
-	return 1;
-	}
-/*	while (++i < x->nbp)
+	while (++i < x->nbp)
 	{
 	free(x->p[i].header);
 	free(x->p[i].content);
 	}
+	//while (1);
+	return 1;
+}*/
 //	free(x->p);
-	x->lst_process = x->first_proc;
+/*	x->lst_process = x->first_proc;
 	t_list *node;
 	while(x->lst_process != NULL)
 	{
@@ -208,7 +228,7 @@ int		main(int ac, char **av)
 	free(x);
 	return 1;
 }*/
-/*void			rev_str(char *nb, unsigned int size)
+void			rev_str(char *nb, unsigned int size)
 {
 	unsigned int	i;
 	char			tmp;
@@ -226,7 +246,7 @@ int		main(int ac, char **av)
 void	load_arena(t_vm *x)
 {
 	int i;
-	i = 0;
+	i = -1;
 	//i = ft_strlen(p->content);
 	x->pos_next_player = 0;
 	while (++i < MEM_SIZE)
@@ -234,11 +254,17 @@ void	load_arena(t_vm *x)
 	i = -1;
 	while (++i < x->nbp)
 	{
+		printf("%d\n",i);
+		printf("p[%d]: %p\n",i,&x->p[i]);
 		x->p[i].pcstart = x->pos_next_player;
 		printf("p[%d] pcstart : %d\n ",i,x->p[i].pcstart);
+		printf("test2:%p\n",&x->p[i].content);
+		printf("test3:%p\n",&x->p[i].header->prog_size);
+		printf("test4:%p\n",&x->arene);
 		memcpy(x->arene + x->pos_next_player ,x->p[i].content,x->p[i].header->prog_size);
 		x->pos_next_player += x->pos_add;
 	}
+//	while (1);
 	ft_dump(x);
 }
 
@@ -306,7 +332,6 @@ int		main(int ac, char **av)
 		return (0);
 	}
 	num_players(x);
-	return (1);
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
@@ -320,4 +345,4 @@ int		main(int ac, char **av)
 	printf("cycle: %d\n",x->nb_c);
 
 	return 1;
-}*/
+}

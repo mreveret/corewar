@@ -140,6 +140,9 @@ void		init_vm(t_vm *x)
 	x->nb_c = 0;
 	i = 0;
 	while(load_vm(x) == 1);
+//	while (x->nb_c != 1530)
+//		load_vm(x);
+	ft_dump(x);
 	return ;
 }
 

@@ -18,7 +18,7 @@
 
 #include "op.h"
 #include <fcntl.h>
-
+#include <stdio.h>
 //#define malloc(x) NULL
 #define PROCESS ((t_process *)list->content)
 
@@ -69,7 +69,7 @@ typedef struct		s_vm
 	int				cycle_to_check;
 	int				nbp;
 	t_player		p[4];
-	int				opt[2];
+	int				opt[5];
 	int				fd;
 	int				dumpnb;
 	int				pos_next_player;
