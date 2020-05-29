@@ -12,7 +12,7 @@
 
 NAME = libft.a
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 DIR = includes
 
