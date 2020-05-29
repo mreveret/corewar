@@ -11,9 +11,20 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include <stdio.h>
 
-void	op_live(int num_player, t_vm *x,t_list *list)
+void	op_live(t_list *list, t_vm *x)
 {
-	x->p[num_player].alive = 1;
+	if (PROCESS->arg[0] > x->nbp || PROCESS->arg[0] <= 0)
+	{
 	PROCESS->alive = 1;
+	x->nbr_live++;
+	return;
+	}
+	else
+	x->p[PROCESS->arg[0]].alive = 1;
+	PROCESS->alive = 1;
+	x->last_alive = PROCESS->arg[0];
+	printf("ALIVE player %d\n",x->last_alive);
+	x->nbr_live++;
 }

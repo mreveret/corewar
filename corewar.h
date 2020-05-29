@@ -18,8 +18,8 @@
 
 #include "op.h"
 #include <fcntl.h>
-
-
+#include <stdio.h>
+//#define malloc(x) NULL
 #define PROCESS ((t_process *)list->content)
 
 typedef struct		s_player
@@ -34,7 +34,7 @@ typedef struct		s_player
 typedef struct		s_process
 {
 	int				id;
-	int				pc;
+	unsigned short	pc;
 	int				reg[REG_NUMBER];
 	int				carry;
 	int				wait;
@@ -42,9 +42,9 @@ typedef struct		s_process
 	int				op;
 	int				encoded;
 	int				enc[4];
-	int				t_arg[4];
-	int				arg[4];
-	int				pc_arg;
+	int				t_arg[3];
+	int				arg[3];
+	int				test;
 }					t_process;
 
 typedef struct		s_op
@@ -63,14 +63,15 @@ extern t_op op_tab[17];
 
 typedef struct		s_vm
 {
-	char			arene[MEM_SIZE];
+	char	arene[MEM_SIZE];
 	int				cycle_to_die;
 	int				cycle_delta;
 	int				cycle_to_check;
 	int				nbp;
 	t_player		p[4];
-	int				opt[2];
+	int				opt[5];
 	int				fd;
+	int				dumpnb;
 	int				pos_next_player;
 	int				pos_add;
 	t_list			*lst_process;
@@ -79,11 +80,42 @@ typedef struct		s_vm
 	int				nb_c;
 	int				before_check;
 	t_list			*first_proc;
+	int				last_alive;
+	int				add;
 }					t_vm;
 
-void		init_vm(t_vm *x);
-char	*ft_itoa_base(int n, int base);
-char	*ft_itoa_base2(int n, int base);
-void	ft_dump(t_vm *x);
-int		ft_convert(char *test);
+void				init_vm(t_vm *x);
+char				*ft_itoa_base(int n, int base);
+char				*ft_itoa_base2(int n, int base);
+void				ft_dump(t_vm *x);
+int					ft_convert(char *test, int size);
+int					parsingplayer(t_vm *x, t_player *p);
+t_process			*create_process(int id, int pc);
+int					indx_mod(int *arg);
+void				convert_arg(int *arg,int mod,t_list *list,t_vm *x);
+void				rev_str(char *nb, unsigned int size);
+void				num_players(t_vm *x);
+int					create_player(t_vm *x);
+int					parsingoption(char **av,int i, t_vm *x);
+int					move_pc(int pc,int pcadd);
+void				kill_process(t_list *list, t_vm *x);
+void				do_op(t_list *list, t_vm *x, int op);
+void				ft_error(int i);
+int					parse_arg(t_list *list, t_vm *x);
+void				op_fork(t_list *list, t_vm *x);
+void				op_add(t_list *list, t_vm *x);
+void				op_and(t_list *list, t_vm *x);
+void				op_ld(t_list *list, t_vm *x);
+void				op_ldi(t_list *list, t_vm *x);
+void				op_live(t_list *list, t_vm *x);
+void				op_or(t_list *list, t_vm *x);
+void				op_sti(t_list *list, t_vm *x);
+void				op_sub(t_list *list, t_vm *x);
+void				op_xor(t_list *list, t_vm *x);
+void				op_st(t_list *list, t_vm *x);
+void				op_zjmp(t_list *list, t_vm *x);
+void				op_lld(t_list *list, t_vm *x);
+void				op_lldi(t_list *list, t_vm *x);
+void				op_lfork(t_list *list, t_vm *x);
+void				op_aff(t_list *list, t_vm *x);
 #endif

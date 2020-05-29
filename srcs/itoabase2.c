@@ -34,7 +34,7 @@ char	*ft_itoa_base2(int n, int base)
 	if(!(res = (char *)malloc(sizeof(char) * 3)))
 		return (NULL);
 	if (n < 0)
-		n = 255 + n;
+		n = 256 + n;
 	nb2 = n;
 	i = 1;
 	while (n >= base)

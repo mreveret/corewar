@@ -13,6 +13,24 @@
 #include "corewar.h"
 #include <stdio.h>
 
+int		move_pc(int pc,int pcadd)
+{
+	pc += pcadd;
+	if (pc < 0)
+		pc = MEM_SIZE - pc;;
+	if (pc > MEM_SIZE)
+		pc = pc % MEM_SIZE;
+	return (pc);
+}
+
+int		indx_mod(int *arg)
+{
+	*arg = *arg % MEM_SIZE;
+	if (*arg > IDX_MOD  || *arg < -IDX_MOD)
+		*arg = *arg % IDX_MOD;
+	return (*arg);
+}
+
 t_process		*create_process(int id, int pc)
 {
 	t_process	*proc;
@@ -21,14 +39,12 @@ t_process		*create_process(int id, int pc)
 		return (0);
 	i = -1;
 	proc->id = id;
-	proc->alive = 1000;
-	if (pc > 0)
-		proc->alive = 500;
-	proc->pc = pc % MEM_SIZE;
+	proc->pc = pc;
+	proc->alive = 0;
 	proc->wait = 0;
-	while (++i)
+	while (++i < REG_NUMBER)
 	{
-		if (i == 1)
+		if (i == 0)
 			proc->reg[i] = id;
 		else
 			proc->reg[i] = 0;
@@ -36,115 +52,49 @@ t_process		*create_process(int id, int pc)
 	return (proc);
 }
 
-void		parse_arg(t_list *list,t_vm *x)
+void		do_op(t_list *list, t_vm *x, int op)
 {
-	int i;
-	PROCESS->encoded = (int)(x->arene[PROCESS->pc]);
-	PROCESS->t_arg[0] = (PROCESS->encoded >> 6) & 0b11 ;
-	printf("typecode: %d\n",PROCESS->t_arg[0]);
-	PROCESS->t_arg[1] = (PROCESS->encoded >> 4) & 0b11 ;
-	printf("typecode: %d\n",PROCESS->t_arg[1]);
-	PROCESS->t_arg[2] = (PROCESS->encoded >> 2) & 0b11 ;
-	printf("typecode: %d\n",PROCESS->t_arg[2]);
-	i = -1;
-	PROCESS->pc++;
-	while (++i < op_tab[PROCESS->op - 1].nb_arg)
-	{
-		if (PROCESS->t_arg[i] == DIR_CODE)
-		{
-			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,4));
-			printf("arg: %d\n",PROCESS->arg[i]);
-			PROCESS->pc+= 4;
-		}
-		else if (PROCESS->t_arg[i] == IND_CODE)
-		{
-			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,2));
-			printf("arg: %d\n",PROCESS->arg[i]);
-			PROCESS->pc += 2;
-		}
-		else if (PROCESS->t_arg[i] == REG_CODE)
-		{
-			PROCESS->arg[i] = ft_convert(ft_strsub(x->arene,PROCESS->pc,1));
-			printf("arg: %d\n",PROCESS->arg[i]);
-			PROCESS->pc += 1;
-		}
-	}
-}
+	void	(*doop[16])(t_list*, t_vm*);
+	doop[0] = &op_live;
+	doop[1] = &op_ld;
+	doop[2] = &op_st;
+	doop[3] = &op_add;
+	doop[4] = &op_sub;
+	doop[5] = &op_and;
+	doop[6] = &op_or;
+	doop[7] = &op_xor;
+	doop[8] = &op_zjmp;
+	doop[9] = &op_ldi;
+	doop[10] = &op_sti;
+	doop[11] = &op_fork;
+	doop[12] = &op_lld;
+	doop[13] = &op_lldi;
+	doop[14] = &op_lfork;
+	doop[15] = &op_aff;
+	return (doop[op](list,x));
+} //typedef dans le .h , tab de pointeur de fonction dans la vm ;
 
-void		load_vm(t_vm *x)
+void		kill_process(t_list *list, t_vm *x)
 {
-	t_list	*list;
-
-	list = x->first_proc;
-	if (x->nb_c == 0)
-		printf("Cycle numero %d\n",x->nb_c);
-	while (list != NULL)
-	{
-		if (PROCESS->wait == 0)
-		{
-			if (PROCESS->op != 0)
-				parse_arg(list,x);
-			PROCESS->op = (int)(x->arene[PROCESS->pc]);
-			if (PROCESS->op > 0 && PROCESS->op < 17)
-			{
-				printf("op %d\n",PROCESS->op);
-				PROCESS->wait = op_tab[PROCESS->op - 1].wait;
-			}
-			PROCESS->pc = (PROCESS->pc + 1) % MEM_SIZE;
-		}
-		else
-			PROCESS->wait--;
-		printf("wait = %d\n",PROCESS->wait);
-		list = list->next;
-	}
-//	if (before check == 0)
-//	{
-//	check_process();
-//	}
-	x->nb_c++;
-	printf("Cycle numero %d\n",x->nb_c);
-	return ;
-}
-
-void		init_vm(t_vm *x)
-{
-	int		i;
-	t_list	*tmp;
-
-	i = -1;
-	if(!(x->lst_process = (t_list *)malloc(sizeof(t_list))))
+	t_list *previous;
+	previous = x->first_proc;
+	if (previous == NULL)
 		return ;
-	if(!(tmp = (t_list *)malloc(sizeof(t_list))))
-		return;
-	x->lst_process = NULL;
-	while (++i < x->nbp)
+	if (list == previous)
 	{
-
-		printf ("i : %d\n", i );
-		tmp = ft_lstnew(create_process(x->p[i].num,x->p[i].pcstart),sizeof(t_process));
-		//	tmp->next = NULL;
-		ft_lstadd(&x->lst_process,tmp);
-		//		if (i == 0)
-		//		x->lst_process->next = NULL;
-
-		if (i == x->nbp - 1)
-		{
-			x->first_proc = x->lst_process;
-			//			x->first_proc->next = NULL;
-		}
-		printf("pc tmp: %d\n",((t_process *)x->lst_process->content)->pc);
-		//x->lst_process = x->lst_process->next;
+		x->first_proc = list->next;
+		bzero(list,sizeof(t_list));
+		free(list->content);
+		free(list);
+		list = NULL;
 	}
-	free(tmp);
-	x->cycle_to_die = CYCLE_TO_DIE;
-	x->cycle_delta = CYCLE_DELTA;
-	x->nbr_live = NBR_LIVE;
-	x->max_check = MAX_CHECKS;
-	x->nb_c = 0;
-	printf("test\n");
-	//while (x->lst_process->next)
-	i = 0;
-	while (++i < 8)
-		load_vm(x);
-	return ;
+	else
+	{
+		while (previous->next != list)
+			previous = previous->next;
+		previous->next = list->next;
+		free(list->content);
+		free(list);
+		list = NULL;
+	}
 }

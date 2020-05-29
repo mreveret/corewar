@@ -11,9 +11,16 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include <stdio.h>
 
-void	op_ld(t_list *list, int value, int regist)
+void	op_ld(t_list *list, t_vm *x)
 {
-	PROCESS->reg[regist] = value;
-	PROCESS->carry = (value == 0 ? 1 : 0);
-}
+	(void)x;
+//	printf("arg0 = %d\n",PROCESS->arg[0]);
+//	printf("arg1 = %d\n",PROCESS->arg[1]);
+	convert_arg(PROCESS->arg,1,list,x);
+	printf("arg0 = %d\n",PROCESS->arg[0]);
+	printf("arg1 = %d\n",PROCESS->arg[1]);
+	PROCESS->reg[PROCESS->arg[1]] = PROCESS->arg[0];
+	PROCESS->carry = (PROCESS->arg[0] == 0 ? 1 : 0);
+	}
