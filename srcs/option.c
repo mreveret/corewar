@@ -41,7 +41,7 @@ void	num_players(t_vm *x)
 	while (++i < x->nbp)
 	{
 		x->p[i].num = x->opt[i + 1];		
-		printf("player[%d] num: %d\n",i,x->p[i].num);
+		//printf("player[%d] num: %d\n",i,x->p[i].num);
 	}
 }
 

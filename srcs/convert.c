@@ -19,7 +19,7 @@
 	while (i++ < 4)
 	{
 		c[i] = c[i] - 255 - 1 - 255 - 1;
-	printf("test\n");
+	//printf("test\n");
 	}
 	return (c);
 }
@@ -72,7 +72,7 @@ int		ft_convert(unsigned char *test, int size)
 	}
 //	if (res < -128)
 //	{
-//	printf("res = %d\n",res);
+//	//printf("res = %d\n",res);
 //	return (ft_convert(uc2c(test),size));
 //	}
 //	else

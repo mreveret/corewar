@@ -90,13 +90,13 @@ int		load_vm(t_vm *x)
 		{
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
-				printf("Cycle %d\n",x->nb_c);
-				printf("action op: %d\n",PROCESS->op);
-				printf("du joueur %d\n",PROCESS->reg[0]);
+				//printf("Cycle %d\n",x->nb_c);
+				//printf("action op: %d\n",PROCESS->op);
+				//printf("du joueur %d\n",PROCESS->reg[0]);
 				if (parse_arg(list,x) == 1)
 					do_op(list, x, PROCESS->op - 1);
 				PROCESS->pc = move_pc(PROCESS->pc, x->add);
-				printf("pc : %x\n",x->arene[PROCESS->pc]);
+				//printf("pc : %x\n",x->arene[PROCESS->pc]);
 				PROCESS->op = 0;
 				list = list->next;
 				continue;
@@ -109,7 +109,7 @@ int		load_vm(t_vm *x)
 		}
 		//else
 		//	PROCESS->wait--;
-	//		printf("wait = %d\n",PROCESS->wait);
+	//		//printf("wait = %d\n",PROCESS->wait);
 		list = list->next;
 	}
 	return(ft_end_turn(x));
@@ -146,7 +146,7 @@ void		init_vm(t_vm *x)
 	while(load_vm(x) == 1);
 //	while (x->nb_c != 1530)
 //		load_vm(x);
-	ft_dump(x);
+//	ft_dump(x);
 	return ;
 }
 

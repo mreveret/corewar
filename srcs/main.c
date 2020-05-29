@@ -28,7 +28,7 @@ void			rev_str(char *nb, unsigned int size)
 	}
 }
 
-void		print_arena(uint8_t *arena, int print_mode)
+/*void		print_arena(uint8_t *arena, int print_mode)
 {
 	int	i;
 	int	j;
@@ -36,17 +36,17 @@ void		print_arena(uint8_t *arena, int print_mode)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		printf("%.4d : ", i);
+		//printf("%.4d : ", i);
 		j = 0;
 		while (j < print_mode)
 		{
-			printf("%.2x ", arena[i + j]);
+			//printf("%.2x ", arena[i + j]);
 			j++;
 		}
-		printf("\n");
+		//printf("\n");
 		i += print_mode;
 	}
-}
+}*/
 
 void	load_arena(t_vm *x)
 {
@@ -60,11 +60,11 @@ void	load_arena(t_vm *x)
 	while (++i < x->nbp)
 	{
 		x->p[i].pcstart = x->pos_next_player;
-//		printf("p[%d] pcstart : %d\n ",i,x->p[i].pcstart);
+//		//printf("p[%d] pcstart : %d\n ",i,x->p[i].pcstart);
 		memcpy(x->arene + x->pos_next_player ,x->p[i].content,x->p[i].header->prog_size);
 		x->pos_next_player += x->pos_add;
 	}
-	ft_dump(x);
+//	ft_dump(x);
 }
 
 int		parsingplayer(t_vm *x, t_player *p)
@@ -74,12 +74,12 @@ int		parsingplayer(t_vm *x, t_player *p)
 	ret = read(x->fd,p->header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
 		return (-1);
-//	printf("name -- %s\n", p->header->prog_name);
-//	printf("comment -- %s\n",p->header->comment);
+//	//printf("name -- %s\n", p->header->prog_name);
+//	//printf("comment -- %s\n",p->header->comment);
 	rev_str((char*)&p->header->magic,sizeof(p->header->magic));
 	rev_str((char*)&p->header->prog_size,sizeof(p->header->prog_size));
 	
-//printf("prog_size -- %d\n",p->header->prog_size);
+////printf("prog_size -- %d\n",p->header->prog_size);
 	ret = read(x->fd,p->content,CHAMP_MAX_SIZE + 1);
 	if (ret != (int)p->header->prog_size)
 	{
@@ -180,7 +180,7 @@ int		main(int ac, char **av)
 		}
 		else
 		{
-	//		printf("i:%d\n",i);
+	//		//printf("i:%d\n",i);
 			if (parsingoption(av,i,x) == 0)
 			{
 				x->opt[0] = -1;
@@ -205,14 +205,15 @@ int		main(int ac, char **av)
 //	ft_putstr(x->p[x->last_alive - 1].header->prog_name);
 //	ft_putstr(") a gagne\n");
 //	i = -1;
-	printf("cycle to die final : %d\n",x->cycle_to_die);
-	printf("cycle: %d\n",x->nb_c);
+//	printf("cycle to die final : %d\n",x->cycle_to_die);
+//	printf("cycle: %d\n",x->nb_c);
 //	while (++i < x->nbp)
 ///	{
 //	free(x->p[i].header);
 //	free(x->p[i].content);
 //	}
 	//while (1);
+	ft_dump(x);
 	return 1;
 }
 //	free(x->p);
@@ -271,12 +272,12 @@ int		parsingplayer(t_vm *x, t_player *p)
 	ret = read(x->fd,p->header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
 		return (-1);
-	printf("name -- %s\n", p->header->prog_name);
-	printf("comment -- %s\n",p->header->comment);
+	//printf("name -- %s\n", p->header->prog_name);
+	//printf("comment -- %s\n",p->header->comment);
 	rev_str((char*)&p->header->magic,sizeof(p->header->magic));
 	rev_str((char*)&p->header->prog_size,sizeof(p->header->prog_size));
 
-//printf("prog_size -- %d\n",p->header->prog_size);
+////printf("prog_size -- %d\n",p->header->prog_size);
 	ret = read(x->fd,p->content,CHAMP_MAX_SIZE + 1);
 	if (ret != (int)p->header->prog_size)
 	{
@@ -337,8 +338,8 @@ int		main(int ac, char **av)
 	ft_putstr(x->p[x->last_alive - 1].header->prog_name);
 	ft_putstr(") a gagne\n");
 	i = -1;
-	printf("cycle to die final : %d\n",x->cycle_to_die);
-	printf("cycle: %d\n",x->nb_c);
+	//printf("cycle to die final : %d\n",x->cycle_to_die);
+	//printf("cycle: %d\n",x->nb_c);
 
 	return 1;
 }*/
