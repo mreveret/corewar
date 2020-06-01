@@ -55,6 +55,8 @@ void		check_live(t_vm *x)
 	if (x->nbr_live >= NBR_LIVE || x->max_check == MAX_CHECKS)
 	{
 		x->cycle_to_die -= CYCLE_DELTA;
+		printf ("cycle to die : %d\n",x->cycle_to_die);
+		printf ("cdelta : %d\n",CYCLE_DELTA);
 	//	if (x->nbr_live >= NBR_LIVE)
 			x->nbr_live = 0;
 		x->max_check = 0;
@@ -90,9 +92,9 @@ int		load_vm(t_vm *x)
 		{
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
-				//printf("Cycle %d\n",x->nb_c);
-				//printf("action op: %d\n",PROCESS->op);
-				//printf("du joueur %d\n",PROCESS->reg[0]);
+			//	printf("Cycle %d\n",x->nb_c);
+			//	printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
+			//	printf("du joueur %d\n",PROCESS->reg[0]);
 				if (parse_arg(list,x) == 1)
 					do_op(list, x, PROCESS->op - 1);
 				PROCESS->pc = move_pc(PROCESS->pc, x->add);
@@ -144,9 +146,8 @@ void		init_vm(t_vm *x)
 	x->nb_c = 1;
 	i = 0;
 	while(load_vm(x) == 1);
-//	while (x->nb_c != 1530)
+//	while (x->nb_c != 1200)
 //		load_vm(x);
 //	ft_dump(x);
 	return ;
 }
-

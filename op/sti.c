@@ -29,6 +29,9 @@ void	op_sti(t_list *list, t_vm *x)
 		*ptr = PROCESS->arg[0];
 		rev_str(x->arene + move_pc(PROCESS->pc - 1,(PROCESS->arg[1] + PROCESS->reg[PROCESS->arg[2]]) % IDX_MOD),4);
 	}
-	PROCESS->carry = (PROCESS->arg[0] == 0 ? 1 :0);
+//	printf("arg[0]:%hd\n",(short)PROCESS->arg[0]);
+//	printf("carry avant : %d\n",PROCESS->carry);
+//	PROCESS->carry = (PROCESS->arg[0] == 0 ? 1 :0);
+//	printf("carry apres : %d\n",PROCESS->carry);
 }
 

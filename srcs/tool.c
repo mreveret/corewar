@@ -46,7 +46,7 @@ t_process		*create_process(int id, int pc)
 	while (++i < REG_NUMBER)
 	{
 		if (i == 0)
-			proc->reg[i] = id;
+			proc->reg[i] = -id;
 		else
 			proc->reg[i] = 0;
 	}
