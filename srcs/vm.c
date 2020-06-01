@@ -54,9 +54,15 @@ void		check_live(t_vm *x)
 	}
 	if (x->nbr_live >= NBR_LIVE || x->max_check == MAX_CHECKS)
 	{
+	//	printf ("cycle to die : %d\n",x->cycle_to_die);
+	//	printf ("cdelta : %d\n",CYCLE_DELTA);
+	//	if (x->cycle_to_die < 1436)
+	//		printf("nbc:%d\n",x->nb_c);
 		x->cycle_to_die -= CYCLE_DELTA;
-		printf ("cycle to die : %d\n",x->cycle_to_die);
-		printf ("cdelta : %d\n",CYCLE_DELTA);
+		
+	//	printf ("cycle to die : %d\n",x->cycle_to_die);
+	//	printf ("cdelta : %d\n",CYCLE_DELTA);
+	//	printf ("___________\n");
 	//	if (x->nbr_live >= NBR_LIVE)
 			x->nbr_live = 0;
 		x->max_check = 0;
@@ -68,11 +74,14 @@ int		ft_end_turn(t_vm *x)
 {
 	x->nb_c++;
 	x->before_check--;
+	//	if (x->cycle_to_die < 1436)
 	//	printf("Cycle numero %d\n",x->nb_c);
+	//	printf("CTD %d\n",x->cycle_to_die);
+
 	if (x->before_check == 0)
 	{
 		check_live(x);
-		x->before_check = x->cycle_to_die;
+		//x->before_check = x->cycle_to_die;
 		if (stop_vm(x) < 1)
 			return (0);
 	}
@@ -146,7 +155,7 @@ void		init_vm(t_vm *x)
 	x->nb_c = 1;
 	i = 0;
 	while(load_vm(x) == 1);
-//	while (x->nb_c != 1200)
+//	while (x->nb_c != 5000)
 //		load_vm(x);
 //	ft_dump(x);
 	return ;

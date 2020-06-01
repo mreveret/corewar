@@ -64,8 +64,11 @@ extern t_op op_tab[17];
 typedef struct		s_vm
 {
 	char	arene[MEM_SIZE];
+	int				test;
 	int				cycle_to_die;
+	int				test2;
 	int				cycle_delta;
+	int				test3;
 	int				cycle_to_check;
 	int				nbp;
 	t_player		p[4];
