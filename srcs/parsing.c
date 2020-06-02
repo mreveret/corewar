@@ -52,8 +52,8 @@ int		parse_arg(t_list *list, t_vm *x)
 	while (++i < op_tab[PROCESS->op - 1].nb_arg)
 		PROCESS->arg[i] = 0;
 	ret = parse_typecode(list, x);
-	if (ret == 0)
-		return (ret);
+//	if (ret == 0)
+//		return (ret);
 	i = -1;
 //	//printf("nb arg: %d\n",op_tab[PROCESS->op - 1].nb_arg);
 	while (++i < op_tab[PROCESS->op - 1].nb_arg)

@@ -46,7 +46,7 @@ void	load_arena(t_vm *x)
 		x->pos_next_player += x->pos_add;
 	}
 //	while (1);
-	ft_dump(x);
+//	ft_dump(x);
 }
 
 int		parsingplayer(t_vm *x, t_player *p)

@@ -103,9 +103,9 @@ int		load_vm(t_vm *x)
 			{
 				//if (x->nb_c >= 2000)
 				//{
-				//printf("Cycle %d\n",x->nb_c);
-				//printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
-				//printf("du joueur %d\n",PROCESS->reg[0]);
+			//	printf("Cycle %d\n",x->nb_c);
+			//	printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
+			//	printf("du joueur %d\n",PROCESS->reg[0]);
 			//	}
 				if (parse_arg(list,x) == 1)
 					do_op(list, x, PROCESS->op - 1);
@@ -159,11 +159,13 @@ void		init_vm(t_vm *x)
 	i = 0;
 	while(load_vm(x) == 1)
 	{
-		if (x->dumpnb != 0 && x->nb_c == x->dumpnb)
-		ft_dump(x);
-		break;
+		if (x->dumpnb != 0 && x->nb_c == x->dumpnb + 1)
+			{
+			ft_dump(x);
+			break;
+			}
 	}
-//	while (x->nb_c != 2026)
+//	while (x->nb_c != 60)
 //		load_vm(x);
 //	ft_dump(x);
 	return ;
