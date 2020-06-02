@@ -19,11 +19,11 @@ int		parse_typecode(t_list *list,t_vm *x)
 	{
 		PROCESS->encoded = (int)(x->arene[move_pc(PROCESS->pc, x->add)]);
 		PROCESS->t_arg[0] = (PROCESS->encoded >> 6) & 0b11 ;
-		//printf("typecode: %d\n",PROCESS->t_arg[0]);
+		printf("typecode: %d\n",PROCESS->t_arg[0]);
 		PROCESS->t_arg[1] = (PROCESS->encoded >> 4) & 0b11 ;
-		//printf("typecode: %d\n",PROCESS->t_arg[1]);
+		printf("typecode: %d\n",PROCESS->t_arg[1]);
 		PROCESS->t_arg[2] = (PROCESS->encoded >> 2) & 0b11 ;
-		//printf("typecode: %d\n",PROCESS->t_arg[2]);
+		printf("typecode: %d\n",PROCESS->t_arg[2]);
 		x->add += 1;
 	}
 	else
@@ -52,8 +52,8 @@ int		parse_arg(t_list *list, t_vm *x)
 	while (++i < op_tab[PROCESS->op - 1].nb_arg)
 		PROCESS->arg[i] = 0;
 	ret = parse_typecode(list, x);
-//	if (ret == 0)
-//		return (ret);
+	if (ret == 0)
+		return (ret);
 	i = -1;
 //	//printf("nb arg: %d\n",op_tab[PROCESS->op - 1].nb_arg);
 	while (++i < op_tab[PROCESS->op - 1].nb_arg)

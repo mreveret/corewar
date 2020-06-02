@@ -101,9 +101,12 @@ int		load_vm(t_vm *x)
 		{
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
-			//	printf("Cycle %d\n",x->nb_c);
-			//	printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
-			//	printf("du joueur %d\n",PROCESS->reg[0]);
+				//if (x->nb_c >= 2000)
+				//{
+				//printf("Cycle %d\n",x->nb_c);
+				//printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
+				//printf("du joueur %d\n",PROCESS->reg[0]);
+			//	}
 				if (parse_arg(list,x) == 1)
 					do_op(list, x, PROCESS->op - 1);
 				PROCESS->pc = move_pc(PROCESS->pc, x->add);
@@ -154,9 +157,9 @@ void		init_vm(t_vm *x)
 	x->before_check = CYCLE_TO_DIE;
 	x->nb_c = 1;
 	i = 0;
-	while(load_vm(x) == 1);
-//	while (x->nb_c != 5000)
-//		load_vm(x);
+//	while(load_vm(x) == 1);
+	while (x->nb_c != 2026)
+		load_vm(x);
 //	ft_dump(x);
 	return ;
 }
