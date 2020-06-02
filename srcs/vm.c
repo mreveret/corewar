@@ -157,9 +157,14 @@ void		init_vm(t_vm *x)
 	x->before_check = CYCLE_TO_DIE;
 	x->nb_c = 1;
 	i = 0;
-//	while(load_vm(x) == 1);
-	while (x->nb_c != 2026)
-		load_vm(x);
+	while(load_vm(x) == 1)
+	{
+		if (x->dumpnb != 0 && x->nb_c == x->dumpnb)
+		ft_dump(x);
+		break;
+	}
+//	while (x->nb_c != 2026)
+//		load_vm(x);
 //	ft_dump(x);
 	return ;
 }

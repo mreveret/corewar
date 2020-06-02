@@ -88,7 +88,7 @@ int		parsingoption(char **av,int i, t_vm *x)
 	if (ft_strcmp(av[i],"-d") == 0)
 	{
 			x->dumpnb = atoi(av[i + 1]);
-			ft_dump(x);
+		//	ft_dump(x);
 			return (1);
 	}
 	if (ft_strcmp(av[i], "-n") == 0)
@@ -100,8 +100,9 @@ int		parsingoption(char **av,int i, t_vm *x)
 		return(2);
 	}
 	else
-	{
-		ft_error(1);
-		return (-1);
-	}
+	return 3;
+	//{
+	//	ft_error(1);
+	//	return (-1);
+	//}
 }

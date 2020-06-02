@@ -121,4 +121,8 @@ void				op_lld(t_list *list, t_vm *x);
 void				op_lldi(t_list *list, t_vm *x);
 void				op_lfork(t_list *list, t_vm *x);
 void				op_aff(t_list *list, t_vm *x);
+void				num_players(t_vm *x);
+int					create_player(t_vm *x);
+int					parsingoption(char **av,int i, t_vm *x);
+
 #endif
