@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "corewar.h"
 
 /*unsigned char *uc2c(unsigned char *c)
 {
@@ -45,7 +46,7 @@ static int		ft_pow(int res,char c)
 	return (res2);
 }*/
 
-int		ft_convert(unsigned char *test, int size)
+int		ft_convert(t_vm *x, t_list *list, int size)
 {
 	int res;
 	int i;
@@ -55,7 +56,7 @@ int		ft_convert(unsigned char *test, int size)
 	while (++i < size)
 	{
 		res <<= 8;
-		res |= 0x000000FF & test[i];
+		res |= 0x000000FF & x->arene[move_pc(PROCESS->pc,x->add + i)];
 	}
 	return (res);
 	}

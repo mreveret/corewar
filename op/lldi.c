@@ -22,6 +22,6 @@ void	op_lldi(t_list *list, t_vm *x)
 	convert_arg(PROCESS->arg,0,list,x);
 	sum = PROCESS->arg[0] + PROCESS->arg[1];
 	//PROCESS->reg[PROCESS->arg[2]] = ft_convert(x->arene + move_pc(PROCESS->pc -1,sum),4);
-	PROCESS->reg[PROCESS->arg[2]] = ft_convert(x->arene + move_pc(PROCESS->pc -1,sum),4);
+	PROCESS->reg[PROCESS->arg[2]] = ft_convert3(x,4,move_pc(PROCESS->pc -1,sum));
 	PROCESS->carry = (PROCESS->reg[PROCESS->arg[2]] == 0 ? 1 : 0);
 }

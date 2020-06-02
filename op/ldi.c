@@ -13,6 +13,21 @@
 #include "corewar.h"
 #include <stdio.h>
 
+int		ft_convert3(t_vm *x, int size, int pos)
+{
+	int res;
+	int i;
+	i =  -1;
+
+	res = 0;
+	while (++i < size)
+	{
+		res <<= 8;
+		res |= 0x000000FF & x->arene[move_pc(pos,i)];
+	}
+	return (res);
+	}
+
 void	op_ldi(t_list *list, t_vm *x)
 {
 	int sum;
@@ -24,6 +39,6 @@ void	op_ldi(t_list *list, t_vm *x)
 		sum = indx_mod(&sum);
 		//printf("sum %d\n",sum);
 	
-	PROCESS->reg[PROCESS->arg[2]] = ft_convert(x->arene + move_pc(PROCESS->pc -1,sum),4);
+	PROCESS->reg[PROCESS->arg[2]] = ft_convert3(x,4,move_pc(PROCESS->pc -1,sum));
 	PROCESS->carry = (PROCESS->reg[PROCESS->arg[2]] == 0 ? 1 : 0);
 }
