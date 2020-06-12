@@ -18,7 +18,10 @@ void	op_ld(t_list *list, t_vm *x)
 	(void)x;
 //	printf("arg0 = %d\n",PROCESS->arg[0]);
 //	printf("arg1 = %d\n",PROCESS->arg[1]);
+//	printf("------\n");
 	convert_arg(PROCESS->arg,1,list,x);
+	if (PROCESS->arg[1] >= REG_NUMBER || PROCESS->arg[1] < 0)
+	return ;
 //	printf("arg0 = %d\n",PROCESS->arg[0]);
 //	printf("arg1 = %d\n",PROCESS->arg[1]);
 	PROCESS->reg[PROCESS->arg[1]] = PROCESS->arg[0];

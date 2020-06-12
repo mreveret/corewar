@@ -19,8 +19,8 @@ void	op_st(t_list *list, t_vm *x)
 	int			tmp_pc;
 	oct = 4;
 	tmp_pc = 0;
-		//convert_arg(PROCESS->arg,0,list,x);
-	if (PROCESS->t_arg[1] == IND_CODE)
+//		convert_arg(PROCESS->arg,0,list,x);
+	if (PROCESS->t_arg[1] == T_IND)
 	{
 		tmp_pc = move_pc(PROCESS->pc - 1,PROCESS->arg[1] % IDX_MOD);
 		tmp_pc = move_pc(tmp_pc,oct);
@@ -44,7 +44,7 @@ void	op_st(t_list *list, t_vm *x)
 /*	int *ptr;
 //	convert_arg(PROCESS->arg,0,list,x);
 //	ptr = NULL;
-if (PROCESS->t_arg[1] == IND_CODE)
+if (PROCESS->t_arg[1] == T_IND)
 {
 //		//printf("mvpc_st:%d\n",move_pc(0,PROCESS->arg[1]));
 //	PROCESS->arg[1] = indx_mod(&PROCESS->arg[1]);
