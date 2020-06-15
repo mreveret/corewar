@@ -6,7 +6,7 @@
 /*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 15:36:59 by machoffa          #+#    #+#             */
-/*   Updated: 2019/10/22 17:26:54 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/06/15 16:36:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		read_return(int fd, char **line, char **tab, int ret)
 
 int				get_next_line(const int fd, char **line)
 {
-	static char		*tab[OPEN_MAX];
+	static char		*tab[15];
 	char			buff[BUFF_SIZE + 1];
 	int				ret;
 
