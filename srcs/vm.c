@@ -67,6 +67,7 @@ void		check_live(t_vm *x)
 			x->nbr_live = 0;
 		x->max_check = 0;
 	}
+	x->nbr_live = 0;
 	x->before_check = x->cycle_to_die;
 }
 
@@ -101,12 +102,12 @@ int		load_vm(t_vm *x)
 		{
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
-				//if (x->nb_c >= 4000)
-				//{
-				//printf("Cycle %d\n",x->nb_c);
-				//printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
+			//	if (x->nb_c >= 24329)
+			//	{
+			//	printf("Cycle %d\n",x->nb_c);
+			//	printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
 				//printf("du joueur %d\n",PROCESS->reg[0]);
-				//}
+			//	}
 				if (parse_arg(list,x) == 1)
 					do_op(list, x, PROCESS->op - 1);
 				PROCESS->pc = move_pc(PROCESS->pc, x->add);

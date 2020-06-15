@@ -63,7 +63,7 @@ int		parsingplayer(t_vm *x, t_player *p)
 
 ////printf("prog_size -- %d\n",p->header->prog_size);
 	ret = read(x->fd,p->content,CHAMP_MAX_SIZE + 1);
-	if (ret != (int)p->header->prog_size)
+	if (ret != (int)p->header->prog_size || p->header->prog_size > CHAMP_MAX_SIZE)
 	{
 		return (-1);
 		}
@@ -96,7 +96,8 @@ int		main(int ac, char **av)
 		if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
 		{
 			x->fd = open(av[i], O_RDONLY);
-			create_player(x);
+			if (create_player(x) == -1)
+				return (-1);
 			x->opt[0] = 0;
 		}
 		else

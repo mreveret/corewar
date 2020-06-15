@@ -62,7 +62,8 @@ int		create_player(t_vm *x)
 		p->num = x->opt[x->nbp + 1];
 	else
 		p->num = x->nbp;
-	parsingplayer(x, p);
+	if (parsingplayer(x, p) == -1)
+		return (-1);
 	return (0);
 }
 
