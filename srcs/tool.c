@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:11:32 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/12 18:08:51 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:58:56 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ int		indx_mod(int *arg)
 	return (*arg);
 }
 
-t_process		*create_process(int id, int pc)
+t_process		*create_process(t_vm *x, int id, int pc)
 {
 	t_process	*proc;
 	int			i;
+
 	if (!(proc = (t_process*)malloc(sizeof(t_process))))
 		return (0);
 	i = -1;
+	proc->proc_nb = ++x->proc_nb;
 	proc->id = id;
 	proc->pc = pc;
 	proc->alive = 0;
@@ -78,24 +80,25 @@ void		do_op(t_list *list, t_vm *x, int op)
 void		kill_process(t_list *list, t_vm *x)
 {
 	t_list *previous;
+
 	previous = x->first_proc;
 	if (previous == NULL)
 		return ;
-	if (list == previous)
-	{
+	else if (list == previous)
 		x->first_proc = list->next;
-		bzero(list,sizeof(t_list));
-		free(list->content);
-		free(list);
-		list = NULL;
-	}
 	else
 	{
-		while (previous->next != list)
+		while (previous->next && previous->next != list)
 			previous = previous->next;
-		previous->next = list->next;
-		free(list->content);
-		free(list);
-		list = NULL;
+		if (list)
+			previous->next = list->next;
+		else
+			return ;
 	}
+	printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+		((t_process *)list->content)->proc_nb,
+		x->nb_c - ((t_process *)list->content)->last_live_cycle,
+		x->cycle_to_die);
+	free(list->content);
+	free(list);
 }

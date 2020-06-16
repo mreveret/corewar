@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/12 18:07:05 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:56:12 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@
 #include <stdio.h>
 //#define malloc(x) NULL
 #define PROCESS ((t_process *)list->content)
+# define LOG_LIVE 1
+# define LOG_CYCLE 2
+# define LOG_OP 4
+# define LOG_DEATH 8
+# define LOG_PC 16
 
 typedef struct		s_player
 {
 	int				num;
-	header_t		*header;
-	char			*content;
+	header_t		header;
+	char			content[CHAMP_MAX_SIZE + 1];
 	int				alive;
 	int				pcstart;
 }					t_player;
@@ -39,6 +44,7 @@ typedef struct		s_process
 	int				carry;
 	int				wait;
 	int				alive;
+	int				last_live_cycle;
 	int				op;
 	int				encoded;
 	int				enc[4];
@@ -64,11 +70,8 @@ extern t_op op_tab[17];
 typedef struct		s_vm
 {
 	char	arene[MEM_SIZE];
-	int				test;
 	int				cycle_to_die;
-	int				test2;
 	int				cycle_delta;
-	int				test3;
 	int				cycle_to_check;
 	int				nbp;
 	t_player		p[4];
@@ -82,11 +85,14 @@ typedef struct		s_vm
 	int				max_check;
 	int				nb_c;
 	int				before_check;
+	int				current_proc_nb;
 	t_list			*first_proc;
-	int				last_alive;
+	int				winner;
 	int				add;
+	int				log;
 }					t_vm;
 
+int					exit_corewar(t_vm *x, int ret);
 void				init_vm(t_vm *x);
 char				*ft_itoa_base(int n, int base);
 char				*ft_itoa_base2(int n, int base);
@@ -94,7 +100,7 @@ void				ft_dump(t_vm *x);
 int					ft_convert(t_vm *x, t_list *list, int size);
 int					ft_convert3(t_vm *x, int size, int pos);
 int					parsingplayer(t_vm *x, t_player *p);
-t_process			*create_process(int id, int pc);
+t_process			*create_process(int id, int pc, int proc_nb);
 int					indx_mod(int *arg);
 void				convert_arg(int *arg,int mod,t_list *list,t_vm *x);
 void				rev_str(char *nb, unsigned int size);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:18:17 by mreveret          #+#    #+#             */
-/*   Updated: 2020/02/12 16:18:18 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:49:21 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,14 @@ void		init_vm(t_vm *x)
 	t_process *proc;
 
 	i = 0;
-	proc = create_process(x->p[i].num,x->p[i].pcstart);
-	x->lst_process = ft_lstnew(proc,sizeof(t_process));
-	free(proc);
+	proc = create_process(x, x->p[i].num,x->p[i].pcstart);
+	x->lst_process = ft_lstnew(NULL, 0);
+	x->lst_process->content = proc;
 	while (++i < x->nbp)
 	{
-		proc = create_process(x->p[i].num,x->p[i].pcstart);
-		tmp = ft_lstnew(proc, sizeof(t_process));
-		free(proc);
+		proc = create_process(x, x->p[i].num,x->p[i].pcstart);
+		tmp = ft_lstnew(NULL, 0);
+		tmp->content = proc;
 		ft_lstadd(&x->lst_process,tmp);
 		if (i == x->nbp - 1)
 			x->first_proc = x->lst_process;

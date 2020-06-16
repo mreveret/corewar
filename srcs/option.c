@@ -49,21 +49,16 @@ int		create_player(t_vm *x)
 {
 	t_player	*p;
 
-	if(x->nbp > 4)
-	    return (-1);
-	if (!(p = (t_player *)malloc(sizeof(t_player))))
-		return (-1);
-	if (!(p->header = (header_t *)malloc(sizeof(header_t))))
-		return (-1);
-	if (!(p->content = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE + 1)))
-	    return (-1);
-	x->nbp++;
+	printf("nbp: %d\n", x->nbp);
+	p = &(x->p[x->nbp]);
 	if (x->opt[x->nbp + 1] != 0)
 		p->num = x->opt[x->nbp + 1];
 	else
 		p->num = x->nbp;
 	if (parsingplayer(x, p) == -1)
 		return (-1);
+	if(++x->nbp > 3)
+	    return (-1);
 	return (0);
 }
 
@@ -89,7 +84,6 @@ int		parsingoption(char **av,int i, t_vm *x)
 	if (ft_strcmp(av[i],"-d") == 0)
 	{
 			x->dumpnb = atoi(av[i + 1]);
-		//	ft_dump(x);
 			return (1);
 	}
 	if (ft_strcmp(av[i], "-n") == 0)
@@ -100,8 +94,17 @@ int		parsingoption(char **av,int i, t_vm *x)
 		x->opt[0] = -1;
 		return(2);
 	}
+	if (ft_strcmp(av[i], "-v") == 0)
+	{
+		if (ft_str_is_numeric(av[i + 1]) == 1)
+		{
+			x->log = ft_atoi(av[i + 1]);
+			return (3);
+		}
+		return (-1);
+	}
 	else
-	return 3;
+		return 4;
 	//{
 	//	ft_error(1);
 	//	return (-1);

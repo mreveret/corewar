@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:19:36 by mreveret          #+#    #+#             */
-/*   Updated: 2020/02/12 16:19:38 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:47:31 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void		op_fork(t_list *list, t_vm *x)
 {
 	t_process *proc;
 	t_list *tmp;
-//	if (!(proc = create_process(PROCESS->reg[0],PROCESS->pc)))
-//		return;
-	if (!(proc = (t_process*)malloc(sizeof(t_process))))
+
+	if (!(proc = create_process(x, PROCESS->reg[0],PROCESS->pc)))
 		return;
 	memcpy(proc, PROCESS,sizeof(t_process));
 

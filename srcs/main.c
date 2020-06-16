@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/12 16:40:57 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:34:15 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	load_arena(t_vm *x)
 	while (++i < x->nbp)
 	{
 		x->p[i].pcstart = x->pos_next_player;
-		memcpy(x->arene + x->pos_next_player ,x->p[i].content,x->p[i].header->prog_size);
+		memcpy(x->arene + x->pos_next_player, x->p[i].content,
+			x->p[i].header.prog_size);
 	//	while(1);
 //	while (1);
 		x->pos_next_player += x->pos_add;
@@ -51,19 +52,21 @@ void	load_arena(t_vm *x)
 
 int		parsingplayer(t_vm *x, t_player *p)
 {
-	int	ret;
+	int			ret;
+	header_t	*header;
 
-	ret = read(x->fd,p->header, sizeof(header_t));
+	header = &p->header;
+	ret = read(x->fd, header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
 		return (-1);
-	//printf("name -- %s\n", p->header->prog_name);
-	//printf("comment -- %s\n",p->header->comment);
-	rev_str((char*)&p->header->magic,sizeof(p->header->magic));
-	rev_str((char*)&p->header->prog_size,sizeof(p->header->prog_size));
+	//printf("name -- %s\n", header->prog_name);
+	//printf("comment -- %s\n",header->comment);
+	rev_str((char*)&header->magic,sizeof(header->magic));
+	rev_str((char*)&header->prog_size,sizeof(header->prog_size));
 
-////printf("prog_size -- %d\n",p->header->prog_size);
-	ret = read(x->fd,p->content,CHAMP_MAX_SIZE + 1);
-	if (ret != (int)p->header->prog_size || p->header->prog_size > CHAMP_MAX_SIZE)
+////printf("prog_size -- %d\n",header->prog_size);
+	ret = read(x->fd, &p->content,CHAMP_MAX_SIZE + 1);
+	if (ret != (int)header->prog_size || header->prog_size > CHAMP_MAX_SIZE)
 	{
 		return (-1);
 		}
@@ -84,20 +87,21 @@ void	ft_error(int i)
 int		main(int ac, char **av)
 {
 	int			i;
+	t_vm		ouzeyiflbkn_apres_tout_hein;
 	t_vm		*x;
 	char		*test;
 
 	i = 0;
-	if (!(x = (t_vm *)malloc(sizeof(t_vm))))
-		return (-1);
+	x = &ouzeyiflbkn_apres_tout_hein;
 	x->nbp = 0;
 	while (++i < ac)
 	{
 		if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
 		{
-			x->fd = open(av[i], O_RDONLY);
+			if ((x->fd = open(av[i], O_RDONLY)) == -1)
+				return (exit_corewar(x, -1));
 			if (create_player(x) == -1)
-				return (-1);
+				return (exit_corewar(x, -1));
 			x->opt[0] = 0;
 		}
 		else
@@ -105,26 +109,26 @@ int		main(int ac, char **av)
 			if (parsingoption(av, i, x) > 0)
 				i++;
 			else
-				return (0);
+				return (exit_corewar(x, 0));
 		}
 	}
-	if (x->nbp > 4)
+	if (x->nbp > 4 || x->nbp < 1)
 	{
 		ft_error(0);
-		return (0);
+		return (exit_corewar(x, 0));
 	}
 	num_players(x);
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
 	//ft_putstr("Le joueur ");
-	//ft_putstr(ft_itoa(x->last_alive));
+	//ft_putstr(ft_itoa(x->winner));
 	//ft_putstr("(");
-	//ft_putstr(x->p[x->last_alive - 1].header->prog_name);
+	//ft_putstr(x->p[x->winner - 1].header->prog_name);
 	//ft_putstr(") a gagne\n");
 	//i = -1;
 	printf("cycle to die final : %d\n",x->cycle_to_die);
 	printf("cycle: %d\n",x->nb_c);
 
-	return 1;
+	return (exit_corewar(x, 1));
 }
