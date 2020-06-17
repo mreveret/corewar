@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:11:32 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/16 11:58:56 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/17 15:41:30 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ t_process		*create_process(t_vm *x, int id, int pc)
 	if (!(proc = (t_process*)malloc(sizeof(t_process))))
 		return (0);
 	i = -1;
-	proc->proc_nb = ++x->proc_nb;
-	proc->id = id;
+	proc->id = ++x->current_proc_id;
 	proc->pc = pc;
 	proc->alive = 0;
 	proc->wait = 0;
@@ -96,7 +95,7 @@ void		kill_process(t_list *list, t_vm *x)
 			return ;
 	}
 	printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-		((t_process *)list->content)->proc_nb,
+		((t_process *)list->content)->id,
 		x->nb_c - ((t_process *)list->content)->last_live_cycle,
 		x->cycle_to_die);
 	free(list->content);

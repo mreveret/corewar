@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/16 11:56:12 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/17 15:41:09 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct		s_vm
 	int				max_check;
 	int				nb_c;
 	int				before_check;
-	int				current_proc_nb;
+	int				current_proc_id;
 	t_list			*first_proc;
 	int				winner;
 	int				add;
@@ -100,7 +100,7 @@ void				ft_dump(t_vm *x);
 int					ft_convert(t_vm *x, t_list *list, int size);
 int					ft_convert3(t_vm *x, int size, int pos);
 int					parsingplayer(t_vm *x, t_player *p);
-t_process			*create_process(int id, int pc, int proc_nb);
+t_process			*create_process(t_vm *x, int id, int pc);
 int					indx_mod(int *arg);
 void				convert_arg(int *arg,int mod,t_list *list,t_vm *x);
 void				rev_str(char *nb, unsigned int size);
