@@ -57,7 +57,7 @@ int		create_player(t_vm *x)
 		p->num = x->nbp;
 	if (parsingplayer(x, p) == -1)
 		return (-1);
-	if(++x->nbp > 3)
+	if(++x->nbp > 4)
 	    return (-1);
 	return (0);
 }

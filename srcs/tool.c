@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:11:32 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/17 15:41:30 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/17 17:29:20 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ void		do_op(t_list *list, t_vm *x, int op)
 void		kill_process(t_list *list, t_vm *x)
 {
 	t_list *previous;
+	t_process *process;
 
+	process = list->content;
 	previous = x->first_proc;
-	if (previous == NULL)
+	if (list == NULL || previous == NULL)
 		return ;
 	else if (list == previous)
 		x->first_proc = list->next;
@@ -89,15 +91,12 @@ void		kill_process(t_list *list, t_vm *x)
 	{
 		while (previous->next && previous->next != list)
 			previous = previous->next;
-		if (list)
+		if (previous->next == list)
 			previous->next = list->next;
-		else
-			return ;
 	}
-	printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-		((t_process *)list->content)->id,
-		x->nb_c - ((t_process *)list->content)->last_live_cycle,
-		x->cycle_to_die);
+	if (x->log & LOG_DEATH)
+		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+			process->id, x->nb_c - process->last_live_cycle, x->cycle_to_die);
 	free(list->content);
 	free(list);
 }

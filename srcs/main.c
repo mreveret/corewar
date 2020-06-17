@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/16 11:34:15 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/17 16:39:10 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int		parsingplayer(t_vm *x, t_player *p)
 		return (-1);
 	//printf("name -- %s\n", header->prog_name);
 	//printf("comment -- %s\n",header->comment);
-	rev_str((char*)&header->magic,sizeof(header->magic));
-	rev_str((char*)&header->prog_size,sizeof(header->prog_size));
+	rev_str((char*)&header->magic, sizeof(header->magic));
+	rev_str((char*)&header->prog_size, sizeof(header->prog_size));
 
 ////printf("prog_size -- %d\n",header->prog_size);
 	ret = read(x->fd, &p->content,CHAMP_MAX_SIZE + 1);
@@ -70,7 +70,7 @@ int		parsingplayer(t_vm *x, t_player *p)
 	{
 		return (-1);
 		}
-		x->p[x->nbp - 1] = *p;
+	x->p[x->nbp] = *p;
 //		load_arena(x,&p[0]);
 	return (0);
 }

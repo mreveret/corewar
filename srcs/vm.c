@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:18:17 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/16 11:49:21 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/17 18:00:04 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void		check_live(t_vm *x)
 	//	if (x->cycle_to_die < 1436)
 	//		printf("nbc:%d\n",x->nb_c);
 		x->cycle_to_die -= CYCLE_DELTA;
-		
+		if (x->log & LOG_CYCLE)
+			printf("Cycle to die is now %d\n", x->cycle_to_die);
 	//	printf ("cycle to die : %d\n",x->cycle_to_die);
 	//	printf ("cdelta : %d\n",CYCLE_DELTA);
 	//	printf ("___________\n");
@@ -74,6 +75,8 @@ void		check_live(t_vm *x)
 int		ft_end_turn(t_vm *x)
 {
 	x->nb_c++;
+	if (x->log & LOG_CYCLE)
+		printf("It is now cycle %d\n", x->nb_c);
 	x->before_check--;
 	//	if (x->cycle_to_die < 1436)
 	//	printf("Cycle numero %d\n",x->nb_c);
@@ -87,6 +90,21 @@ int		ft_end_turn(t_vm *x)
 			return (0);
 	}
 	return (1);
+}
+
+void	log_pc(char *arene, int move, int pc)
+{
+	int	new_pc;
+
+	new_pc = move_pc(pc, move);
+	pc = move_pc(pc, -1);
+	printf("ADV %u (0x%.4x -> 0x%.4x)", move + 1, pc, new_pc);
+	while (pc != new_pc)
+	{
+		pc = move_pc(pc, 1);
+		printf(" %02hhx", arene[pc]);
+	}
+	printf("\n");
 }
 
 int		load_vm(t_vm *x)
@@ -111,6 +129,8 @@ int		load_vm(t_vm *x)
 				if (parse_arg(list,x) == 1)
 					do_op(list, x, PROCESS->op - 1);
 				PROCESS->pc = move_pc(PROCESS->pc, x->add);
+				if (x->log & LOG_PC && x->add)
+					log_pc(x->arene, x->add, PROCESS->pc);
 				//printf("pc : %x\n",x->arene[PROCESS->pc]);
 				PROCESS->op = 0;
 				list = list->next;

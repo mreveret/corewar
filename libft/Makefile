@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: machoffa <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/27 14:18:33 by machoffa          #+#    #+#              #
-#    Updated: 2019/12/02 17:54:18 by machoffa         ###   ########.fr        #
+#    Updated: 2020/06/17 16:55:12 by skpn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -fsanitize=leak
 
 DIR = includes
 
