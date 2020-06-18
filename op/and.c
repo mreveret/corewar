@@ -3,18 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   and.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:22:55 by mreveret          #+#    #+#             */
-/*   Updated: 2020/02/12 16:22:57 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/18 17:58:31 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+void	log_and(t_list *list, t_vm *x)
+{
+	printf("P % 4d | and %d %d r%d\n", PROCESS->arg[0], PROCESS->arg[1],
+		PROCESS->arg[2]);
+}
+
 void	op_and(t_list *list, t_vm *x)
 {
 	convert_arg(PROCESS->arg,1,list,x);
+	if (x->log & LOG_OP)
+		log_and(list, x);
 	if (PROCESS->arg[2] >= REG_NUMBER || PROCESS->arg[2] < 0)
 		return;
 	PROCESS->reg[PROCESS->arg[2]] = PROCESS->arg[0] & PROCESS->arg[1];

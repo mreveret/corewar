@@ -6,12 +6,17 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:22:21 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/17 16:46:14 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/18 18:12:21 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdio.h>
+
+void	log_live(t_list *list, t_vm *x)
+{
+	printf("P % 4d | live %d\n", PROCESS->arg[0]);
+}
 
 void	op_live(t_list *list, t_vm *x)
 {
@@ -19,6 +24,8 @@ void	op_live(t_list *list, t_vm *x)
 	PROCESS->alive = 1;
 	PROCESS->last_live_cycle = x->nb_c;
 	x->nbr_live++;
+	if (x->log & LOG_OP)
+		log_live(list, x);
 	if (PROCESS->arg[0] > (-1 * x->nbp) && PROCESS->arg[0] < 0)
 	{
 		x->winner = PROCESS->arg[0] * -1;
