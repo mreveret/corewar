@@ -15,7 +15,8 @@
 
 void	log_ld(t_list *list, t_vm *x)
 {
-	printf("P % 4d | ld %d r%d\n", PROCESS->arg[0], PROCESS->arg[1]);
+	(void)x;
+	printf("P % 4d | ld %d r%d\n",PROCESS->id, PROCESS->arg[0], PROCESS->arg[1]);
 }
 
 void	op_ld(t_list *list, t_vm *x)

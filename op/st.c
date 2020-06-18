@@ -15,7 +15,8 @@
 
 void	log_st(t_list *list, t_vm *x)
 {
-	printf("P % 4d | st r%d %d\n", PROCESS->arg[0], PROCESS->arg[1]);
+	(void)x;
+	printf("P % 4d | st r%d %d\n",PROCESS->id, PROCESS->arg[0], PROCESS->arg[1]);
 }
 
 void	op_st(t_list *list, t_vm *x)

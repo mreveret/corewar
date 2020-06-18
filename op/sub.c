@@ -3,7 +3,8 @@
 
 void	log_sub(t_list *list, t_vm *x)
 {
-	printf("P % 4d | add r%d r%d r%d\n", PROCESS->arg[0], PROCESS->arg[1],
+	(void)x;
+	printf("P % 4d | add r%d r%d r%d\n",PROCESS->id, PROCESS->arg[0], PROCESS->arg[1],
 		PROCESS->arg[2]);
 }
 

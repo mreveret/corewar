@@ -15,7 +15,8 @@
 
 void	log_live(t_list *list, t_vm *x)
 {
-	printf("P % 4d | live %d\n", PROCESS->arg[0]);
+	(void)x;
+	printf("P % 4d | live %d\n",PROCESS->id, PROCESS->arg[0]);
 }
 
 void	op_live(t_list *list, t_vm *x)

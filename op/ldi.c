@@ -13,6 +13,13 @@
 #include "corewar.h"
 #include <stdio.h>
 
+void	log_ldi(t_list *list, t_vm *x, int sum)
+{
+	(void)x;
+	printf("P % 4d | ld %d %d r%d\n", PROCESS->id,PROCESS->arg[0], PROCESS->arg[1], PROCESS->arg[2] + 1);
+	printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",PROCESS->arg[0], PROCESS ->arg[1], PROCESS->arg[0] + PROCESS->arg[1],sum);
+}
+
 int		ft_convert3(t_vm *x, int size, int pos)
 {
 	int res;
@@ -37,6 +44,8 @@ void	op_ldi(t_list *list, t_vm *x)
 	convert_arg(PROCESS->arg,1,list,x);
 		sum = PROCESS->arg[0] + PROCESS->arg[1];
 		sum = indx_mod(&sum);
+		if (x->log & LOG_OP)
+		log_ldi(list, x, sum);
 		//printf("sum %d\n",sum);
 	
 	PROCESS->reg[PROCESS->arg[2]] = ft_convert3(x,4,move_pc(PROCESS->pc -1,sum));

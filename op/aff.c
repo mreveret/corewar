@@ -14,7 +14,7 @@
 
 void	log_aff(char c)
 {
-		ft_printf("Aff: %c\n", c);
+		printf("Aff: %c\n", c);
 }
 
 void	op_aff(t_list *list, t_vm *x)

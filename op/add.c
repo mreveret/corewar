@@ -14,8 +14,9 @@
 
 void	log_add(t_list *list, t_vm *x)
 {
-	printf("P % 4d | add r%d r%d r%d\n", PROCESS->arg[0], PROCESS->arg[1],
-		PROCESS->arg[2]);
+	(void)x;
+	printf("P % 4d | add r%d r%d r%d\n",PROCESS->id, PROCESS->arg[0] , PROCESS->arg[1],
+		PROCESS->arg[2] + 1);
 }
 
 void	op_add(t_list *list, t_vm *x)
