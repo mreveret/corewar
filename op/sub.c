@@ -1,18 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sub.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/19 10:01:12 by skpn              #+#    #+#             */
+/*   Updated: 2020/06/19 10:01:14 by skpn             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
-void	log_sub(t_list *list, t_vm *x)
+void	log_sub(t_list *list)
 {
-	(void)x;
-	printf("P % 4d | add r%d r%d r%d\n",PROCESS->id, PROCESS->arg[0], PROCESS->arg[1],
-		PROCESS->arg[2]);
+	printf("P % 4d | add r%d r%d r%d\n", PROCESS->id, PROCESS->arg[0],
+		PROCESS->arg[1], PROCESS->arg[2]);
 }
 
 void	op_sub(t_list *list, t_vm *x)
 {
 	(void)x;
 	if (x->log & LOG_OP)
-		log_sub(list, x);
+		log_sub(list);
 	if (PROCESS->arg[2] >= REG_NUMBER || PROCESS->arg[2] < 0)
 		return;
 		//printf("arg0 = %d\n",PROCESS->arg[0]);

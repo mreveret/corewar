@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/17 16:39:10 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/19 10:11:03 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		main(int ac, char **av)
 
 	i = 0;
 	x = &ouzeyiflbkn_apres_tout_hein;
+	ft_memset(x, 0, sizeof(ouzeyiflbkn_apres_tout_hein));
 	x->nbp = 0;
 	while (++i < ac)
 	{

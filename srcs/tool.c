@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:11:32 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/17 17:29:20 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/19 10:06:14 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ t_process		*create_process(t_vm *x, int id, int pc)
 
 	if (!(proc = (t_process*)malloc(sizeof(t_process))))
 		return (0);
-	i = -1;
 	proc->id = ++x->current_proc_id;
 	proc->pc = pc;
 	proc->alive = 0;
 	proc->wait = 0;
+	i = -1;
 	while (++i < REG_NUMBER)
 	{
 		if (i == 0)
@@ -51,6 +51,7 @@ t_process		*create_process(t_vm *x, int id, int pc)
 		else
 			proc->reg[i] = 0;
 	}
+	printf("created process %d\n", proc->id);
 	return (proc);
 }
 
