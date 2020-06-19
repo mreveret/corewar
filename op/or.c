@@ -15,7 +15,7 @@
 void	log_or(t_list *list)
 {
 	printf("P % 4d | or %d %d r%d\n", PROCESS->id, PROCESS->arg[0],
-		PROCESS->arg[1], PROCESS->arg[2] + 1);
+		PROCESS->arg[1], PROCESS->reg_num[2]);
 }
 
 void	op_or(t_list *list, t_vm *x)

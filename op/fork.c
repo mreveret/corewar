@@ -13,6 +13,11 @@
 #include "corewar.h"
 #include <stdio.h>
 
+void	log_fork(t_list *list, int pc)
+{
+	printf("P % 4d | fork %d (%d)\n", PROCESS->id, PROCESS->arg[0], pc);
+}
+
 void		op_fork(t_list *list, t_vm *x)
 {
 	t_process *proc;
@@ -21,6 +26,8 @@ void		op_fork(t_list *list, t_vm *x)
 	tmp = ft_lstnew(PROCESS, sizeof(t_process));//
 	proc = tmp->content;
 	proc->pc = move_pc(proc->pc - 1, indx_mod(&PROCESS->arg[0]));
+	if (x->log & LOG_OP)
+		log_fork(list, proc->pc);
 	proc->wait = 0;
 	proc->op = 0;
 	proc->id = ++x->current_proc_id;

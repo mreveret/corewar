@@ -107,6 +107,7 @@ int		parse_arg(t_list *list, t_vm *x)
 				else
 					PROCESS->arg[i] = PROCESS->reg[ft_convert(x,list,1) - 1];
 			}
+					PROCESS->reg_num[i] = (char)ft_convert(x,list,1);
 	//		//printf("arg: %d\n",PROCESS->arg[i]);
 			x->add += 1;
 			}

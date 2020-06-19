@@ -18,9 +18,11 @@ int		move_pc(int pc,int pcadd)
 	pc += pcadd;
 //	printf("pc movepc: %d\n",pc);
 	if (pc < 0)
-		pc = MEM_SIZE - -pc;;
+		pc = MEM_SIZE - -pc;
 	if (pc > MEM_SIZE)
 		pc = pc % MEM_SIZE;
+	if (pc == MEM_SIZE)
+		pc = 0;
 	return (pc);
 }
 

@@ -15,8 +15,8 @@
 
 void	log_st(t_list *list)
 {
-	printf("P % 4d | st r%d %s%d\n", PROCESS->id, PROCESS->arg[0] + 1,
-		(PROCESS->t_arg[1] == T_IND ? "" : "r"), PROCESS->arg[1]);
+	printf("P % 4d | st r%d %s%d\n", PROCESS->id, PROCESS->reg_num[0],
+		(PROCESS->t_arg[1] == T_IND ? "" : "r"), (PROCESS->t_arg[1] == T_IND ? PROCESS->arg[1]: PROCESS->reg_num[1]));
 }
 
 void	op_st(t_list *list, t_vm *x)

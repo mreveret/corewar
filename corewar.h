@@ -51,6 +51,7 @@ typedef struct		s_process
 	int				t_arg[3];
 	int				arg[3];
 	int				test;
+	int				reg_num[3];
 }					t_process;
 
 typedef struct		s_op
