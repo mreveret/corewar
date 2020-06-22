@@ -104,7 +104,7 @@ void	log_pc(char *arene, int move, int pc)
 		printf(" %02hhx", arene[pc]);
 		pc = move_pc(pc, 1);
 	}
-	printf("\n");
+	printf(" \n");
 }
 
 int		load_vm(t_vm *x)
