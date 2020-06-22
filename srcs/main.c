@@ -59,7 +59,7 @@ int		parsingplayer(t_vm *x, t_player *p)
 	ret = read(x->fd, header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
 		return (-1);
-	//printf("name -- %s\n", header->prog_name);
+//	printf("name -- %s\n", header->prog_name);
 	//printf("comment -- %s\n",header->comment);
 	rev_str((char*)&header->magic, sizeof(header->magic));
 	rev_str((char*)&header->prog_size, sizeof(header->prog_size));

@@ -75,8 +75,8 @@ void		check_live(t_vm *x)
 int		ft_end_turn(t_vm *x)
 {
 	x->nb_c++;
-	if (x->log & LOG_CYCLE)
-		printf("It is now cycle %d\n", x->nb_c);
+//	if (x->log & LOG_CYCLE)
+//		printf("It is now cycle %d\n", x->nb_c);
 	x->before_check--;
 	//	if (x->cycle_to_die < 1436)
 	//	printf("Cycle numero %d\n",x->nb_c);
@@ -112,6 +112,8 @@ int		load_vm(t_vm *x)
 	t_list	*list;
 
 	list = x->first_proc;
+	if (x->log & LOG_CYCLE)
+		printf("It is now cycle %d\n", x->nb_c);
 	while (list != NULL)
 	{
 		if (PROCESS->wait > 0)

@@ -26,13 +26,14 @@ void	op_live(t_list *list, t_vm *x)
 	x->nbr_live++;
 	if (x->log & LOG_OP)
 		log_live(list);
-	if (PROCESS->arg[0] > (-1 * x->nbp) && PROCESS->arg[0] < 0)
+//		printf("log %d\n",x->log & LOG_LIVE);
+	if (PROCESS->arg[0] >= (-1 * x->nbp) && PROCESS->arg[0] < 0)
 	{
 		x->winner = PROCESS->arg[0] * -1;
-		printf("winner: %d\n", x->winner);
+//		printf("winner: %d\n", x->winner);
 		if (x->log & LOG_LIVE)
-			printf("Player %s is said to be alive.\n",
-				x->p[x->winner].header.prog_name);
+			printf("Player %d (%s) is said to be alive\n",x->winner,
+				x->p[x->winner - 1].header.prog_name);
 	}
 //	printf("ALIVE player %d\n",x->winner);
 }

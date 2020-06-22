@@ -45,6 +45,7 @@ t_process		*create_process(t_vm *x, int id, int pc)
 	proc->pc = pc;
 	proc->alive = 0;
 	proc->wait = 0;
+	proc->last_live_cycle = x->nb_c;
 	i = -1;
 	while (++i < REG_NUMBER)
 	{
@@ -99,7 +100,7 @@ void		kill_process(t_list *list, t_vm *x)
 	}
 	if (x->log & LOG_DEATH)
 		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-			process->id, x->nb_c - process->last_live_cycle, x->cycle_to_die);
+			process->id, x->nb_c - process->last_live_cycle -1, x->cycle_to_die);
 	free(list->content);
 	free(list);
 }
