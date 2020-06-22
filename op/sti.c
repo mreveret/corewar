@@ -4,7 +4,7 @@
 
 void	log_sti(t_list *list, int pc)
 {
-	printf("P % 4d | sti r%d %d %d\n%s %d %c %d %c %d %s %d%c\n", PROCESS->id, PROCESS->reg_num[0],PROCESS->arg[1],
+	printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s %d%c\n", PROCESS->id, PROCESS->reg_num[0],PROCESS->arg[1],
 	PROCESS->arg[2],"       | -> store to",PROCESS->arg[1], '+', PROCESS->arg[2], '=', PROCESS->arg[1] + PROCESS->arg[2], "(with pc and mod",pc,')');
 }
 

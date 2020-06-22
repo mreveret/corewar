@@ -16,7 +16,7 @@
 void	log_ldi(t_list *list, t_vm *x, int sum)
 {
 	(void)x;
-	printf("P % 4d | ldi %d %d r%d\n", PROCESS->id,PROCESS->arg[0], PROCESS->arg[1], PROCESS->arg[2] + 1);
+	printf("P %4d | ldi %d %d r%d\n", PROCESS->id,PROCESS->arg[0], PROCESS->arg[1], PROCESS->arg[2] + 1);
 	printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",PROCESS->arg[0], PROCESS ->arg[1], PROCESS->arg[0] + PROCESS->arg[1],sum);
 }
 

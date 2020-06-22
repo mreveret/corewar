@@ -4,7 +4,7 @@
 
 void	log_zjmp(t_list *list)
 {
-	printf("P % 4d | zjmp %d %s\n", PROCESS->id, PROCESS->arg[0],
+	printf("P %4d | zjmp %d %s\n", PROCESS->id, PROCESS->arg[0],
 		(PROCESS->carry ? "OK" : "FAIL"));
 }
 

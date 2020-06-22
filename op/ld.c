@@ -15,7 +15,7 @@
 
 void	log_ld(t_list *list)
 {
-	printf("P % 4d | ld %d r%d\n", PROCESS->id, PROCESS->arg[0],
+	printf("P %4d | ld %d r%d\n", PROCESS->id, PROCESS->arg[0],
 		PROCESS->reg_num[1]);
 }
 

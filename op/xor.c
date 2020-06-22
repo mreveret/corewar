@@ -14,7 +14,7 @@
 
 void	log_xor(t_list *list)
 {
-	printf("P % 4d | xor %d %d r%d\n", PROCESS->id, PROCESS->arg[0],
+	printf("P %4d | xor %d %d r%d\n", PROCESS->id, PROCESS->arg[0],
 		PROCESS->arg[1], PROCESS->reg_num[2]);
 }
 
