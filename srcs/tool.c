@@ -53,7 +53,7 @@ t_process		*create_process(t_vm *x, int id, int pc)
 		else
 			proc->reg[i] = 0;
 	}
-	printf("created process %d\n", proc->id);
+//	printf("created process %d\n", proc->id);
 	return (proc);
 }
 

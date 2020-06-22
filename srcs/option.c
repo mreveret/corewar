@@ -49,7 +49,7 @@ int		create_player(t_vm *x)
 {
 	t_player	*p;
 
-	printf("nbp: %d\n", x->nbp);
+//	printf("nbp: %d\n", x->nbp);
 	p = &(x->p[x->nbp]);
 	if (x->opt[x->nbp + 1] != 0)
 		p->num = x->opt[x->nbp + 1];

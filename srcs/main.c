@@ -128,8 +128,8 @@ int		main(int ac, char **av)
 	//ft_putstr(x->p[x->winner - 1].header->prog_name);
 	//ft_putstr(") a gagne\n");
 	//i = -1;
-	printf("cycle to die final : %d\n",x->cycle_to_die);
-	printf("cycle: %d\n",x->nb_c);
+//	printf("cycle to die final : %d\n",x->cycle_to_die);
+//	printf("cycle: %d\n",x->nb_c);
 
 	return (exit_corewar(x, 1));
 }

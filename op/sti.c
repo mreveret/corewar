@@ -2,6 +2,12 @@
 #include "corewar.h"
 #include <stdio.h>
 
+void	log_sti(t_list *list, int pc)
+{
+	printf("P % 4d | sti r%d %d %d\n%s %d %c %d %c %d %s %d%c\n", PROCESS->id, PROCESS->reg_num[0],PROCESS->arg[1],
+	PROCESS->arg[2],"       | -> store to",PROCESS->arg[1], '+', PROCESS->arg[2], '=', PROCESS->arg[1] + PROCESS->arg[2], "(with pc and mod",pc,')');
+}
+
 void	op_sti(t_list *list, t_vm *x)
 {
     unsigned    oct;
@@ -21,7 +27,9 @@ void	op_sti(t_list *list, t_vm *x)
 		return ;
 	tmp_pc = move_pc(PROCESS->pc - 1,(PROCESS->arg[1] + PROCESS->reg[PROCESS->arg[2]]) % IDX_MOD);
 	}
-	
+		if (x->log & LOG_OP)
+		log_sti(list,tmp_pc);
+
 	//if (x->nb_c > 2000)
 //	printf("arg1 %d\narg2 %d\n",PROCESS->arg[1],PROCESS->arg[2]);
 //	printf("idxmod : %d\n",(PROCESS->arg[1] + PROCESS->arg[2]) % IDX_MOD);

@@ -15,7 +15,7 @@
 
 void	log_fork(t_list *list, int pc)
 {
-	printf("P % 4d | fork %d (%d)\n", PROCESS->id, PROCESS->arg[0], pc);
+	printf("P % 4d | fork %d (%d)\n", PROCESS->id, PROCESS->arg[0],(PROCESS->pc -1 + PROCESS->arg[0] >= 0 ? pc: PROCESS->pc -1 + PROCESS->arg[0]));
 }
 
 void		op_fork(t_list *list, t_vm *x)
