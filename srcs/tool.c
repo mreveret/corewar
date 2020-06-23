@@ -61,6 +61,7 @@ t_process		*create_process(t_vm *x, int id, int pc)
 void		do_op(t_list *list, t_vm *x, int op)
 {
 	void	(*doop[16])(t_list*, t_vm*);
+//	{
 	doop[0] = &op_live;
 	doop[1] = &op_ld;
 	doop[2] = &op_st;
@@ -77,6 +78,7 @@ void		do_op(t_list *list, t_vm *x, int op)
 	doop[13] = &op_lldi;
 	doop[14] = &op_lfork;
 	doop[15] = &op_aff;
+//	};
 	return (doop[op](list,x));
 } //typedef dans le .h , tab de pointeur de fonction dans la vm ;
 

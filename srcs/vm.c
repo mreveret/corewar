@@ -129,7 +129,7 @@ int		load_vm(t_vm *x)
 				//printf("du joueur %d\n",PROCESS->reg[0]);
 				//	}
 				if (parse_arg(list,x) == 1)
-					do_op(list, x, PROCESS->op - 1);
+					do_op(list, x,PROCESS->op -1);
 				if (x->log & LOG_PC && x->add)
 					log_pc(x->arene, x->add, PROCESS->pc);
 
@@ -185,7 +185,7 @@ void		init_vm(t_vm *x)
 	i = 0;
 	while(load_vm(x) == 1)
 	{
-		if (x->dumpnb != 0 && x->nb_c - 1== x->dumpnb)
+		if (x->dumpnb != 0 && x->nb_c -1 == x->dumpnb)
 		{
 			ft_dump(x);
 			break;

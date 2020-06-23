@@ -59,11 +59,11 @@ int		parse_arg(t_list *list, t_vm *x)
 		PROCESS->arg[i] = 0;
 	ret = parse_typecode(list, x);
 	//	printf("ret %d\n",ret);
-	if (ret == 0)
-	{
-	//	printf("ret %d\n",ret);
-		return (ret);
-	}
+//	if (ret == 0)
+//	{
+//	//	printf("ret %d\n",ret);
+//		return (ret);
+//	}
 	i = -1;
 //	//printf("nb arg: %d\n",op_tab[PROCESS->op - 1].nb_arg);
 	while (++i < op_tab[PROCESS->op - 1].nb_arg)
