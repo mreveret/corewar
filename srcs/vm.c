@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:18:17 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/17 18:00:04 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/24 17:05:02 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void		check_live(t_vm *x)
 int		ft_end_turn(t_vm *x)
 {
 	x->nb_c++;
-//	if (x->log & LOG_CYCLE)
-//		printf("It is now cycle %d\n", x->nb_c);
+	//	if (x->log & LOG_CYCLE)
+	//		printf("It is now cycle %d\n", x->nb_c);
 	x->before_check--;
 	//	if (x->cycle_to_die < 1436)
 	//	printf("Cycle numero %d\n",x->nb_c);
@@ -116,13 +116,15 @@ int		load_vm(t_vm *x)
 		printf("It is now cycle %d\n", x->nb_c);
 	while (list != NULL)
 	{
+	//	if (x->nb_c == 4137)
+	//					printf("pc : %d -- op %d -- t_arg[0] %d -- t_arg[1] %d\n",PROCESS->pc,PROCESS->op,PROCESS->t_arg[0],PROCESS->t_arg[1]);
+
 		if (PROCESS->wait > 0)
 			PROCESS->wait--;
 		if (PROCESS->wait == 0)
 		{
 			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
 			{
-				//	if (x->nb_c >= 24329)
 				//	{
 				//	printf("Cycle %d\n",x->nb_c);
 				//	printf("action op: %s\n",op_tab[PROCESS->op - 1].name);
@@ -130,19 +132,25 @@ int		load_vm(t_vm *x)
 				//	}
 				if (parse_arg(list,x) == 1)
 					do_op(list, x,PROCESS->op -1);
+
 				if (x->log & LOG_PC && x->add)
 					log_pc(x->arene, x->add, PROCESS->pc);
 
 				PROCESS->pc = move_pc(PROCESS->pc, x->add);
-			//	if (x->log & LOG_PC && x->add)
-			//		log_pc(x->arene, x->add, PROCESS->pc);
+				//	if (x->log & LOG_PC && x->add)
+				//		log_pc(x->arene, x->add, PROCESS->pc);
 				//printf("pc : %x\n",x->arene[PROCESS->pc]);
 				PROCESS->op = 0;
 				list = list->next;
 				continue;
 			}
 			else
+	//		{
 				PROCESS->op = (int)(x->arene[PROCESS->pc]);
+	//		if (x->nb_c == 4137)
+	//					printf("d -- t_arg[1] %d\n",(int)(x->arene[PROCESS->pc]));
+	//		}
+
 			if (PROCESS->op > 0 && PROCESS->op < 17)
 				PROCESS->wait = op_tab[PROCESS->op - 1].wait - 1;
 			PROCESS->pc = move_pc(PROCESS->pc,1);
