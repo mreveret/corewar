@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:18:17 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/24 17:05:02 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:56:00 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			stop_vm(t_vm *x)
 	int nb_alive_p;
 
 	nb_alive_p = 0;
-	list  = x->first_proc;
+	list  = x->lst_process;
 	while (list != NULL)
 	{
 		list = list->next;
@@ -34,19 +34,19 @@ void		check_live(t_vm *x)
 {
 	t_list *list;
 
-	list = x->first_proc;
+	list = x->lst_process;
 	x->max_check +=1;
 	while (list != NULL)
 	{
 		if (PROCESS->alive == 0)
 		{
 			kill_process(list,x);
-			list = x->first_proc;
+			list = x->lst_process;
 		}
 		else
 			list = list->next;
 	}
-	list = x->first_proc;
+	list = x->lst_process;
 	while (list != NULL)
 	{
 		PROCESS->alive = 0;
@@ -111,7 +111,7 @@ int		load_vm(t_vm *x)
 {
 	t_list	*list;
 
-	list = x->first_proc;
+	list = x->lst_process;
 	if (x->log & LOG_CYCLE)
 		printf("It is now cycle %d\n", x->nb_c);
 	while (list != NULL)
@@ -179,11 +179,11 @@ void		init_vm(t_vm *x)
 		tmp = ft_lstnew(NULL, 0);
 		tmp->content = proc;
 		ft_lstadd(&x->lst_process,tmp);
-		if (i == x->nbp - 1)
-			x->first_proc = x->lst_process;
+//		if (i == x->nbp - 1)
+//			x->first_proc = x->lst_process;
 	}
-	if (x->nbp == 1)
-		x->first_proc = x->lst_process;
+//	if (x->nbp == 1)
+//		x->first_proc = x->lst_process;
 	x->cycle_to_die = CYCLE_TO_DIE;
 	x->cycle_delta = CYCLE_DELTA;
 	x->nbr_live = 0;

@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 18:11:32 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/19 10:06:14 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/25 15:55:33 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ void		kill_process(t_list *list, t_vm *x)
 	t_process *process;
 
 	process = list->content;
-	previous = x->first_proc;
+	previous = x->lst_process;
 	if (list == NULL || previous == NULL)
 		return ;
 	else if (list == previous)
-		x->first_proc = list->next;
+		x->lst_process = list->next;
 	else
 	{
 		while (previous->next && previous->next != list)
