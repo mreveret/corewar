@@ -117,7 +117,7 @@ int		load_vm(t_vm *x)
 	while (list != NULL)
 	{
 	//	if (x->nb_c == 4137)
-	//					printf("pc : %d -- op %d -- t_arg[0] %d -- t_arg[1] %d\n",PROCESS->pc,PROCESS->op,PROCESS->t_arg[0],PROCESS->t_arg[1]);
+	//					printf("id %d -- pc : %d -- op %d -- t_arg[0] %d -- t_arg[1] %d\n",PROCESS->id,PROCESS->pc,PROCESS->op,PROCESS->t_arg[0],PROCESS->t_arg[1]);
 
 		if (PROCESS->wait > 0)
 			PROCESS->wait--;
@@ -145,11 +145,11 @@ int		load_vm(t_vm *x)
 				continue;
 			}
 			else
-	//		{
+//			{
 				PROCESS->op = (int)(x->arene[PROCESS->pc]);
-	//		if (x->nb_c == 4137)
-	//					printf("d -- t_arg[1] %d\n",(int)(x->arene[PROCESS->pc]));
-	//		}
+//			if (x->nb_c == 4138)
+//						printf("d -- t_arg[1] %d\n",(int)(x->arene[PROCESS->pc]));
+//			}
 
 			if (PROCESS->op > 0 && PROCESS->op < 17)
 				PROCESS->wait = op_tab[PROCESS->op - 1].wait - 1;
@@ -199,6 +199,9 @@ void		init_vm(t_vm *x)
 			break;
 		}
 	}
+	if (x->dumpnb != 0 && x->nb_c -1 == x->dumpnb)
+			ft_dump(x);
+
 	//	while (x->nb_c != 60)
 	//		load_vm(x);
 	//	ft_dump(x);
