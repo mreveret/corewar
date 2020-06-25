@@ -6,7 +6,7 @@
 #    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 11:31:03 by sikpenou          #+#    #+#              #
-#    Updated: 2020/04/24 23:59:24 by skpn             ###   ########.fr        #
+#    Updated: 2020/06/25 15:19:44 by skpn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ NC='\033[0m'
 output_dir=/tmp
 parent_dir=.
 exec_dir=$parent_dir
-exec=$exec_dir/vm
-ref_dir=$parent_dir/resources
+exec=$exec_dir/cr
+ref_dir=$parent_dir/asm/resources
 ref_exec_asm=$ref_dir/asm_ref_linux
 ref_exec_vm=$ref_dir/vm_ref_linux
 
