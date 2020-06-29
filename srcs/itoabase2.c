@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 18:09:30 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/11 18:22:35 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/06/29 18:32:51 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,38 +25,43 @@ static unsigned int		count(int nb, int base)
 	return (count);
 }
 
-char	*ft_itoa_base2(int n, int base)
+static char				*fill_it(char *res, int *nb, int n, int base)
 {
-	char *res;
-	int	nb2;
-	int	i;
+	if (nb[0] < 2)
+		res[0] = '0';
+	else
+		nb[0] = 0;
+	while (n > 0)
+	{
+		if (nb[1] / n > 9)
+			res[nb[0]] = nb[1] / n + 'a' - 10;
+		else
+			res[nb[0]] = nb[1] / n + '0';
+		nb[1] = nb[1] % n;
+		n = n / base;
+		nb[0]++;
+	}
+	res[nb[0]] = '\0';
+	return (res);
+}
 
-	if(!(res = (char *)malloc(sizeof(char) * 3)))
+char					*ft_itoa_base2(int n, int base)
+{
+	char	*res;
+	int		nb[2];
+
+	if (!(res = (char *)malloc(sizeof(char) * 3)))
 		return (NULL);
 	if (n < 0)
 		n = 256 + n;
-	nb2 = n;
-	i = 1;
+	nb[1] = n;
+	nb[0] = 1;
 	while (n >= base)
 	{
 		n = n / base;
-		i++;
+		nb[0]++;
 	}
-	n = count(nb2, base);
-	if (i < 2)
-		res[0] = '0';
-	else
-		i = 0;
-	while (n > 0)
-	{
-		if (nb2 / n > 9)
-			res[i] = nb2 / n + 'a' - 10;
-		else
-			res[i] = nb2 / n + '0';
-		nb2 = nb2 % n;
-		n = n / base;
-		i++;
-	}
-	res[i] = '\0';
+	n = count(nb[1], base);
+	res = fill_it(res, nb, n, base);
 	return (res);
 }

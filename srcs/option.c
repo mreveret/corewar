@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   option.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/03/12 16:40:57 by mreveret         ###   ########.fr       */
+/*   Created: 2020/06/29 18:41:00 by machoffa          #+#    #+#             */
+/*   Updated: 2020/06/29 18:45:29 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,13 @@ void	num_players(t_vm *x)
 	}
 	i = -1;
 	while (++i < x->nbp)
-	{
-		x->p[i].num = x->opt[i + 1];		
-		//printf("player[%d] num: %d\n",i,x->p[i].num);
-	}
+		x->p[i].num = x->opt[i + 1];
 }
 
 int		create_player(t_vm *x)
 {
 	t_player	*p;
 
-//	printf("nbp: %d\n", x->nbp);
 	p = &(x->p[x->nbp]);
 	if (x->opt[x->nbp + 1] != 0)
 		p->num = x->opt[x->nbp + 1];
@@ -57,8 +53,8 @@ int		create_player(t_vm *x)
 		p->num = x->nbp;
 	if (parsingplayer(x, p) == -1)
 		return (-1);
-	if(++x->nbp > 4)
-	    return (-1);
+	if (++x->nbp > 4)
+		return (-1);
 	return (0);
 }
 
@@ -77,14 +73,14 @@ int		ft_id_player(char **av, int i, t_vm *x)
 	return (0);
 }
 
-int		parsingoption(char **av,int i, t_vm *x)
+int		parsingoption(char **av, int i, t_vm *x)
 {
 	if (av[i + 1] && ft_str_is_numeric(av[i + 1]) != 1)
-			return (-1);
-	if (ft_strcmp(av[i],"-d") == 0)
+		return (-1);
+	if (ft_strcmp(av[i], "-d") == 0)
 	{
-			x->dumpnb = atoi(av[i + 1]);
-			return (1);
+		x->dumpnb = atoi(av[i + 1]);
+		return (1);
 	}
 	if (ft_strcmp(av[i], "-n") == 0)
 	{
@@ -92,21 +88,14 @@ int		parsingoption(char **av,int i, t_vm *x)
 		if (ft_id_player(av, i, x) == -1)
 			return (-1);
 		x->opt[0] = -1;
-		return(2);
+		return (2);
 	}
 	if (ft_strcmp(av[i], "-v") == 0)
 	{
-		if (ft_str_is_numeric(av[i + 1]) == 1)
-		{
-			x->log = ft_atoi(av[i + 1]);
+		if (ft_str_is_numeric(av[i + 1]) == 1 && (x->log = ft_atoi(av[i + 1])))
 			return (3);
-		}
 		return (-1);
 	}
 	else
-		return 4;
-	//{
-	//	ft_error(1);
-	//	return (-1);
-	//}
+		return (4);
 }
