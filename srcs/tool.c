@@ -13,10 +13,9 @@
 #include "corewar.h"
 #include <stdio.h>
 
-int		move_pc(int pc,int pcadd)
+int			move_pc(int pc, int pcadd)
 {
 	pc += pcadd;
-//	printf("pc movepc: %d\n",pc);
 	if (pc < 0)
 		pc = MEM_SIZE - -pc;
 	if (pc > MEM_SIZE)
@@ -26,15 +25,15 @@ int		move_pc(int pc,int pcadd)
 	return (pc);
 }
 
-int		indx_mod(int *arg)
+int			indx_mod(int *arg)
 {
 	*arg = *arg % MEM_SIZE;
-	if (*arg > IDX_MOD  || *arg < -IDX_MOD)
+	if (*arg > IDX_MOD || *arg < -1 * IDX_MOD)
 		*arg = *arg % IDX_MOD;
 	return (*arg);
 }
 
-t_process		*create_process(t_vm *x, int id, int pc)
+t_process	*create_process(t_vm *x, int id, int pc)
 {
 	t_process	*proc;
 	int			i;
@@ -50,18 +49,17 @@ t_process		*create_process(t_vm *x, int id, int pc)
 	while (++i < REG_NUMBER)
 	{
 		if (i == 0)
-			proc->reg[i] = -id;
+			proc->reg[i] = -1 * id;
 		else
 			proc->reg[i] = 0;
 	}
-//	printf("created process %d\n", proc->id);
 	return (proc);
 }
 
 void		do_op(t_list *list, t_vm *x, int op)
 {
-	void	(*doop[16])(t_list*, t_vm*);
-//	{
+	void(*doop[16])(t_list*, t_vm*);
+
 	doop[0] = &op_live;
 	doop[1] = &op_ld;
 	doop[2] = &op_st;
@@ -78,14 +76,13 @@ void		do_op(t_list *list, t_vm *x, int op)
 	doop[13] = &op_lldi;
 	doop[14] = &op_lfork;
 	doop[15] = &op_aff;
-//	};
-	return (doop[op](list,x));
-} //typedef dans le .h , tab de pointeur de fonction dans la vm ;
+	return (doop[op](list, x));
+}
 
 void		kill_process(t_list *list, t_vm *x)
 {
-	t_list *previous;
-	t_process *process;
+	t_list		*previous;
+	t_process	*process;
 
 	process = list->content;
 	previous = x->lst_process;
@@ -102,7 +99,8 @@ void		kill_process(t_list *list, t_vm *x)
 	}
 	if (x->log & LOG_DEATH)
 		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-			process->id, x->nb_c - process->last_live_cycle -1, x->cycle_to_die);
+			process->id, x->nb_c - process->last_live_cycle - 1,
+			x->cycle_to_die);
 	free(list->content);
 	free(list);
 }
