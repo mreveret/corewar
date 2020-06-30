@@ -6,14 +6,14 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/19 10:11:03 by skpn             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:29:32 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdio.h>
 
-void	rev_str(char *nb, unsigned int size)
+void			rev_str(char *nb, unsigned int size)
 {
 	unsigned int	i;
 	char			tmp;
@@ -28,7 +28,7 @@ void	rev_str(char *nb, unsigned int size)
 	}
 }
 
-void	load_arena(t_vm *x)
+void			load_arena(t_vm *x)
 {
 	int i;
 
@@ -41,12 +41,12 @@ void	load_arena(t_vm *x)
 	{
 		x->p[i].pcstart = x->pos_next_player;
 		memcpy(x->arene + x->pos_next_player, x->p[i].content,
-			x->p[i].header.prog_size);
+				x->p[i].header.prog_size);
 		x->pos_next_player += x->pos_add;
 	}
 }
 
-int		parsingplayer(t_vm *x, t_player *p)
+int				parsingplayer(t_vm *x, t_player *p)
 {
 	int			ret;
 	header_t	*header;
@@ -64,44 +64,40 @@ int		parsingplayer(t_vm *x, t_player *p)
 	return (0);
 }
 
-void	ft_error(int i)
+static int		parsarg(char **av, int i, t_vm *x)
 {
-	if (i == 0)
-		ft_putstr("Error\n");
-	if (i == 1)
-		ft_putstr("Wrong option\n");
-	return ;
+	char *test;
+
+	if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
+	{
+		if ((x->fd = open(av[i], O_RDONLY)) == -1)
+			return (exit_corewar(x, -1));
+		if (create_player(x) == -1)
+			return (exit_corewar(x, -1));
+		x->opt[0] = 0;
+	}
+	else
+	{
+		if (parsingoption(av, i, x) > 0)
+			i++;
+		else
+			return (exit_corewar(x, 0));
+	}
+	return (-1);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	int			i;
-	t_vm		ouzeyiflbkn_apres_tout_hein;
+	t_vm		y;
 	t_vm		*x;
-	char		*test;
 
 	i = 0;
-	x = &ouzeyiflbkn_apres_tout_hein;
-	ft_memset(x, 0, sizeof(ouzeyiflbkn_apres_tout_hein));
+	x = &y;
+	ft_memset(x, 0, sizeof(y));
 	x->nbp = 0;
 	while (++i < ac)
-	{
-		if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
-		{
-			if ((x->fd = open(av[i], O_RDONLY)) == -1)
-				return (exit_corewar(x, -1));
-			if (create_player(x) == -1)
-				return (exit_corewar(x, -1));
-			x->opt[0] = 0;
-		}
-		else
-		{
-			if (parsingoption(av, i, x) > 0)
-				i++;
-			else
-				return (exit_corewar(x, 0));
-		}
-	}
+		parsarg(av, i, x);
 	if (x->nbp > 4 || x->nbp < 1)
 	{
 		ft_error(0);
