@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/30 16:03:47 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/06/30 16:38:54 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,10 @@ void				num_players(t_vm *x);
 int					create_player(t_vm *x);
 int					parsingoption(char **av,int i, t_vm *x);
 int					parse_typecode(t_list *list, t_vm *x);
-
+void				log_pc(char *arene, int move, int pc);
+int					ft_end_turn(t_vm *x);
+void				kill_process2(t_vm *x);
+void				run_vm(t_vm *x, t_list * list);
+void				check_live(t_vm *x);
+int					stop_vm(t_vm *x);
 #endif
