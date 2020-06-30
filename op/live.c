@@ -20,20 +20,16 @@ void	log_live(t_list *list)
 
 void	op_live(t_list *list, t_vm *x)
 {
-//	printf("arg: %d\n",PROCESS->arg[0]);
 	PROCESS->alive = 1;
 	PROCESS->last_live_cycle = x->nb_c;
 	x->nbr_live++;
 	if (x->log & LOG_OP)
 		log_live(list);
-//		printf("log %d\n",x->log & LOG_LIVE);
 	if (PROCESS->arg[0] >= (-1 * x->nbp) && PROCESS->arg[0] < 0)
 	{
 		x->winner = PROCESS->arg[0] * -1;
-//		printf("winner: %d\n", x->winner);
 		if (x->log & LOG_LIVE)
 			printf("Player %d (%s) is said to be alive\n",x->winner,
-				x->p[x->winner - 1].header.prog_name);
+					x->p[x->winner - 1].header.prog_name);
 	}
-//	printf("ALIVE player %d\n",x->winner);
 }

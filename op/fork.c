@@ -15,15 +15,17 @@
 
 void	log_fork(t_list *list, int pc)
 {
-	printf("P %4d | fork %d (%d)\n", PROCESS->id, PROCESS->arg[0],(PROCESS->pc -1 + PROCESS->arg[0] >= 0 ? pc: PROCESS->pc -1 + PROCESS->arg[0]));
+	printf("P %4d | fork %d (%d)\n", PROCESS->id, PROCESS->arg[0],
+			(PROCESS->pc -1 + PROCESS->arg[0] >= 0 ?
+			 pc: PROCESS->pc -1 + PROCESS->arg[0]));
 }
 
-void		op_fork(t_list *list, t_vm *x)
+void	op_fork(t_list *list, t_vm *x)
 {
-	t_process *proc;
-	t_list *tmp;
+	t_process	*proc;
+	t_list		*tmp;
 
-	tmp = ft_lstnew(PROCESS, sizeof(t_process));//
+	tmp = ft_lstnew(PROCESS, sizeof(t_process));
 	proc = tmp->content;
 	proc->pc = move_pc(proc->pc - 1, indx_mod(&PROCESS->arg[0]));
 	if (x->log & LOG_OP)
@@ -31,6 +33,5 @@ void		op_fork(t_list *list, t_vm *x)
 	proc->wait = 0;
 	proc->op = 0;
 	proc->id = ++x->current_proc_id;
-	ft_lstadd(&x->lst_process,tmp);
-//	ft_lstadd(&x->first_proc,tmp);
+	ft_lstadd(&x->lst_process, tmp);
 }

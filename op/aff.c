@@ -14,13 +14,13 @@
 
 void	log_aff(char c)
 {
-		printf("Aff: %c\n", c);
+	printf("Aff: %c\n", c);
 }
 
 void	op_aff(t_list *list, t_vm *x)
 {
-	(void)x;
-	char c;
+	(void)	x;
+	char	c;
 
 	c = PROCESS->reg[PROCESS->arg[0]] % 256;
 	if (x->log & LOG_OP)
