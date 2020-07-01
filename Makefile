@@ -14,6 +14,7 @@ PATH_OP = ./op/
 SRCS = $(PATH_SRC)main.c\
       $(PATH_SRC)tool.c\
       $(PATH_SRC)tools2.c\
+      $(PATH_SRC)tools3.c\
       $(PATH_SRC)exit.c\
       $(PATH_SRC)option.c\
       $(PATH_SRC)vm.c\

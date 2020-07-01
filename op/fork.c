@@ -15,9 +15,9 @@
 
 void	log_fork(t_list *list, int pc)
 {
-	printf("P %4d | fork %d (%d)\n", ((t_process *)list->content)->id, ((t_process *)list->content)->arg[0],
-			(((t_process *)list->content)->pc - 1 + ((t_process *)list->content)->arg[0] >= 0 ?
-			pc : ((t_process *)list->content)->pc - 1 + ((t_process *)list->content)->arg[0]));
+	printf("P %4d | fork %d (%d)\n", ((t_p *)list->content)->id, ((t_p *)list->content)->arg[0],
+			(((t_p *)list->content)->pc - 1 + ((t_p *)list->content)->arg[0] >= 0 ?
+			pc : ((t_p *)list->content)->pc - 1 + ((t_p *)list->content)->arg[0]));
 }
 
 void	op_fork(t_list *list, t_vm *x)
@@ -25,9 +25,9 @@ void	op_fork(t_list *list, t_vm *x)
 	t_process	*proc;
 	t_list		*tmp;
 
-	tmp = ft_lstnew(((t_process *)list->content), sizeof(t_process));
+	tmp = ft_lstnew(((t_p *)list->content), sizeof(t_process));
 	proc = tmp->content;
-	proc->pc = move_pc(proc->pc - 1, indx_mod(&((t_process *)list->content)->arg[0]));
+	proc->pc = move_pc(proc->pc - 1, indx_mod(&((t_p *)list->content)->arg[0]));
 	if (x->log & LOG_OP)
 		log_fork(list, proc->pc);
 	proc->wait = 0;

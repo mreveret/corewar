@@ -34,7 +34,7 @@ typedef struct		s_player
 	int				pcstart;
 }					t_player;
 
-typedef struct		s_process
+typedef struct		s_p
 {
 	int				id;
 	int				pc;
@@ -50,7 +50,7 @@ typedef struct		s_process
 	int				arg[3];
 	int				test;
 	int				reg_num[3];
-}					t_process;
+}					t_p;
 
 typedef struct		s_op
 {

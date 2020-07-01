@@ -38,7 +38,7 @@ void		check_live(t_vm *x)
 	list = x->lst_process;
 	while (list != NULL)
 	{
-		((t_process *)list->content)->alive = 0;
+		((t_p *)list->content)->alive = 0;
 		list = list->next;
 	}
 	if (x->nbr_live >= NBR_LIVE || x->max_check == MAX_CHECKS)
