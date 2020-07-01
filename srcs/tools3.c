@@ -1,3 +1,5 @@
+#include "corewar.h"
+
 void	run_vm2(t_vm *x, t_list *list)
 {
     if (parse_arg(list, x) == 1)

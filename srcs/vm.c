@@ -76,7 +76,7 @@ void		init_vm(t_vm *x)
 {
 	int			i;
 	t_list		*tmp;
-	t_process	*proc;
+	t_p			*proc;
 
 	i = 0;
 	proc = create_process(x, x->p[i].num, x->p[i].pcstart);

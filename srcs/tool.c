@@ -33,12 +33,12 @@ int			indx_mod(int *arg)
 	return (*arg);
 }
 
-t_process	*create_process(t_vm *x, int id, int pc)
+t_p			*create_process(t_vm *x, int id, int pc)
 {
-	t_process	*proc;
-	int			i;
+	t_p		*proc;
+	int		i;
 
-	if (!(proc = (t_process*)malloc(sizeof(t_process))))
+	if (!(proc = (t_p*)malloc(sizeof(t_p))))
 		return (0);
 	proc->id = ++x->current_proc_id;
 	proc->pc = pc;
@@ -82,7 +82,7 @@ void		do_op(t_list *list, t_vm *x, int op)
 void		kill_process(t_list *list, t_vm *x)
 {
 	t_list		*previous;
-	t_process	*process;
+	t_p			*process;
 
 	process = list->content;
 	previous = x->lst_process;

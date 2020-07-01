@@ -99,7 +99,7 @@ void				ft_dump(t_vm *x);
 int					ft_convert(t_vm *x, t_list *list, int size);
 int					ft_convert3(t_vm *x, int size, int pos);
 int					parsingplayer(t_vm *x, t_player *p);
-t_process			*create_process(t_vm *x, int id, int pc);
+t_p					*create_process(t_vm *x, int id, int pc);
 int					indx_mod(int *arg);
 void				convert_arg(int *arg, int mod, t_list *list, t_vm *x);
 void				rev_str(char *nb, unsigned int size);
@@ -137,4 +137,5 @@ void				kill_process2(t_vm *x);
 void				run_vm(t_vm *x, t_list *list);
 void				check_live(t_vm *x);
 int					stop_vm(t_vm *x);
+void				run_vm2(t_vm *x, t_list *list);
 #endif
