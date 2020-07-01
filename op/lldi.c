@@ -6,7 +6,7 @@
 /*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:22:45 by mreveret          #+#    #+#             */
-/*   Updated: 2020/02/12 16:22:46 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:36:54 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	log_lldi(t_list *list, t_vm *x, int sum)
 	printf("P %4d | lldi %d %d r%d\n", PROCESS->id, PROCESS->arg[0],
 			PROCESS->arg[1], PROCESS->arg[2] + 1);
 	printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
-			PROCESS->arg[0], PROCESS ->arg[1],
+			PROCESS->arg[0], PROCESS->arg[1],
 			PROCESS->arg[0] + PROCESS->arg[1], sum);
 }
 

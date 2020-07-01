@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 10:01:12 by skpn              #+#    #+#             */
-/*   Updated: 2020/06/19 10:01:14 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/01 17:31:24 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	op_sub(t_list *list, t_vm *x)
 	if (x->log & LOG_OP)
 		log_sub(list);
 	if (PROCESS->arg[2] >= REG_NUMBER || PROCESS->arg[2] < 0)
-		return;
+		return ;
 	PROCESS->reg[PROCESS->arg[2]] = PROCESS->arg[0] - PROCESS->arg[1];
 	PROCESS->carry = (PROCESS->reg[PROCESS->arg[2]] == 0 ? 1 : 0);
 }
