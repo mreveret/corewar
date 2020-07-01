@@ -29,7 +29,7 @@ void	op_live(t_list *list, t_vm *x)
 	{
 		x->winner = PROCESS->arg[0] * -1;
 		if (x->log & LOG_LIVE)
-			printf("Player %d (%s) is said to be alive\n",x->winner,
+			printf("Player %d (%s) is said to be alive\n", x->winner,
 					x->p[x->winner - 1].header.prog_name);
 	}
 }

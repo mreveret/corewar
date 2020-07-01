@@ -16,13 +16,13 @@
 void	log_ldi(t_list *list, t_vm *x, int sum)
 {
 	(void)x;
-	printf("P %4d | ldi %d %d r%d\n", PROCESS->id,PROCESS->arg[0],
+	printf("P %4d | ldi %d %d r%d\n", PROCESS->id, PROCESS->arg[0],
 			PROCESS->arg[1], PROCESS->arg[2] + 1);
 	printf("       | -> load from %d + %d = %d (with pc and mod ",
-			PROCESS->arg[0], PROCESS ->arg[1],
+			PROCESS->arg[0], PROCESS->arg[1],
 			PROCESS->arg[0] + PROCESS->arg[1]);
 	if (PROCESS->pc - 1 + sum >= 0)
-		printf("%d)\n",move_pc(PROCESS->pc - 1, sum));
+		printf("%d)\n", move_pc(PROCESS->pc - 1, sum));
 	else
 		printf("%d)\n", move_pc(PROCESS->pc - 1, sum) - MEM_SIZE);
 }
@@ -32,7 +32,7 @@ int		ft_convert3(t_vm *x, int size, int pos)
 	int res;
 	int i;
 
-	i =  -1;
+	i = -1;
 	res = 0;
 	while (++i < size)
 	{

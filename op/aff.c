@@ -19,9 +19,9 @@ void	log_aff(char c)
 
 void	op_aff(t_list *list, t_vm *x)
 {
-	(void)	x;
 	char	c;
 
+	(void)x;
 	c = PROCESS->reg[PROCESS->arg[0]] % 256;
 	if (x->log & LOG_OP)
 		log_aff(c);
