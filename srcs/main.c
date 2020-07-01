@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/30 16:29:32 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:56:20 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,7 @@ int				main(int ac, char **av)
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
+	printf("Contestant %d, \"%s\", has won !\n", x->winner,
+			x->p[x->winner - 1].header.prog_name);
 	return (exit_corewar(x, 1));
 }
