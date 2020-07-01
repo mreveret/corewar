@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:19:36 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/25 15:56:22 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/01 18:52:13 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 void	log_fork(t_list *list, int pc)
 {
-	printf("P %4d | fork %d (%d)\n", ((t_p *)list->content)->id, ((t_p *)list->content)->arg[0],
-			(((t_p *)list->content)->pc - 1 + ((t_p *)list->content)->arg[0] >= 0 ?
-			pc : ((t_p *)list->content)->pc - 1 + ((t_p *)list->content)->arg[0]));
+	printf("P %4d | fork %d (%d)\n", ((t_p *)list->content)->id,
+			((t_p *)list->content)->arg[0], (((t_p *)list->content)->pc - 1 +
+				((t_p *)list->content)->arg[0] >= 0 ?
+			pc : ((t_p *)list->content)->pc - 1 +
+			((t_p *)list->content)->arg[0]));
 }
 
 void	op_fork(t_list *list, t_vm *x)

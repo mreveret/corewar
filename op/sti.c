@@ -6,7 +6,7 @@
 /*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 17:27:53 by machoffa          #+#    #+#             */
-/*   Updated: 2020/07/01 17:31:11 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/01 18:59:58 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	log_sti(t_list *list, int pc)
 {
 	if (((t_p *)list->content)->t_arg[2] != REG_CODE)
 	{
-		printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ", ((t_p *)list->content)->id,
-				((t_p *)list->content)->reg_num[0], ((t_p *)list->content)->arg[1], ((t_p *)list->content)->arg[2],
+		printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
+				((t_p *)list->content)->id, ((t_p *)list->content)->reg_num[0],
+				((t_p *)list->content)->arg[1], ((t_p *)list->content)->arg[2],
 				"       | -> store to", ((t_p *)list->content)->arg[1], '+', ((t_p *)list->content)->arg[2],
 				'=', ((t_p *)list->content)->arg[1] + ((t_p *)list->content)->arg[2], "(with pc and mod");
 		if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] + ((t_p *)list->content)->arg[2]) % IDX_MOD < 0)
