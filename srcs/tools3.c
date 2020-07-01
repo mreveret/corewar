@@ -22,3 +22,25 @@ void	run_vm2(t_vm *x, t_list *list)
 		move_pc(((t_p *)list->content)->pc, x->add);
 	((t_p *)list->content)->op = 0;
 }
+
+void	reduce_wait(t_list *list)
+{
+	if (((t_p *)list->content)->wait > 0)
+		((t_p *)list->content)->wait--;
+}
+
+int		check_ocp(t_list *list)
+{
+	if (!(((t_p *)list->content)->t_arg[0] &
+	op_tab[((t_p *)list->content)->op - 1].type_arg[0]))
+		return (0);
+	if (op_tab[((t_p *)list->content)->op - 1].nb_arg > 1 &&
+			(!(((t_p *)list->content)->t_arg[1] &
+			op_tab[((t_p *)list->content)->op - 1].type_arg[1])))
+		return (0);
+	if (op_tab[((t_p *)list->content)->op - 1].nb_arg > 2 &&
+			(!(((t_p *)list->content)->t_arg[2] &
+			op_tab[((t_p *)list->content)->op - 1].type_arg[2])))
+		return (0);
+	return (1);
+}

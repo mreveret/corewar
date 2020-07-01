@@ -35,18 +35,7 @@ int			parse_typecode(t_list *list, t_vm *x)
 	}
 	else
 		((t_p *)list->content)->t_arg[0] = DIR_CODE;
-	if (!(((t_p *)list->content)->t_arg[0] &
-	op_tab[((t_p *)list->content)->op - 1].type_arg[0]))
-		return (0);
-	if (op_tab[((t_p *)list->content)->op - 1].nb_arg > 1 &&
-			(!(((t_p *)list->content)->t_arg[1] &
-			op_tab[((t_p *)list->content)->op - 1].type_arg[1])))
-		return (0);
-	if (op_tab[((t_p *)list->content)->op - 1].nb_arg > 2 &&
-			(!(((t_p *)list->content)->t_arg[2] &
-			op_tab[((t_p *)list->content)->op - 1].type_arg[2])))
-		return (0);
-	return (1);
+	return (check_ocp(list));
 }
 
 int			ft_end_turn(t_vm *x)
@@ -99,15 +88,14 @@ void		run_vm(t_vm *x, t_list *list)
 {
 	while (list != NULL)
 	{
-		if (((t_p *)list->content)->wait > 0)
-			((t_p *)list->content)->wait--;
+		reduce_wait(list);
 		if (((t_p *)list->content)->wait == 0)
 		{
 			if (((t_p *)list->content)->op != 0
 			&& ((t_p *)list->content)->op > 0
 			&& ((t_p *)list->content)->op < 17)
 			{
-				run_vm2(x,list);
+				run_vm2(x, list);
 				list = list->next;
 				continue;
 			}
