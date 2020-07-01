@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mreveret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:49:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/30 15:51:41 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/01 23:54:06 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		parsingoption(char **av, int i, t_vm *x)
 {
 	if (av[i + 1] && ft_str_is_numeric(av[i + 1]) != 1)
 		return (-1);
-	if (ft_strcmp(av[i], "-d") == 0)
+	if (ft_strcmp(av[i], "-dump") == 0)
 	{
 		x->dumpnb = atoi(av[i + 1]);
 		return (1);

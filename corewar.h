@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/01 17:59:52 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/02 00:00:04 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,51 +91,51 @@ typedef struct		s_vm
 	int				log;
 }					t_vm;
 
+void				check_live(t_vm *x);
+int					check_ocp(t_list *list);
+void				convert_arg(int *arg, int mod, t_list *list, t_vm *x);
+int					create_player(t_vm *x);
+t_p					*create_process(t_vm *x, int id, int pc);
+void				do_op(t_list *list, t_vm *x, int op);
 int					exit_corewar(t_vm *x, int ret);
-void				init_vm(t_vm *x);
-char				*ft_itoa_base(int n, int base);
-char				*ft_itoa_base2(int n, int base);
-void				ft_dump(t_vm *x);
+int					ft_dump(t_vm *x);
 int					ft_convert(t_vm *x, t_list *list, int size);
 int					ft_convert3(t_vm *x, int size, int pos);
-int					parsingplayer(t_vm *x, t_player *p);
-t_p					*create_process(t_vm *x, int id, int pc);
-int					indx_mod(int *arg);
-void				convert_arg(int *arg, int mod, t_list *list, t_vm *x);
-void				rev_str(char *nb, unsigned int size);
-void				num_players(t_vm *x);
-int					create_player(t_vm *x);
-int					parsingoption(char **av, int i, t_vm *x);
-int					move_pc(int pc, int pcadd);
-void				kill_process(t_list *list, t_vm *x);
-void				do_op(t_list *list, t_vm *x, int op);
+int					ft_end_turn(t_vm *x);
 void				ft_error(int i);
-int					parse_arg(t_list *list, t_vm *x);
-void				op_fork(t_list *list, t_vm *x);
+char				*ft_itoa_base(int n, int base);
+char				*ft_itoa_base2(int n, int base);
+int					indx_mod(int *arg);
+void				init_vm(t_vm *x);
+void				kill_process(t_list *list, t_vm *x);
+void				kill_process2(t_vm *x);
+void				log_pc(char *arene, int move, int pc);
+int					move_pc(int pc, int pcadd);
+void				num_players(t_vm *x);
 void				op_add(t_list *list, t_vm *x);
+void				op_aff(t_list *list, t_vm *x);
 void				op_and(t_list *list, t_vm *x);
+void				op_fork(t_list *list, t_vm *x);
 void				op_ld(t_list *list, t_vm *x);
 void				op_ldi(t_list *list, t_vm *x);
+void				op_lfork(t_list *list, t_vm *x);
 void				op_live(t_list *list, t_vm *x);
+void				op_lld(t_list *list, t_vm *x);
+void				op_lldi(t_list *list, t_vm *x);
 void				op_or(t_list *list, t_vm *x);
+void				op_st(t_list *list, t_vm *x);
 void				op_sti(t_list *list, t_vm *x);
 void				op_sub(t_list *list, t_vm *x);
 void				op_xor(t_list *list, t_vm *x);
-void				op_st(t_list *list, t_vm *x);
 void				op_zjmp(t_list *list, t_vm *x);
-void				op_lld(t_list *list, t_vm *x);
-void				op_lldi(t_list *list, t_vm *x);
-void				op_lfork(t_list *list, t_vm *x);
-void				op_aff(t_list *list, t_vm *x);
-void				num_players(t_vm *x);
-int					create_player(t_vm *x);
-int					parsingoption(char **av, int i, t_vm *x);
+int					parse_arg(t_list *list, t_vm *x);
 int					parse_typecode(t_list *list, t_vm *x);
-void				log_pc(char *arene, int move, int pc);
-int					ft_end_turn(t_vm *x);
-void				kill_process2(t_vm *x);
+int					parsingoption(char **av, int i, t_vm *x);
+int					parsingplayer(t_vm *x, t_player *p);
+void				reduce_wait(t_list *list);
+void				rev_str(char *nb, unsigned int size);
 void				run_vm(t_vm *x, t_list *list);
-void				check_live(t_vm *x);
-int					stop_vm(t_vm *x);
 void				run_vm2(t_vm *x, t_list *list);
+int					stop_vm(t_vm *x);
+
 #endif

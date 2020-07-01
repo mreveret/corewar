@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:12:45 by skpn              #+#    #+#             */
-/*   Updated: 2020/06/30 16:28:43 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/01 23:52:15 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 int		exit_corewar(t_vm *x, int ret)
 {
-	(void)x;
+	t_list	*tmp;
+
+	while (x->lst_process)
+	{
+		tmp = x->lst_process;
+		x->lst_process = x->lst_process->next;
+		free(tmp->content);
+		free(tmp);
+	}
 	return (ret);
 }
 
