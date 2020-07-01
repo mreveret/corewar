@@ -15,19 +15,19 @@
 
 void	log_live(t_list *list)
 {
-	printf("P %4d | live %d\n", PROCESS->id, PROCESS->arg[0]);
+	printf("P %4d | live %d\n", ((t_process *)list->content)->id, ((t_process *)list->content)->arg[0]);
 }
 
 void	op_live(t_list *list, t_vm *x)
 {
-	PROCESS->alive = 1;
-	PROCESS->last_live_cycle = x->nb_c;
+	((t_process *)list->content)->alive = 1;
+	((t_process *)list->content)->last_live_cycle = x->nb_c;
 	x->nbr_live++;
 	if (x->log & LOG_OP)
 		log_live(list);
-	if (PROCESS->arg[0] >= (-1 * x->nbp) && PROCESS->arg[0] < 0)
+	if (((t_process *)list->content)->arg[0] >= (-1 * x->nbp) && ((t_process *)list->content)->arg[0] < 0)
 	{
-		x->winner = PROCESS->arg[0] * -1;
+		x->winner = ((t_process *)list->content)->arg[0] * -1;
 		if (x->log & LOG_LIVE)
 			printf("Player %d (%s) is said to be alive\n", x->winner,
 					x->p[x->winner - 1].header.prog_name);

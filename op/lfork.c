@@ -14,9 +14,9 @@
 
 void	log_lfork(t_list *list, int pc)
 {
-	printf("P %4d | lfork %d (%d)\n", PROCESS->id, PROCESS->arg[0],
-			(PROCESS->pc - 1 + PROCESS->arg[0] >= 0 ?
-			pc : PROCESS->pc - 1 + PROCESS->arg[0]));
+	printf("P %4d | lfork %d (%d)\n", ((t_process *)list->content)->id, ((t_process *)list->content)->arg[0],
+			(((t_process *)list->content)->pc - 1 + ((t_process *)list->content)->arg[0] >= 0 ?
+			pc : ((t_process *)list->content)->pc - 1 + ((t_process *)list->content)->arg[0]));
 }
 
 void	op_lfork(t_list *list, t_vm *x)
@@ -24,9 +24,9 @@ void	op_lfork(t_list *list, t_vm *x)
 	t_process	*proc;
 	t_list		*tmp;
 
-	tmp = ft_lstnew(PROCESS, sizeof(t_process));
+	tmp = ft_lstnew(((t_process *)list->content), sizeof(t_process));
 	proc = tmp->content;
-	proc->pc = move_pc(proc->pc - 1, PROCESS->arg[0]);
+	proc->pc = move_pc(proc->pc - 1, ((t_process *)list->content)->arg[0]);
 	if (x->log & LOG_OP)
 		log_lfork(list, proc->pc);
 	proc->wait = 0;

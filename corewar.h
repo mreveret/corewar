@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/06/30 16:38:54 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:59:52 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 # define COREWAR_H
 
-#include "libft/libft.h"
+# include "libft/libft.h"
 
-#include "op.h"
-#include <fcntl.h>
-#include <stdio.h>
-//#define malloc(x) NULL
-#define PROCESS ((t_process *)list->content)
+# include "op.h"
+# include <fcntl.h>
+# include <stdio.h>
 # define LOG_LIVE 1
 # define LOG_CYCLE 2
 # define LOG_OP 4
@@ -56,21 +54,21 @@ typedef struct		s_process
 
 typedef struct		s_op
 {
-char				*name;
-int					nb_arg;
-int					type_arg[3];
-int					opcode;
-int					wait;
-char				*name2;
-int					encoded;
-int					dir_size;
+	char			*name;
+	int				nb_arg;
+	int				type_arg[3];
+	int				opcode;
+	int				wait;
+	char			*name2;
+	int				encoded;
+	int				dir_size;
 }					t_op;
 
 extern t_op op_tab[17];
 
 typedef struct		s_vm
 {
-	char	arene[MEM_SIZE];
+	char			arene[MEM_SIZE];
 	int				cycle_to_die;
 	int				cycle_delta;
 	int				cycle_to_check;
@@ -103,12 +101,12 @@ int					ft_convert3(t_vm *x, int size, int pos);
 int					parsingplayer(t_vm *x, t_player *p);
 t_process			*create_process(t_vm *x, int id, int pc);
 int					indx_mod(int *arg);
-void				convert_arg(int *arg,int mod,t_list *list,t_vm *x);
+void				convert_arg(int *arg, int mod, t_list *list, t_vm *x);
 void				rev_str(char *nb, unsigned int size);
 void				num_players(t_vm *x);
 int					create_player(t_vm *x);
-int					parsingoption(char **av,int i, t_vm *x);
-int					move_pc(int pc,int pcadd);
+int					parsingoption(char **av, int i, t_vm *x);
+int					move_pc(int pc, int pcadd);
 void				kill_process(t_list *list, t_vm *x);
 void				do_op(t_list *list, t_vm *x, int op);
 void				ft_error(int i);
@@ -131,12 +129,12 @@ void				op_lfork(t_list *list, t_vm *x);
 void				op_aff(t_list *list, t_vm *x);
 void				num_players(t_vm *x);
 int					create_player(t_vm *x);
-int					parsingoption(char **av,int i, t_vm *x);
+int					parsingoption(char **av, int i, t_vm *x);
 int					parse_typecode(t_list *list, t_vm *x);
 void				log_pc(char *arene, int move, int pc);
 int					ft_end_turn(t_vm *x);
 void				kill_process2(t_vm *x);
-void				run_vm(t_vm *x, t_list * list);
+void				run_vm(t_vm *x, t_list *list);
 void				check_live(t_vm *x);
 int					stop_vm(t_vm *x);
 #endif

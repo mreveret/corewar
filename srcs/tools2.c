@@ -15,27 +15,27 @@
 
 int			parse_typecode(t_list *list, t_vm *x)
 {
-	if (PROCESS->op != 1 && PROCESS->op != 9 && PROCESS->op != 12
-			&& PROCESS->op != 15)
+	if (((t_process *)list->content)->op != 1 && ((t_process *)list->content)->op != 9 && ((t_process *)list->content)->op != 12
+			&& ((t_process *)list->content)->op != 15)
 	{
-		PROCESS->encoded = (int)(x->arene[move_pc(PROCESS->pc, x->add)]);
-		PROCESS->t_arg[0] = (((PROCESS->encoded >> 6) & 0b11)
-				== 3 ? 4 : (PROCESS->encoded >> 6) & 0b11);
-		PROCESS->t_arg[1] = (((PROCESS->encoded >> 4) & 0b11)
-				== 3 ? 4 : (PROCESS->encoded >> 4) & 0b11);
-		PROCESS->t_arg[2] = (((PROCESS->encoded >> 2) & 0b11)
-				== 3 ? 4 : (PROCESS->encoded >> 2) & 0b11);
+		((t_process *)list->content)->encoded = (int)(x->arene[move_pc(((t_process *)list->content)->pc, x->add)]);
+		((t_process *)list->content)->t_arg[0] = (((((t_process *)list->content)->encoded >> 6) & 0b11)
+				== 3 ? 4 : (((t_process *)list->content)->encoded >> 6) & 0b11);
+		((t_process *)list->content)->t_arg[1] = (((((t_process *)list->content)->encoded >> 4) & 0b11)
+				== 3 ? 4 : (((t_process *)list->content)->encoded >> 4) & 0b11);
+		((t_process *)list->content)->t_arg[2] = (((((t_process *)list->content)->encoded >> 2) & 0b11)
+				== 3 ? 4 : (((t_process *)list->content)->encoded >> 2) & 0b11);
 		x->add += 1;
 	}
 	else
-		PROCESS->t_arg[0] = DIR_CODE;
-	if (!(PROCESS->t_arg[0] & op_tab[PROCESS->op - 1].type_arg[0]))
+		((t_process *)list->content)->t_arg[0] = DIR_CODE;
+	if (!(((t_process *)list->content)->t_arg[0] & op_tab[((t_process *)list->content)->op - 1].type_arg[0]))
 		return (0);
-	if (op_tab[PROCESS->op - 1].nb_arg > 1 &&
-			(!(PROCESS->t_arg[1] & op_tab[PROCESS->op - 1].type_arg[1])))
+	if (op_tab[((t_process *)list->content)->op - 1].nb_arg > 1 &&
+			(!(((t_process *)list->content)->t_arg[1] & op_tab[((t_process *)list->content)->op - 1].type_arg[1])))
 		return (0);
-	if (op_tab[PROCESS->op - 1].nb_arg > 2 &&
-			(!(PROCESS->t_arg[2] & op_tab[PROCESS->op - 1].type_arg[2])))
+	if (op_tab[((t_process *)list->content)->op - 1].nb_arg > 2 &&
+			(!(((t_process *)list->content)->t_arg[2] & op_tab[((t_process *)list->content)->op - 1].type_arg[2])))
 		return (0);
 	return (1);
 }
@@ -76,7 +76,7 @@ void		kill_process2(t_vm *x)
 	x->max_check += 1;
 	while (list != NULL)
 	{
-		if (PROCESS->alive == 0)
+		if (((t_process *)list->content)->alive == 0)
 		{
 			kill_process(list, x);
 			list = x->lst_process;
@@ -90,26 +90,26 @@ void		run_vm(t_vm *x, t_list *list)
 {
 	while (list != NULL)
 	{
-		if (PROCESS->wait > 0)
-			PROCESS->wait--;
-		if (PROCESS->wait == 0)
+		if (((t_process *)list->content)->wait > 0)
+			((t_process *)list->content)->wait--;
+		if (((t_process *)list->content)->wait == 0)
 		{
-			if (PROCESS->op != 0 && PROCESS->op > 0 && PROCESS->op < 17)
+			if (((t_process *)list->content)->op != 0 && ((t_process *)list->content)->op > 0 && ((t_process *)list->content)->op < 17)
 			{
 				if (parse_arg(list, x) == 1)
-					do_op(list, x, PROCESS->op - 1);
+					do_op(list, x, ((t_process *)list->content)->op - 1);
 				if (x->log & LOG_PC && x->add)
-					log_pc(x->arene, x->add, PROCESS->pc);
-				PROCESS->pc = move_pc(PROCESS->pc, x->add);
-				PROCESS->op = 0;
+					log_pc(x->arene, x->add, ((t_process *)list->content)->pc);
+				((t_process *)list->content)->pc = move_pc(((t_process *)list->content)->pc, x->add);
+				((t_process *)list->content)->op = 0;
 				list = list->next;
 				continue;
 			}
 			else
-				PROCESS->op = (int)(x->arene[PROCESS->pc]);
-			if (PROCESS->op > 0 && PROCESS->op < 17)
-				PROCESS->wait = op_tab[PROCESS->op - 1].wait - 1;
-			PROCESS->pc = move_pc(PROCESS->pc, 1);
+				((t_process *)list->content)->op = (int)(x->arene[((t_process *)list->content)->pc]);
+			if (((t_process *)list->content)->op > 0 && ((t_process *)list->content)->op < 17)
+				((t_process *)list->content)->wait = op_tab[((t_process *)list->content)->op - 1].wait - 1;
+			((t_process *)list->content)->pc = move_pc(((t_process *)list->content)->pc, 1);
 		}
 		list = list->next;
 	}

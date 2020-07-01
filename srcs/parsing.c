@@ -15,32 +15,32 @@
 
 static void		parse_arg3(int i, t_list *list, t_vm *x)
 {
-	if (PROCESS->op < 9 || PROCESS->op == 13 || PROCESS->op == 16)
+	if (((t_process *)list->content)->op < 9 || ((t_process *)list->content)->op == 13 || ((t_process *)list->content)->op == 16)
 	{
-		PROCESS->arg[i] = ft_convert(x, list, 4);
+		((t_process *)list->content)->arg[i] = ft_convert(x, list, 4);
 		x->add += 4;
 	}
 	else
 	{
-		PROCESS->arg[i] = (short)ft_convert(x, list, 2);
+		((t_process *)list->content)->arg[i] = (short)ft_convert(x, list, 2);
 		x->add += 2;
 	}
 }
 
 static int		parse_arg2(int i, int ret, t_list *list, t_vm *x)
 {
-	if (PROCESS->t_arg[i] == DIR_CODE)
+	if (((t_process *)list->content)->t_arg[i] == DIR_CODE)
 		parse_arg3(i, list, x);
-	else if (PROCESS->t_arg[i] == T_IND)
+	else if (((t_process *)list->content)->t_arg[i] == T_IND)
 	{
-		PROCESS->arg[i] = (short)ft_convert(x, list, 2);
+		((t_process *)list->content)->arg[i] = (short)ft_convert(x, list, 2);
 		x->add += 2;
 	}
-	else if (PROCESS->t_arg[i] == REG_CODE)
+	else if (((t_process *)list->content)->t_arg[i] == REG_CODE)
 	{
-		if (i == op_tab[PROCESS->op - 1].nb_arg - 1)
+		if (i == op_tab[((t_process *)list->content)->op - 1].nb_arg - 1)
 		{
-			PROCESS->arg[i] = (char)ft_convert(x, list, 1) - 1;
+			((t_process *)list->content)->arg[i] = (char)ft_convert(x, list, 1) - 1;
 		}
 		else
 		{
@@ -48,9 +48,9 @@ static int		parse_arg2(int i, int ret, t_list *list, t_vm *x)
 					|| ft_convert(x, list, 1) > REG_NUMBER)
 				ret = 0;
 			else
-				PROCESS->arg[i] = PROCESS->reg[ft_convert(x, list, 1) - 1];
+				((t_process *)list->content)->arg[i] = ((t_process *)list->content)->reg[ft_convert(x, list, 1) - 1];
 		}
-		PROCESS->reg_num[i] = (char)ft_convert(x, list, 1);
+		((t_process *)list->content)->reg_num[i] = (char)ft_convert(x, list, 1);
 		x->add += 1;
 	}
 	return (ret);
@@ -63,11 +63,11 @@ int				parse_arg(t_list *list, t_vm *x)
 
 	x->add = 0;
 	i = -1;
-	while (++i < op_tab[PROCESS->op - 1].nb_arg)
-		PROCESS->arg[i] = 0;
+	while (++i < op_tab[((t_process *)list->content)->op - 1].nb_arg)
+		((t_process *)list->content)->arg[i] = 0;
 	ret = parse_typecode(list, x);
 	i = -1;
-	while (++i < op_tab[PROCESS->op - 1].nb_arg)
+	while (++i < op_tab[((t_process *)list->content)->op - 1].nb_arg)
 	{
 		ret = parse_arg2(i, ret, list, x);
 	}
@@ -85,7 +85,7 @@ int				ft_convert2(t_vm *x, int size, t_list *list, int j)
 	{
 		res <<= 8;
 		res |= 0x000000FF &
-			x->arene[move_pc(PROCESS->pc - 1, PROCESS->arg[j] + i)];
+			x->arene[move_pc(((t_process *)list->content)->pc - 1, ((t_process *)list->content)->arg[j] + i)];
 	}
 	return (res);
 }
@@ -96,17 +96,17 @@ void			convert_arg(int *arg, int mod, t_list *list, t_vm *x)
 
 	i = -1;
 	(void)arg;
-	while (++i < op_tab[PROCESS->op - 1].nb_arg)
+	while (++i < op_tab[((t_process *)list->content)->op - 1].nb_arg)
 	{
-		if (PROCESS->t_arg[i] == T_IND)
+		if (((t_process *)list->content)->t_arg[i] == T_IND)
 		{
 			if (mod == 1)
 			{
-				PROCESS->arg[i] = indx_mod(&PROCESS->arg[i]);
-				PROCESS->arg[i] = ft_convert2(x, 4, list, i);
+				((t_process *)list->content)->arg[i] = indx_mod(&((t_process *)list->content)->arg[i]);
+				((t_process *)list->content)->arg[i] = ft_convert2(x, 4, list, i);
 			}
 			else
-				PROCESS->arg[i] = ft_convert2(x, 4, list, i);
+				((t_process *)list->content)->arg[i] = ft_convert2(x, 4, list, i);
 		}
 	}
 }

@@ -24,7 +24,7 @@ int		ft_convert(t_vm *x, t_list *list, int size)
 	while (++i < size)
 	{
 		res <<= 8;
-		res |= 0x000000FF & x->arene[move_pc(PROCESS->pc, x->add + i)];
+		res |= 0x000000FF & x->arene[move_pc(((t_process *)list->content)->pc, x->add + i)];
 	}
 	return (res);
 }
