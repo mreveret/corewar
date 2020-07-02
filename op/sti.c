@@ -6,12 +6,31 @@
 /*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 17:27:53 by machoffa          #+#    #+#             */
-/*   Updated: 2020/07/01 18:59:58 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/02 18:51:43 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include <stdio.h>
+
+void	log_sti2(t_list *list, int pc)
+{
+	printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
+			((t_p *)list->content)->id, ((t_p *)list->content)->reg_num[0],
+			((t_p *)list->content)->arg[1],
+			((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]],
+			"       | -> store to", ((t_p *)list->content)->arg[1], '+',
+			((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]],
+			'=', ((t_p *)list->content)->arg[1] +
+			((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]],
+			"(with pc and mod");
+	if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] +
+				((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]])
+			% IDX_MOD >= 0)
+		printf("%d)\n", pc);
+	else
+		printf("%d)\n", pc - MEM_SIZE);
+}
 
 void	log_sti(t_list *list, int pc)
 {
@@ -20,31 +39,23 @@ void	log_sti(t_list *list, int pc)
 		printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
 				((t_p *)list->content)->id, ((t_p *)list->content)->reg_num[0],
 				((t_p *)list->content)->arg[1], ((t_p *)list->content)->arg[2],
-				"       | -> store to", ((t_p *)list->content)->arg[1], '+', ((t_p *)list->content)->arg[2],
-				'=', ((t_p *)list->content)->arg[1] + ((t_p *)list->content)->arg[2], "(with pc and mod");
-		if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] + ((t_p *)list->content)->arg[2]) % IDX_MOD < 0)
+				"       | -> store to", ((t_p *)list->content)->arg[1], '+',
+				((t_p *)list->content)->arg[2], '=',
+				((t_p *)list->content)->arg[1] + ((t_p *)list->content)->arg[2],
+				"(with pc and mod");
+		if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] +
+					((t_p *)list->content)->arg[2]) % IDX_MOD < 0)
 			printf("%d)\n", pc - MEM_SIZE);
 		else
 			printf("%d)\n", pc);
 	}
 	else
-	{
-		printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ", ((t_p *)list->content)->id,
-				((t_p *)list->content)->reg_num[0], ((t_p *)list->content)->arg[1],
-				((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]], "       | -> store to",
-				((t_p *)list->content)->arg[1], '+', ((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]],
-				'=', ((t_p *)list->content)->arg[1] + ((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]],
-				"(with pc and mod");
-		if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] + ((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]])
-				% IDX_MOD >= 0)
-			printf("%d)\n", pc);
-		else
-			printf("%d)\n", pc - MEM_SIZE);
-	}
+		log_sti2(list, pc);
 }
 
 void	write_sti(int oct, int tmp_pc, t_vm *x, t_list *list)
 {
+	tmp_pc = move_pc(tmp_pc, oct);
 	while (oct)
 	{
 		tmp_pc = move_pc(tmp_pc, -1);
@@ -65,16 +76,19 @@ void	op_sti(t_list *list, t_vm *x)
 	convert_arg(((t_p *)list->content)->arg, 0, list, x);
 	if (((t_p *)list->content)->t_arg[2] != REG_CODE)
 		tmp_pc = move_pc(((t_p *)list->content)->pc - 1,
-				(((t_p *)list->content)->arg[1] + ((t_p *)list->content)->arg[2]) % IDX_MOD);
+				(((t_p *)list->content)->arg[1] +
+				((t_p *)list->content)->arg[2]) % IDX_MOD);
 	else
 	{
-		if (((t_p *)list->content)->arg[2] >= REG_NUMBER || ((t_p *)list->content)->arg[2] < 0)
+		if (((t_p *)list->content)->arg[2] >= REG_NUMBER ||
+				((t_p *)list->content)->arg[2] < 0)
 			return ;
 		tmp_pc = move_pc(((t_p *)list->content)->pc - 1,
-				(((t_p *)list->content)->arg[1] + ((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]]) % IDX_MOD);
+				(((t_p *)list->content)->arg[1] +
+				((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]])
+				% IDX_MOD);
 	}
 	if (x->log & LOG_OP)
 		log_sti(list, tmp_pc);
-	tmp_pc = move_pc(tmp_pc, oct);
 	write_sti(oct, tmp_pc, x, list);
 }

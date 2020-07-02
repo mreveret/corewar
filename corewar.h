@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/02 00:00:04 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:01:09 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define LOG_OP 4
 # define LOG_DEATH 8
 # define LOG_PC 16
+# define DSIZE 64
 
 typedef struct		s_player
 {
