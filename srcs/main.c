@@ -83,7 +83,7 @@ static int		parsarg(char **av, int i, t_vm *x)
 		else
 			return (exit_corewar(x, 0));
 	}
-	return (-1);
+	return (i);
 }
 
 int				main(int ac, char **av)
@@ -97,7 +97,7 @@ int				main(int ac, char **av)
 	ft_memset(x, 0, sizeof(y));
 	x->nbp = 0;
 	while (++i < ac)
-		parsarg(av, i, x);
+		i = parsarg(av, i, x);
 	if (x->nbp > 4 || x->nbp < 1)
 	{
 		ft_error(0);
@@ -107,7 +107,8 @@ int				main(int ac, char **av)
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
+	x->winner_idx = search_idx(x);
 	printf("Contestant %d, \"%s\", has won !\n", x->winner,
-			x->p[x->winner - 1].header.prog_name);
+			x->p[x->winner_idx].header.prog_name);
 	return (exit_corewar(x, 1));
 }

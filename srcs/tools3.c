@@ -44,3 +44,16 @@ int		check_ocp(t_list *list)
 		return (0);
 	return (1);
 }
+
+int		search_idx(t_vm *x)
+{
+	int i;
+
+	i = -1;
+	while (++i < x->nbp)
+	{
+		if (x->p[i].num == x->winner)
+			break;
+	}
+	return (i);
+}

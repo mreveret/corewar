@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/02 18:01:09 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/02 19:06:52 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct		s_vm
 	int				current_proc_id;
 	t_list			*first_proc;
 	int				winner;
+	int				winner_idx;
 	int				add;
 	int				log;
 }					t_vm;
@@ -138,5 +139,5 @@ void				rev_str(char *nb, unsigned int size);
 void				run_vm(t_vm *x, t_list *list);
 void				run_vm2(t_vm *x, t_list *list);
 int					stop_vm(t_vm *x);
-
+int					search_idx(t_vm *x);
 #endif

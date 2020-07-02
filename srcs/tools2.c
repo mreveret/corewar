@@ -42,7 +42,7 @@ int			ft_end_turn(t_vm *x)
 {
 	x->nb_c++;
 	x->before_check--;
-	if (x->before_check == 0)
+	if (x->before_check <= 0)
 	{
 		check_live(x);
 		if (stop_vm(x) < 1)

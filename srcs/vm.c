@@ -20,8 +20,6 @@ int			stop_vm(t_vm *x)
 
 	list = x->lst_process;
 	nb_alive_p = 0;
-	if (x->cycle_to_die < 0)
-		return (0);
 	while (list != NULL)
 	{
 		list = list->next;
