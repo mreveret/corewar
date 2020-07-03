@@ -24,7 +24,6 @@
 # define LOG_OP 4
 # define LOG_DEATH 8
 # define LOG_PC 16
-# define DSIZE 64
 
 typedef struct		s_player
 {
@@ -69,6 +68,7 @@ extern t_op op_tab[17];
 
 typedef struct		s_vm
 {
+	int				dump_line_len;
 	char			arene[MEM_SIZE];
 	int				cycle_to_die;
 	int				cycle_delta;

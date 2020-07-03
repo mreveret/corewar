@@ -26,10 +26,10 @@ INC_DIR = $(shell find .. -type d -name 'inc')
 
 SRC_DIR = $(shell find src -type d)
 
-LIB_DIR = $(shell find ../lib -mindepth 1 -maxdepth 1 -type d)
+LIB_DIR = $(shell find lib -mindepth 1 -maxdepth 1 -type d)
 
 LIBS += \
-		../lib/libft/libft.a
+		lib/libft/libft.a
 
 OBJ_DIR = obj
 

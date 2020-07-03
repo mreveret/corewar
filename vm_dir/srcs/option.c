@@ -77,8 +77,9 @@ int		parsingoption(char **av, int i, t_vm *x)
 {
 	if (!av[i + 1] || ft_str_is_numeric(av[i + 1]) != 1)
 		return (-1);
-	if (ft_strcmp(av[i], "-d") == 0)
+	if (ft_strcmp(av[i], "-d") == 0 || ft_strcmp(av[i], "-dump") == 0)
 	{
+		x->dump_line_len = ft_strcmp(av[i], "-d") == 0 ? 64 : 32;
 		x->dumpnb = atoi(av[i + 1]);
 		return (1);
 	}

@@ -1,71 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/02/26 20:01:08 by sikpenou          #+#    #+#              #
+#    Updated: 2020/04/21 19:48:31 by skpn             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NAME = cr
+ASM_DIR=asm_dir
+ASM=asm
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I.
+VM_DIR=vm_dir
+VM=corewar
 
-MAKE = make -C
 
-DIR = ./
+all: $(ASM) $(VM) Makefile
 
-PATH_SRC = ./srcs/
+$(ASM): FORCE
+	make -C $(ASM_DIR)
 
-PATH_OP = ./op/
+$(VM): FORCE
+	make -C $(VM_DIR)
 
-SRCS = $(PATH_SRC)main.c\
-      $(PATH_SRC)tool.c\
-      $(PATH_SRC)tools2.c\
-      $(PATH_SRC)tools3.c\
-      $(PATH_SRC)exit.c\
-      $(PATH_SRC)option.c\
-      $(PATH_SRC)vm.c\
-      $(PATH_SRC)parsing.c\
-      $(PATH_SRC)ft_dump.c\
-      $(PATH_SRC)itoabase.c\
-      $(PATH_SRC)itoabase2.c\
-	  $(PATH_SRC)convert.c\
-	  $(PATH_SRC)op.c\
-	  $(PATH_OP)fork.c\
-	  $(PATH_OP)add.c\
-	  $(PATH_OP)aff.c\
-	  $(PATH_OP)and.c\
-	  $(PATH_OP)ld.c\
-	  $(PATH_OP)ldi.c\
-	  $(PATH_OP)lfork.c\
-	  $(PATH_OP)live.c\
-	  $(PATH_OP)lld.c\
-	  $(PATH_OP)lldi.c\
-	  $(PATH_OP)or.c\
-	  $(PATH_OP)st.c\
-	  $(PATH_OP)sti.c\
-	  $(PATH_OP)sub.c\
-	  $(PATH_OP)xor.c\
-	  $(PATH_OP)zjmp.c\
+clean: FORCE
+	make clean -C $(ASM_DIR)
+	make clean -C $(VM_DIR)
+	rm -f $(ASM_DIR)/auteur
+	rm -f $(VM_DIR)/auteur
 
-OBJS = $(SRCS:.c=.o)
+fclean: clean FORCE
+	make fclean -C $(ASM_DIR)
+	make fclean -C $(VM_DIR)
 
-LIBFT_PATH = ./libft/
+re: fclean all FORCE
 
-all: lib $(NAME)
+FORCE:
 
-lib:
-	$(MAKE) ./libft
-
-$(NAME): $(OBJS)
-	make -C $(LIBFT_PATH)
-	gcc $(CFLAGS) $(SRCS) -L./libft -lft -o $(NAME)
-
-%.o: %.c ./corewar.h ./Makefile ./libft/libft.h
-	gcc -o $@ -c $< $(CFLAGS)
-
-clean:
-	rm -f srcs/*.o
-	rm -f libft/*.o
-	rm -f op/*.o
-
-fclean: clean
-	rm -f $(NAME)
-	rm -f libft/libft.a
-
-re: fclean all
-
-.PHONY : all lib clean fclean re
+.SILENT:

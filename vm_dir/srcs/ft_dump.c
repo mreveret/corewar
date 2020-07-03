@@ -24,16 +24,16 @@ int		exit_dump(char **ncolonne, char ***xnb, int i)
 	return (0);
 }
 
-void	freedump(char ***xnb, char **ncolonne)
+void	freedump(char ***xnb, char **ncolonne, int dump_line_len)
 {
 	int i;
 	int j;
 
 	i = -1;
-	while (++i > MEM_SIZE / DSIZE + 1)
+	while (++i > MEM_SIZE / dump_line_len + 1)
 	{
 		j = -1;
-		while (++j < DSIZE + 1)
+		while (++j < dump_line_len + 1)
 			free(xnb[i][j]);
 		free(xnb[i]);
 		free(ncolonne[i]);
@@ -51,16 +51,16 @@ void	fill_it(t_vm *x, char ***xnb, char **ncolonne)
 	j = 0;
 	while (++i < MEM_SIZE)
 	{
-		if (i % DSIZE == 0 && i != 0)
+		if (i % x->dump_line_len == 0 && i != 0)
 			j++;
-		xnb[j][i % DSIZE] = ft_itoa_base2(x->arene[i], 16);
+		xnb[j][i % x->dump_line_len] = ft_itoa_base2(x->arene[i], 16);
 	}
 	i = -1;
-	while (++i < MEM_SIZE / DSIZE)
+	while (++i < MEM_SIZE / x->dump_line_len)
 	{
 		ft_putstr(ncolonne[i]);
 		j = -1;
-		while (++j < DSIZE)
+		while (++j < x->dump_line_len)
 		{
 			ft_putstr(xnb[i][j]);
 			ft_putchar(' ');
@@ -75,20 +75,23 @@ int		ft_dump(t_vm *x)
 	char	***xnb;
 	char	**ncolonne;
 
-	if (!(ncolonne = (char**)malloc(sizeof(char*) * (MEM_SIZE / DSIZE) + 1)))
+	if (!(ncolonne = (char**)malloc(sizeof(char*) *
+		(MEM_SIZE / x->dump_line_len) + 1)))
 		return (0);
-	if (!(xnb = (char***)malloc(sizeof(char**) * (MEM_SIZE / DSIZE) + 1)))
+	if (!(xnb = (char***)malloc(sizeof(char**)
+		* (MEM_SIZE / x->dump_line_len) + 1)))
 		return (exit_dump(ncolonne, NULL, 0));
 	i = -1;
-	while (++i < MEM_SIZE / DSIZE)
+	while (++i < MEM_SIZE / x->dump_line_len)
 	{
-		if (!(xnb[i] = (char**)malloc(sizeof(char*) * DSIZE + 1)))
+		if (!(xnb[i] = (char**)malloc(sizeof(char*) *
+			x->dump_line_len + 1)))
 			return (exit_dump(ncolonne, xnb, i));
 		if (!(ncolonne[i] = (char *)malloc(sizeof(char) * 10)))
 			return (exit_dump(ncolonne, xnb, i));
-		ncolonne[i] = ft_itoa_base(i * DSIZE, 16);
+		ncolonne[i] = ft_itoa_base(i * x->dump_line_len, 16);
 	}
 	fill_it(x, xnb, ncolonne);
-	freedump(xnb, ncolonne);
+	freedump(xnb, ncolonne, x->dump_line_len);
 	return (exit_dump(ncolonne, xnb, i));
 }
