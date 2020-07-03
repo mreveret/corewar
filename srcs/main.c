@@ -81,7 +81,10 @@ static int		parsarg(char **av, int i, t_vm *x)
 		if (parsingoption(av, i, x) > 0)
 			i++;
 		else
-			return (exit_corewar(x, 0));
+		{
+			ft_error(1);
+			return (exit_corewar(x, -1));
+		}
 	}
 	return (i);
 }
@@ -96,7 +99,7 @@ int				main(int ac, char **av)
 	x = &y;
 	ft_memset(x, 0, sizeof(y));
 	x->nbp = 0;
-	while (++i < ac)
+	while (++i < ac && i > 0)
 		i = parsarg(av, i, x);
 	if (x->nbp > 4 || x->nbp < 1)
 	{
@@ -108,7 +111,8 @@ int				main(int ac, char **av)
 	load_arena(x);
 	init_vm(x);
 	x->winner_idx = search_idx(x);
-	printf("Contestant %d, \"%s\", has won !\n", x->winner,
+	if (x->dumpnb == 0)
+		printf("Contestant %d, \"%s\", has won !\n", x->winner,
 			x->p[x->winner_idx].header.prog_name);
 	return (exit_corewar(x, 1));
 }

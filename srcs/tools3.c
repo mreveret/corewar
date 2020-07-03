@@ -53,7 +53,7 @@ int		search_idx(t_vm *x)
 	while (++i < x->nbp)
 	{
 		if (x->p[i].num == x->winner)
-			break;
+			break ;
 	}
 	return (i);
 }

@@ -75,7 +75,7 @@ int		ft_id_player(char **av, int i, t_vm *x)
 
 int		parsingoption(char **av, int i, t_vm *x)
 {
-	if (av[i + 1] && ft_str_is_numeric(av[i + 1]) != 1)
+	if (!av[i + 1] || ft_str_is_numeric(av[i + 1]) != 1)
 		return (-1);
 	if (ft_strcmp(av[i], "-d") == 0)
 	{
