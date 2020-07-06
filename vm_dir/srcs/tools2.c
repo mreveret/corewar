@@ -57,13 +57,13 @@ void		log_pc(char *arene, int move, int pc)
 
 	new_pc = move_pc(pc, move);
 	pc = move_pc(pc, -1);
-	printf("ADV %u (0x%.4x -> 0x%.4x)", move + 1, pc, new_pc);
+	ft_printf("ADV %u (0x%.4x -> 0x%.4x)", move + 1, pc, new_pc);
 	while (pc != new_pc)
 	{
-		printf(" %02hhx", arene[pc]);
+		ft_printf(" %02hhx", arene[pc]);
 		pc = move_pc(pc, 1);
 	}
-	printf(" \n");
+	ft_printf(" \n");
 }
 
 void		kill_process2(t_vm *x)

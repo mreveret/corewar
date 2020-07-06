@@ -6,7 +6,7 @@
 #    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/27 14:18:33 by machoffa          #+#    #+#              #
-#    Updated: 2020/06/30 15:36:22 by mreveret         ###   ########.fr        #
+#    Updated: 2020/07/06 18:02:43 by mreveret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 DIR = includes
 
 PATH_SRC = ./
+
+PATH_PRINTF = ./printf/
 
 SRC = $(PATH_SRC)ft_memset.c \
 	  $(PATH_SRC)ft_bzero.c \
@@ -102,6 +104,18 @@ SRC = $(PATH_SRC)ft_memset.c \
 	  $(PATH_SRC)ft_print_words_tables.c \
 	  $(PATH_SRC)ft_realloc.c \
 	  $(PATH_SRC)get_next_line.c \
+	  $(PATH_PRINTF)precisions_flags.c \
+	  $(PATH_PRINTF)ft_printf.c \
+	  $(PATH_PRINTF)type_s.c \
+	  $(PATH_PRINTF)type_c.c \
+	  $(PATH_PRINTF)type_d.c \
+	  $(PATH_PRINTF)type_u.c \
+	  $(PATH_PRINTF)type_f.c \
+	  $(PATH_PRINTF)type_pourcent.c \
+	  $(PATH_PRINTF)options.c \
+	  $(PATH_PRINTF)tools.c \
+	  $(PATH_PRINTF)bonus.c \
+	  $(PATH_PRINTF)bonustab.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -15,7 +15,7 @@
 
 void	log_st(t_list *list)
 {
-	printf("P %4d | st r%d %s%d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | st r%d %s%d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->reg_num[0],
 			(((t_p *)list->content)->t_arg[1] == T_IND ? "" : "r"),
 			(((t_p *)list->content)->t_arg[1] == T_IND ?

@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 18:01:25 by machoffa          #+#    #+#             */
-/*   Updated: 2020/07/06 17:28:58 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/06 18:41:02 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		exit_dump(char **ncolonne, char ***xnb, int k)
 	}
 	free(xnb);
 	free(ncolonne);
-	printf("Error Malloc\n");
+	ft_printf("Error Malloc\n");
 	return (0);
 }
 

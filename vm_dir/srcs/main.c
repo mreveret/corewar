@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/01 17:56:20 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/06 18:19:24 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int				main(int ac, char **av)
 	init_vm(x);
 	x->winner_idx = search_idx(x);
 	if (x->dumpnb == 0)
-		printf("Contestant %d, \"%s\", has won !\n", x->winner,
+		ft_printf("Contestant %d, \"%s\", has won !\n", x->winner,
 			x->p[x->winner_idx].header.prog_name);
 	return (exit_corewar(x, 1));
 }

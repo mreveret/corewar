@@ -43,7 +43,7 @@ void		check_live(t_vm *x)
 	{
 		x->cycle_to_die -= CYCLE_DELTA;
 		if (x->log & LOG_CYCLE)
-			printf("Cycle to die is now %d\n", x->cycle_to_die);
+			ft_printf("Cycle to die is now %d\n", x->cycle_to_die);
 		x->max_check = 0;
 	}
 	x->nbr_live = 0;
@@ -56,7 +56,7 @@ int			load_vm(t_vm *x)
 
 	list = x->lst_process;
 	if (x->log & LOG_CYCLE)
-		printf("It is now cycle %d\n", x->nb_c);
+		ft_printf("It is now cycle %d\n", x->nb_c);
 	run_vm(x, list);
 	return (ft_end_turn(x));
 }

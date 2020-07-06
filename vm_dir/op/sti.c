@@ -6,7 +6,7 @@
 /*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 17:27:53 by machoffa          #+#    #+#             */
-/*   Updated: 2020/07/02 18:51:43 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/06 18:31:34 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	log_sti2(t_list *list, int pc)
 {
-	printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
+	ft_printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
 			((t_p *)list->content)->id, ((t_p *)list->content)->reg_num[0],
 			((t_p *)list->content)->arg[1],
 			((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]],
@@ -27,16 +27,16 @@ void	log_sti2(t_list *list, int pc)
 	if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] +
 				((t_p *)list->content)->reg[((t_p *)list->content)->arg[2]])
 			% IDX_MOD >= 0)
-		printf("%d)\n", pc);
+		ft_printf("%d)\n", pc);
 	else
-		printf("%d)\n", pc - MEM_SIZE);
+		ft_printf("%d)\n", pc - MEM_SIZE);
 }
 
 void	log_sti(t_list *list, int pc)
 {
 	if (((t_p *)list->content)->t_arg[2] != REG_CODE)
 	{
-		printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
+		ft_printf("P %4d | sti r%d %d %d\n%s %d %c %d %c %d %s ",
 				((t_p *)list->content)->id, ((t_p *)list->content)->reg_num[0],
 				((t_p *)list->content)->arg[1], ((t_p *)list->content)->arg[2],
 				"       | -> store to", ((t_p *)list->content)->arg[1], '+',
@@ -45,9 +45,9 @@ void	log_sti(t_list *list, int pc)
 				"(with pc and mod");
 		if (((t_p *)list->content)->pc - 1 + (((t_p *)list->content)->arg[1] +
 					((t_p *)list->content)->arg[2]) % IDX_MOD < 0)
-			printf("%d)\n", pc - MEM_SIZE);
+			ft_printf("%d)\n", pc - MEM_SIZE);
 		else
-			printf("%d)\n", pc);
+			ft_printf("%d)\n", pc);
 	}
 	else
 		log_sti2(list, pc);

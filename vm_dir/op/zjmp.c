@@ -15,7 +15,7 @@
 
 void	log_zjmp(t_list *list)
 {
-	printf("P %4d | zjmp %d %s\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | zjmp %d %s\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0],
 			(((t_p *)list->content)->carry ? "OK" : "FAILED"));
 }

@@ -15,7 +15,7 @@
 
 void	log_live(t_list *list)
 {
-	printf("P %4d | live %d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | live %d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0]);
 }
 
@@ -31,7 +31,7 @@ void	op_live(t_list *list, t_vm *x)
 	{
 		x->winner = ((t_p *)list->content)->arg[0] * -1;
 		if (x->log & LOG_LIVE)
-			printf("Player %d (%s) is said to be alive\n", x->winner,
+			ft_printf("Player %d (%s) is said to be alive\n", x->winner,
 					x->p[x->winner - 1].header.prog_name);
 	}
 }

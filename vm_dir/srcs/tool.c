@@ -98,7 +98,7 @@ void		kill_process(t_list *list, t_vm *x)
 			previous->next = list->next;
 	}
 	if (x->log & LOG_DEATH)
-		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
 			process->id, x->nb_c - process->last_live_cycle - 1,
 			x->cycle_to_die);
 	free(list->content);

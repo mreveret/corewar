@@ -14,7 +14,7 @@
 
 void	log_xor(t_list *list)
 {
-	printf("P %4d | xor %d %d r%d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | xor %d %d r%d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0],
 			((t_p *)list->content)->arg[1], ((t_p *)list->content)->reg_num[2]);
 }

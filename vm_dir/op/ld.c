@@ -15,7 +15,7 @@
 
 void	log_ld(t_list *list)
 {
-	printf("P %4d | ld %d r%d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | ld %d r%d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0], ((t_p *)list->content)->reg_num[1]);
 }
 

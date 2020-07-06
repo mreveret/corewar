@@ -14,7 +14,7 @@
 
 void	log_sub(t_list *list)
 {
-	printf("P %4d | sub r%d r%d r%d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | sub r%d r%d r%d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->reg_num[0],
 			((t_p *)list->content)->reg_num[1],
 			((t_p *)list->content)->reg_num[2]);

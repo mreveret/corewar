@@ -15,10 +15,10 @@
 void	log_lldi(t_list *list, t_vm *x, int sum)
 {
 	(void)x;
-	printf("P %4d | lldi %d %d r%d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | lldi %d %d r%d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0],
 			((t_p *)list->content)->arg[1], ((t_p *)list->content)->arg[2] + 1);
-	printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+	ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
 			((t_p *)list->content)->arg[0], ((t_p *)list->content)->arg[1],
 			((t_p *)list->content)->arg[0] +
 			((t_p *)list->content)->arg[1], sum);

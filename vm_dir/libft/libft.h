@@ -6,7 +6,7 @@
 /*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 14:52:57 by machoffa          #+#    #+#             */
-/*   Updated: 2019/10/22 17:26:11 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/06 18:28:27 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include "./printf/ft_printf.h"
 # define BUFF_SIZE 1
 # define C '\n'
 
-#define POS printf("%s %s %d\n",__FILE__, __func__, __LINE__); fflush(0);
+#define POS ft_printf("%s %s %d\n",__FILE__, __func__, __LINE__); fflush(0);
 typedef struct		s_list
 {
 	void			*content;
@@ -110,4 +111,5 @@ void				ft_putnbr_base(int nbr, char *base);
 void				ft_print_words_tables(char **tab);
 char				*ft_realloc(char *str, int size);
 char				*ft_strjoin_free(char *s1, char *s2, int j);
+int					ft_printf(const char *format, ...);
 #endif

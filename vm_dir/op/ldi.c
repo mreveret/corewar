@@ -16,16 +16,16 @@
 void	log_ldi(t_list *list, t_vm *x, int sum)
 {
 	(void)x;
-	printf("P %4d | ldi %d %d r%d\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | ldi %d %d r%d\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0], ((t_p *)list->content)->arg[1],
 			((t_p *)list->content)->arg[2] + 1);
-	printf("       | -> load from %d + %d = %d (with pc and mod ",
+	ft_printf("       | -> load from %d + %d = %d (with pc and mod ",
 			((t_p *)list->content)->arg[0], ((t_p *)list->content)->arg[1],
 			((t_p *)list->content)->arg[0] + ((t_p *)list->content)->arg[1]);
 	if (((t_p *)list->content)->pc - 1 + sum >= 0)
-		printf("%d)\n", move_pc(((t_p *)list->content)->pc - 1, sum));
+		ft_printf("%d)\n", move_pc(((t_p *)list->content)->pc - 1, sum));
 	else
-		printf("%d)\n", move_pc(((t_p *)list->content)->pc - 1, sum)
+		ft_printf("%d)\n", move_pc(((t_p *)list->content)->pc - 1, sum)
 				- MEM_SIZE);
 }
 

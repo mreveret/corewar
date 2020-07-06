@@ -14,7 +14,7 @@
 
 void	log_lfork(t_list *list, int pc)
 {
-	printf("P %4d | lfork %d (%d)\n", ((t_p *)list->content)->id,
+	ft_printf("P %4d | lfork %d (%d)\n", ((t_p *)list->content)->id,
 			((t_p *)list->content)->arg[0], (((t_p *)list->content)->pc - 1 +
 				((t_p *)list->content)->arg[0] >= 0 ? pc :
 				((t_p *)list->content)->pc - 1 +
