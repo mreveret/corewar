@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 18:01:25 by machoffa          #+#    #+#             */
-/*   Updated: 2020/07/02 18:03:11 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/06 17:21:40 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 ** thus function msut free all malloc'ed dump elements
 */
 
-int		exit_dump(char **ncolonne, char ***xnb, int i)
+int		exit_dump(char **ncolonne, char ***xnb, int k)
 {
-	(void)ncolonne;
-	(void)xnb;
-	(void)i;
+	int i;
+
+	i = -1;
+	while (++i < k)
+	{
+		free(xnb[i]);
+		free(ncolonne[i]);
+	}
+	free(xnb);
+	free(ncolonne);
 	return (0);
 }
 
@@ -30,10 +37,10 @@ void	freedump(char ***xnb, char **ncolonne, int dump_line_len)
 	int j;
 
 	i = -1;
-	while (++i > MEM_SIZE / dump_line_len + 1)
+	while (++i < MEM_SIZE / dump_line_len)
 	{
 		j = -1;
-		while (++j < dump_line_len + 1)
+		while (++j < dump_line_len)
 			free(xnb[i][j]);
 		free(xnb[i]);
 		free(ncolonne[i]);
@@ -93,5 +100,5 @@ int		ft_dump(t_vm *x)
 	}
 	fill_it(x, xnb, ncolonne);
 	freedump(xnb, ncolonne, x->dump_line_len);
-	return (exit_dump(ncolonne, xnb, i));
+	return (1);
 }
