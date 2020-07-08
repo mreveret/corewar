@@ -95,9 +95,8 @@ int		ft_dump(t_vm *x)
 		if (!(xnb[i] = (char**)malloc(sizeof(char*) *
 			x->dump_line_len + 1)))
 			return (exit_dump(ncolonne, xnb, i));
-		if (!(ncolonne[i] = (char *)malloc(sizeof(char) * 10)))
+		if (!(ncolonne[i] = ft_itoa_base(i * x->dump_line_len, 16)))
 			return (exit_dump(ncolonne, xnb, i));
-		ncolonne[i] = ft_itoa_base(i * x->dump_line_len, 16);
 	}
 	fill_it(x, xnb, ncolonne);
 	freedump(xnb, ncolonne, x->dump_line_len);
