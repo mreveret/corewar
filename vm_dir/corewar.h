@@ -64,7 +64,7 @@ typedef struct		s_op
 	int				dir_size;
 }					t_op;
 
-extern t_op op_tab[17];
+extern t_op g_op_tab[17];
 
 typedef struct		s_vm
 {

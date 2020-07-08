@@ -6,7 +6,7 @@
 /*   By: machoffa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 14:52:57 by machoffa          #+#    #+#             */
-/*   Updated: 2020/07/06 18:28:27 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:06:24 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define BUFF_SIZE 1
 # define C '\n'
 
-#define POS ft_printf("%s %s %d\n",__FILE__, __func__, __LINE__); fflush(0);
 typedef struct		s_list
 {
 	void			*content;

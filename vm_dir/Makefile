@@ -1,7 +1,7 @@
 
 NAME = cr
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I.
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I.
 
 MAKE = make -C
 
@@ -60,6 +60,7 @@ $(NAME): $(OBJS)
 clean:
 	rm -f srcs/*.o
 	rm -f libft/*.o
+	rm -f libft/printf/*.o
 	rm -f op/*.o
 
 fclean: clean

@@ -105,7 +105,7 @@ void		run_vm(t_vm *x, t_list *list)
 			if (((t_p *)list->content)->op > 0
 			&& ((t_p *)list->content)->op < 17)
 				((t_p *)list->content)->wait =
-				op_tab[((t_p *)list->content)->op - 1].wait - 1;
+				g_op_tab[((t_p *)list->content)->op - 1].wait - 1;
 			((t_p *)list->content)->pc =
 			move_pc(((t_p *)list->content)->pc, 1);
 		}

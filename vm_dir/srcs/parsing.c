@@ -39,7 +39,7 @@ static int		parse_arg2(int i, int ret, t_list *list, t_vm *x)
 	}
 	else if (((t_p *)list->content)->t_arg[i] == REG_CODE)
 	{
-		if (i == op_tab[((t_p *)list->content)->op - 1].nb_arg - 1)
+		if (i == g_op_tab[((t_p *)list->content)->op - 1].nb_arg - 1)
 			((t_p *)list->content)->arg[i] = (char)ft_convert(x, list, 1) - 1;
 		else
 		{
@@ -63,11 +63,11 @@ int				parse_arg(t_list *list, t_vm *x)
 
 	x->add = 0;
 	i = -1;
-	while (++i < op_tab[((t_p *)list->content)->op - 1].nb_arg)
+	while (++i < g_op_tab[((t_p *)list->content)->op - 1].nb_arg)
 		((t_p *)list->content)->arg[i] = 0;
 	ret = parse_typecode(list, x);
 	i = -1;
-	while (++i < op_tab[((t_p *)list->content)->op - 1].nb_arg)
+	while (++i < g_op_tab[((t_p *)list->content)->op - 1].nb_arg)
 	{
 		ret = parse_arg2(i, ret, list, x);
 	}
@@ -96,7 +96,7 @@ void			convert_arg(int *arg, int mod, t_list *list, t_vm *x)
 
 	i = -1;
 	(void)arg;
-	while (++i < op_tab[((t_p *)list->content)->op - 1].nb_arg)
+	while (++i < g_op_tab[((t_p *)list->content)->op - 1].nb_arg)
 	{
 		if (((t_p *)list->content)->t_arg[i] == T_IND)
 		{

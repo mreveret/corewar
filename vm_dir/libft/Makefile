@@ -6,13 +6,13 @@
 #    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/27 14:18:33 by machoffa          #+#    #+#              #
-#    Updated: 2020/07/06 18:02:43 by mreveret         ###   ########.fr        #
+#    Updated: 2020/07/08 19:08:59 by mreveret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 DIR = includes
 

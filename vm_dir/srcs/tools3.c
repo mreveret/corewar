@@ -32,15 +32,15 @@ void	reduce_wait(t_list *list)
 int		check_ocp(t_list *list)
 {
 	if (!(((t_p *)list->content)->t_arg[0] &
-	op_tab[((t_p *)list->content)->op - 1].type_arg[0]))
+	g_op_tab[((t_p *)list->content)->op - 1].type_arg[0]))
 		return (0);
-	if (op_tab[((t_p *)list->content)->op - 1].nb_arg > 1 &&
+	if (g_op_tab[((t_p *)list->content)->op - 1].nb_arg > 1 &&
 			(!(((t_p *)list->content)->t_arg[1] &
-			op_tab[((t_p *)list->content)->op - 1].type_arg[1])))
+			g_op_tab[((t_p *)list->content)->op - 1].type_arg[1])))
 		return (0);
-	if (op_tab[((t_p *)list->content)->op - 1].nb_arg > 2 &&
+	if (g_op_tab[((t_p *)list->content)->op - 1].nb_arg > 2 &&
 			(!(((t_p *)list->content)->t_arg[2] &
-			op_tab[((t_p *)list->content)->op - 1].type_arg[2])))
+			g_op_tab[((t_p *)list->content)->op - 1].type_arg[2])))
 		return (0);
 	return (1);
 }
