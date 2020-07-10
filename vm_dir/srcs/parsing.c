@@ -40,7 +40,12 @@ static int		parse_arg2(int i, int ret, t_list *list, t_vm *x)
 	else if (((t_p *)list->content)->t_arg[i] == REG_CODE)
 	{
 		if (i == g_op_tab[((t_p *)list->content)->op - 1].nb_arg - 1)
+		{
+			if (ft_convert(x, list, 1) <= 0 || ft_convert(x, list, 1) > REG_NUMBER)
+				ret = 0;
+			else
 			((t_p *)list->content)->arg[i] = (char)ft_convert(x, list, 1) - 1;
+		}
 		else
 		{
 			if (ft_convert(x, list, 1) <= 0
