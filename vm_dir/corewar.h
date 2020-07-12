@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:46:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/06 18:44:15 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/12 19:06:42 by mreveret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,5 @@ void				run_vm(t_vm *x, t_list *list);
 void				run_vm2(t_vm *x, t_list *list);
 int					stop_vm(t_vm *x);
 int					search_idx(t_vm *x, int id);
-void				parse_ind(t_vm *x,t_list *list, int i);
+void				parse_ind(t_vm *x, t_list *list, int i);
 #endif
