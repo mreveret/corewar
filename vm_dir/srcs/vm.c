@@ -77,12 +77,14 @@ void		init_vm(t_vm *x)
 	t_p			*proc;
 
 	i = 0;
-	proc = create_process(x, x->p[i].num, x->p[i].pcstart);
+	if (!(proc = create_process(x, x->p[i].num, x->p[i].pcstart)))
+		return ;
 	x->lst_process = ft_lstnew(NULL, 0);
 	x->lst_process->content = proc;
 	while (++i < x->nbp)
 	{
-		proc = create_process(x, x->p[i].num, x->p[i].pcstart);
+		if (!(proc = create_process(x, x->p[i].num, x->p[i].pcstart)))
+			return ;
 		tmp = ft_lstnew(NULL, 0);
 		tmp->content = proc;
 		ft_lstadd(&x->lst_process, tmp);
@@ -94,5 +96,4 @@ void		init_vm(t_vm *x)
 	x->before_check = CYCLE_TO_DIE;
 	x->nb_c = 1;
 	dump_vm(x);
-	return ;
 }
