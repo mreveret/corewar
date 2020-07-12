@@ -1,5 +1,5 @@
 
-NAME = cr
+NAME = corewar
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I.
 

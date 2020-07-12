@@ -41,7 +41,7 @@ void			load_arena(t_vm *x)
 	i = -1;
 	while (++i < x->nbp)
 	{
-		idx = search_idx(x,i + 1);
+		idx = search_idx(x, i + 1);
 		x->p[idx].pcstart = x->pos_next_player;
 		ft_memcpy(x->arene + x->pos_next_player, x->p[idx].content,
 				x->p[idx].header.prog_size);

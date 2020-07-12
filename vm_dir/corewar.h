@@ -140,4 +140,5 @@ void				run_vm(t_vm *x, t_list *list);
 void				run_vm2(t_vm *x, t_list *list);
 int					stop_vm(t_vm *x);
 int					search_idx(t_vm *x, int id);
+void				parse_ind(t_vm *x,t_list *list, int i);
 #endif

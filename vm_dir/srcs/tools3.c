@@ -45,15 +45,21 @@ int		check_ocp(t_list *list)
 	return (1);
 }
 
-int		search_idx(t_vm *x)
+int		search_idx(t_vm *x, int id)
 {
 	int i;
 
 	i = -1;
 	while (++i < x->nbp)
 	{
-		if (x->p[i].num == x->winner)
+		if (x->p[i].num == id)
 			break ;
 	}
 	return (i);
+}
+
+void	parse_ind(t_vm *x, t_list *list, int i)
+{
+	((t_p *)list->content)->arg[i] = (short)ft_convert(x, list, 2);
+	x->add += 2;
 }
