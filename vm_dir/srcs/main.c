@@ -31,17 +31,20 @@ void			rev_str(char *nb, unsigned int size)
 void			load_arena(t_vm *x)
 {
 	int i;
+	int idx;
 
 	i = -1;
+	idx = 0;
 	x->pos_next_player = 0;
 	while (++i < MEM_SIZE)
 		x->arene[i] = 0;
 	i = -1;
 	while (++i < x->nbp)
 	{
-		x->p[i].pcstart = x->pos_next_player;
-		memcpy(x->arene + x->pos_next_player, x->p[i].content,
-				x->p[i].header.prog_size);
+		idx = search_idx(x,i + 1);
+		x->p[idx].pcstart = x->pos_next_player;
+		ft_memcpy(x->arene + x->pos_next_player, x->p[idx].content,
+				x->p[idx].header.prog_size);
 		x->pos_next_player += x->pos_add;
 	}
 }
@@ -110,7 +113,7 @@ int				main(int ac, char **av)
 	x->pos_add = MEM_SIZE / x->nbp;
 	load_arena(x);
 	init_vm(x);
-	x->winner_idx = search_idx(x);
+	x->winner_idx = search_idx(x, x->winner);
 	if (x->dumpnb == 0)
 		ft_printf("Contestant %d, \"%s\", has won !\n", x->winner,
 			x->p[x->winner_idx].header.prog_name);
