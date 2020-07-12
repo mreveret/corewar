@@ -115,7 +115,8 @@ int				main(int ac, char **av)
 	init_vm(x);
 	x->winner_idx = search_idx(x, x->winner);
 	if (x->dumpnb == 0)
-		ft_printf("Contestant %d, \"%s\", has won !\n", x->winner,
+		if (x->winner != 0)
+			ft_printf("Contestant %d, \"%s\", has won !\n", x->winner,
 			x->p[x->winner_idx].header.prog_name);
 	return (exit_corewar(x, 1));
 }

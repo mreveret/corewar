@@ -63,6 +63,12 @@ int			load_vm(t_vm *x)
 
 void		dump_vm(t_vm *x)
 {
+	x->cycle_to_die = CYCLE_TO_DIE;
+	x->cycle_delta = CYCLE_DELTA;
+	x->nbr_live = 0;
+	x->max_check = 0;
+	x->before_check = CYCLE_TO_DIE;
+	x->nb_c = 1;
 	while (load_vm(x) == 1)
 		if (x->dumpnb != 0 && x->nb_c - 1 == x->dumpnb)
 			break ;
@@ -79,21 +85,17 @@ void		init_vm(t_vm *x)
 	i = 0;
 	if (!(proc = create_process(x, x->p[i].num, x->p[i].pcstart)))
 		return ;
-	x->lst_process = ft_lstnew(NULL, 0);
+	if (!(x->lst_process = ft_lstnew(NULL, 0)))
+		return ;
 	x->lst_process->content = proc;
 	while (++i < x->nbp)
 	{
 		if (!(proc = create_process(x, x->p[i].num, x->p[i].pcstart)))
 			return ;
-		tmp = ft_lstnew(NULL, 0);
+		if (!(tmp = ft_lstnew(NULL, 0)))
+			return ;
 		tmp->content = proc;
 		ft_lstadd(&x->lst_process, tmp);
 	}
-	x->cycle_to_die = CYCLE_TO_DIE;
-	x->cycle_delta = CYCLE_DELTA;
-	x->nbr_live = 0;
-	x->max_check = 0;
-	x->before_check = CYCLE_TO_DIE;
-	x->nb_c = 1;
 	dump_vm(x);
 }
