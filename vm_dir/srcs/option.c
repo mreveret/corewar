@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:49:53 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/02 17:57:13 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/12 23:47:20 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ int		parsingoption(char **av, int i, t_vm *x)
 		return (-1);
 	}
 	else
-		return (4);
+		return (-1);
 }

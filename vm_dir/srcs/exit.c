@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:12:45 by skpn              #+#    #+#             */
-/*   Updated: 2020/07/02 18:57:42 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/12 23:49:15 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ void	ft_error(int i)
 	}
 	if (i == 1)
 		ft_putstr("Wrong option\n");
+	if (i == 2)
+		ft_putstr("Wrong number of champion\n");
 	return ;
 }

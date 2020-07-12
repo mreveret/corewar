@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/06 18:19:24 by mreveret         ###   ########.fr       */
+/*   Updated: 2020/07/12 23:48:33 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int				parsingplayer(t_vm *x, t_player *p)
 	int			ret;
 	header_t	*header;
 
+	if (x->nbp > 3)
+	{
+		ft_error(0);
+		return (exit_corewar(x, -1));
+	}
 	header = &p->header;
 	ret = read(x->fd, header, sizeof(header_t));
 	if (ret != (int)sizeof(header_t))
@@ -74,9 +79,9 @@ static int		parsarg(char **av, int i, t_vm *x)
 	if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
 	{
 		if ((x->fd = open(av[i], O_RDONLY)) == -1)
-			return (exit_corewar(x, -1));
+			return (exit_corewar(x, -4));
 		if (create_player(x) == -1)
-			return (exit_corewar(x, -1));
+			return (exit_corewar(x, -4));
 		x->opt[0] = 0;
 	}
 	else
@@ -86,7 +91,7 @@ static int		parsarg(char **av, int i, t_vm *x)
 		else
 		{
 			ft_error(1);
-			return (exit_corewar(x, -1));
+			return (exit_corewar(x, -4));
 		}
 	}
 	return (i);
@@ -104,10 +109,10 @@ int				main(int ac, char **av)
 	x->nbp = 0;
 	while (++i < ac && i > 0)
 		i = parsarg(av, i, x);
-	if (x->nbp > 4 || x->nbp < 1)
+	if (x->nbp > 4 || x->nbp < 1 || i < 0)
 	{
-		ft_error(0);
-		return (exit_corewar(x, 0));
+		ft_error(2);
+		return (-1);
 	}
 	num_players(x);
 	x->pos_add = MEM_SIZE / x->nbp;
