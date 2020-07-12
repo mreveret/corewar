@@ -27,7 +27,8 @@ void	op_fork(t_list *list, t_vm *x)
 	t_p			*proc;
 	t_list		*tmp;
 
-	tmp = ft_lstnew(((t_p *)list->content), sizeof(t_p));
+	if (!(tmp = ft_lstnew(((t_p *)list->content), sizeof(t_p))))
+		return ;
 	proc = tmp->content;
 	proc->pc = move_pc(proc->pc - 1, indx_mod(&((t_p *)list->content)->arg[0]));
 	if (x->log & LOG_OP)
