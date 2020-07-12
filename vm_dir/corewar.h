@@ -139,5 +139,5 @@ void				rev_str(char *nb, unsigned int size);
 void				run_vm(t_vm *x, t_list *list);
 void				run_vm2(t_vm *x, t_list *list);
 int					stop_vm(t_vm *x);
-int					search_idx(t_vm *x);
+int					search_idx(t_vm *x, int id);
 #endif
