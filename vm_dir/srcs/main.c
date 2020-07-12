@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:33:10 by mreveret          #+#    #+#             */
-/*   Updated: 2020/07/12 23:48:33 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/13 00:55:20 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ int				parsingplayer(t_vm *x, t_player *p)
 	rev_str((char*)&header->magic, sizeof(header->magic));
 	rev_str((char*)&header->prog_size, sizeof(header->prog_size));
 	ret = read(x->fd, &p->content, CHAMP_MAX_SIZE + 1);
-	if (ret != (int)header->prog_size || header->prog_size > CHAMP_MAX_SIZE)
+	if (ret != (int)header->prog_size || header->prog_size > CHAMP_MAX_SIZE ||
+			header->magic != COREWAR_EXEC_MAGIC)
+	{
+		ft_error(3);
 		return (-1);
+	}
 	x->p[x->nbp] = *p;
 	return (0);
 }
@@ -79,9 +83,9 @@ static int		parsarg(char **av, int i, t_vm *x)
 	if ((test = ft_strrchr(av[i], '.')) && ft_strcmp(test, ".cor") == 0)
 	{
 		if ((x->fd = open(av[i], O_RDONLY)) == -1)
-			return (exit_corewar(x, -4));
+			return (exit_corewar(x, -2));
 		if (create_player(x) == -1)
-			return (exit_corewar(x, -4));
+			return (exit_corewar(x, -2));
 		x->opt[0] = 0;
 	}
 	else

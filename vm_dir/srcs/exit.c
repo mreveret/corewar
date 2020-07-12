@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 18:12:45 by skpn              #+#    #+#             */
-/*   Updated: 2020/07/12 23:49:15 by machoffa         ###   ########.fr       */
+/*   Updated: 2020/07/13 00:56:08 by machoffa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	ft_error(int i)
 		ft_putstr("Wrong option\n");
 	if (i == 2)
 		ft_putstr("Wrong number of champion\n");
+	if (i == 3)
+		ft_putstr("Issue with prog size or magic number\n");
 	return ;
 }
