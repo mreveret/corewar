@@ -6,7 +6,7 @@
 #    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/27 14:18:33 by machoffa          #+#    #+#              #
-#    Updated: 2020/07/08 19:08:59 by mreveret         ###   ########.fr        #
+#    Updated: 2020/07/12 22:59:49 by skpn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,7 @@ $(NAME): $(OBJ)
 	@ranlib $(NAME)
 
 %.o: %.c
-		@gcc $(FLAGS) -c $< -o $@
+		@clang $(FLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJ)

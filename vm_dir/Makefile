@@ -52,10 +52,10 @@ lib:
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_PATH)
-	gcc $(CFLAGS) $(SRCS) -L./libft -lft -o $(NAME)
+	clang $(CFLAGS) $(SRCS) -L./libft -lft -o $(NAME)
 
 %.o: %.c ./corewar.h ./Makefile ./libft/libft.h
-	gcc -o $@ -c $< $(CFLAGS)
+	clang -o $@ -c $< $(CFLAGS)
 
 clean:
 	rm -f srcs/*.o
