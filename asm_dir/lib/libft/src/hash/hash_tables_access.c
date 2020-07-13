@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:47:21 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/07 15:06:41 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:43:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		*ft_h_get_content(t_h_table *table, char *key)
 	return (NULL);
 }
 
-t_lst	*ft_h_pop_elem(t_h_table *table, t_h_elem *pop_elem)
+t_lst		*ft_h_pop_elem(t_h_table *table, t_h_elem *pop_elem)
 {
 	t_head		*pop_head;
 
@@ -79,7 +79,7 @@ t_lst	*ft_h_pop_elem(t_h_table *table, t_h_elem *pop_elem)
 	return (ft_lstpop(pop_head, pop_elem));
 }
 
-t_lst	*ft_h_pop_elem_by_key(t_h_table *table, char *pop_key)
+t_lst		*ft_h_pop_elem_by_key(t_h_table *table, char *pop_key)
 {
 	t_h_elem	*pop_elem;
 

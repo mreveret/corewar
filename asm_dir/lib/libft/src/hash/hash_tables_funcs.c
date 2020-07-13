@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 09:51:54 by skpn              #+#    #+#             */
-/*   Updated: 2020/04/07 16:16:29 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:42:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ unsigned	ft_h_func_hash(void *void_key)
 	return (hash);
 }
 
-int		ft_h_func_print(t_h_elem *elem)
+int			ft_h_func_print(t_h_elem *elem)
 {
 	ft_printf("%p\n", elem->content);
 	return (EXIT_SUCCESS);
 }
 
-void	ft_h_func_free(t_h_elem *elem)
+void		ft_h_func_free(t_h_elem *elem)
 {
 	gc_free((void **)&elem->content);
 }

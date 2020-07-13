@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 17:39:27 by skpn              #+#    #+#             */
-/*   Updated: 2020/04/08 18:47:35 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 22:07:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		pf_get_padding(t_pf *pf, t_pf_arg *arg)
 	while (arg->total_len + pf->pos >= pf->size)
 	{
 		if (ft_realloc(&pf->str, pf->size, PF_BUF_SIZE) != EXIT_SUCCESS)
-			return (ERR_MALLOC);
+			return (ft_error("malloc error - pf_padding - l 52"));
 		pf->size += PF_BUF_SIZE;
 	}
 	return (EXIT_SUCCESS);

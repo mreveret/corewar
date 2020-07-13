@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 11:31:56 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/21 19:26:51 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:33:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** position;
 ** if the referred label is not defined, a gap will be left in the program and a
 ** reference will be added to the label's references list; if the label has not
-** yet been allocated it will be allocated and left undefined 
+** yet been allocated it will be allocated and left undefined
 */
 
 t_label	*find_label(t_lst *label_lst, char *label_name)
@@ -37,7 +37,7 @@ t_label	*find_label(t_lst *label_lst, char *label_name)
 
 /*
 ** if we can find an existing label with the researched name, we point *label to
-** it ; otherwise we allocate one, point *label to it and add it to the list 
+** it ; otherwise we allocate one, point *label to it and add it to the list
 */
 
 int		get_label(t_cwr *cwr, t_label **label, char *label_name)

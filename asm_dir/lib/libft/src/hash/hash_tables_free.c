@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/06 11:35:49 by skpn              #+#    #+#             */
-/*   Updated: 2020/04/07 16:06:14 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:41:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		ft_h_free_elem(t_h_table *table, t_h_elem **h_elem)
 {
 	t_lst	*elem_lst;
 
-	// table->func_print(*elem);
 	elem_lst = ft_h_pop_elem(table, *h_elem);
 	table->func_free(*h_elem);
 	if ((*h_elem)->key)
@@ -49,4 +48,3 @@ void		ft_h_free_table(t_h_table *table)
 	gc_free((void **)&table->array);
 	gc_free((void **)&table);
 }
-

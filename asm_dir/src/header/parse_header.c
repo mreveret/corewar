@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:54:25 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/21 16:53:19 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:34:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int		get_header_elem(t_cwr *cwr, char **header_elem)
 			++cwr->pos;
 	}
 	if (c != '"')
+	{
 		return (cwr_error(cwr, "header element must end with '\"'",
 			CWR_ERR_NONE));
+	}
 	cwr->cpy[cwr->pos] = 0;
 	++cwr->pos;
 	return (EXIT_SUCCESS);

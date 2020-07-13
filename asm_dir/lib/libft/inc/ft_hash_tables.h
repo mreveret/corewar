@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/25 12:18:04 by skpn              #+#    #+#             */
-/*   Updated: 2020/04/07 16:16:15 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:55:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define H_ARRAY_INITIAL_SIZE 4999
 # define H_ARRAY_MAX_SIZE 2147483647
 
-#include "ft_lst.h"
+# include "ft_lst.h"
 
 typedef struct		s_h_elem
 {

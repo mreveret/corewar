@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gc_malloc.c                                       :+:      :+:    :+:   */
+/*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/24 23:04:53 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/03 11:09:55 by skpn             ###   ########.fr       */
+/*   Created: 2020/07/13 21:36:00 by user42            #+#    #+#             */
+/*   Updated: 2020/07/13 22:11:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** using a switch and not a calling argument avoids the need to change the
 ** function calls in internal library functions;
 ** if you free an element from the gc while the gc is off, only the element will
-** be freed, the gc part willl be freed with the branch  
+** be freed, the gc part willl be freed with the branch
 **
 ** you can create new collection branches with the gc_get and the NEW option
 ** (necessary before first use as you start with 0 branches)
@@ -35,10 +35,10 @@ int		add_sub_head(t_head *gc_main_head)
 	t_head			*new_sub_head;
 
 	if (!(new_sub_head = (t_head *)malloc(sizeof(*new_sub_head))))
-		return (ERR_MALLOC);
+		return (ft_error("malloc error - garbage_collector - l 38"));
 	ft_memset(new_sub_head, 0, sizeof(*new_sub_head));
 	if (!(gc_main_lst = (t_lst *)malloc(sizeof(*gc_main_lst))))
-		return (ERR_MALLOC);
+		return (ft_error("malloc error - garbage_collector - l 41"));
 	ft_memset(gc_main_lst, 0, sizeof(*gc_main_lst));
 	gc_main_lst->content = new_sub_head;
 	ft_lstadd(gc_main_head, gc_main_lst);
@@ -47,15 +47,10 @@ int		add_sub_head(t_head *gc_main_head)
 
 /*
 ** option GC_NEW to check generate a branch (necessary before first use)
-**
 ** option GC_ON/GC_OFF to turn the gc on or off
-**
 ** option GC_STATE to check wether the gc is on or off
-**
 ** option GC_CURRENT to get the most recent gc branch
-**
 ** option GC_FREE is for internal use only
-**
 */
 
 int		gc_get(t_lst **gc_lst, int opt)

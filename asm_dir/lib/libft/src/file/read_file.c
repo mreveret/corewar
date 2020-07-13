@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 20:56:29 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/08 18:50:23 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 22:09:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	read_loop(t_file *file)
 		{
 			if (ft_realloc(&file->content, file->size, FILE_BUF)
 				!= EXIT_SUCCESS)
-				return (ERR_MALLOC);
+				return (ft_error("malloc error - read_file - l 48"));
 		}
 		else
 		{
@@ -63,9 +63,9 @@ int			read_file(t_file *file, char *file_name)
 
 	file->fd = 0;
 	if (file_name != NULL && (file->fd = open(file_name, O_RDONLY)) < 3)
-		return (ERR_OPEN);
+		return (ft_error("open error - read_file - l 66"));
 	if (!(file->content = (char *)malloc(FILE_BUF + 1)))
-		return (ERR_MALLOC);
+		return (ft_error("malloc error - read_file - l 68"));
 	file->content[FILE_BUF] = 0;
 	file->size = 0;
 	ret = read_loop(file);

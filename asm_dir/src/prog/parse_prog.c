@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 18:20:45 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/21 10:08:16 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:31:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		parse_line(t_cwr *cwr)
 /*
 ** this function uses end of line as delimiters to parse the .s file line by
 ** line, first getting the length of the line and then parsing its tokens
-** backwards (this simplifies syntax checking a lot) until it reaches the end of 
+** backwards (this simplifies syntax checking a lot) until it reaches the end of
 ** the previous line, then moving on to the next line
 */
 

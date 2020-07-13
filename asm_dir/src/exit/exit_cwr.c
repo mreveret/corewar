@@ -6,7 +6,7 @@
 /*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 14:08:31 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/04/21 14:51:32 by skpn             ###   ########.fr       */
+/*   Updated: 2020/07/13 21:34:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	exit_cwr(t_cwr *cwr)
 {
 	free_labels(&cwr->labels);
 	if (cwr->file)
-		 gc_free((void **)&cwr->file);
+		gc_free((void **)&cwr->file);
 	if (cwr->file_cor)
-		 gc_free((void **)&cwr->file_cor);
+		gc_free((void **)&cwr->file_cor);
 	if (cwr->cpy)
-		 gc_free((void **)&cwr->cpy);
+		gc_free((void **)&cwr->cpy);
 }
