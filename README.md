@@ -4,9 +4,9 @@ Core War is a 1984 programming game created by D. G. Jones and A. K. Dewdney in 
 
 # Lancement
 
-make
-./asm ./champ/[nom_du_champion].s
-./corewar [-v N -d N | -dump N] ./champ/[nom_du_champion].cor ...
+* make
+* ./asm ./champ/[nom_du_champion].s
+* ./corewar [-v N -d N | -dump N] ./champ/[nom_du_champion].cor ...
 
 # option
 
