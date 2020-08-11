@@ -6,11 +6,12 @@ Core War is a 1984 programming game created by D. G. Jones and A. K. Dewdney in 
 
 make
 ./asm ./champ/[nom_du_champion].s
-./corewar -m ./champ/[nom_du_champion].cor ...
+./corewar [-v N -d N | -dump N] ./champ/[nom_du_champion].cor ...
 
 # option
 
-* -d N	: Dumps la mémoire après N cycles puis stop le programme
+* -d N	: Dumps la mémoire 64 octets par ligne après N cycles puis stop le programme
+* -dump N	: Dumps la mémoire 32 octets par ligne après N cycles puis stop le programme
 * -v N	: Verbose levels, les niveaux peuvent être additionnés 
 * - 1	: Affiche les "lives" des processus
 * - 2	: Affiche les cycles
